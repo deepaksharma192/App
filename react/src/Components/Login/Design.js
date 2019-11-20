@@ -60,6 +60,7 @@ export default function Design(props) {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={props.BindEvents}
               value={email}
             />
             <TextField
@@ -72,6 +73,7 @@ export default function Design(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={props.BindEvents}
               value={pass}
             />
             <FormControlLabel
@@ -84,7 +86,7 @@ export default function Design(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={props.submit()}
+              onClick={props.submit}
             >
               Sign In
             </Button>

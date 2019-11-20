@@ -8,17 +8,23 @@ class Login extends Component {
         users:{email:"",pass:""}
       }
   }
-  submit(){
+  submit=()=>{
 console.log("object")
   }
-  eventsChek(){
+  BindEvents=(event)=>{
+    console.log(event.target)
+    if(event){
 
+    }
+    // this.setState({
+    //   users:
+    // })
   }
   render() {
     const {users}=this.state.users;
     return (
       <div>
-        <Design users={users} submit={this.submit} eventsChek={this.eventsChek}/>
+        <Design users={users} submit={this.submit} BindEvents={this.BindEvents}/>
       </div>
     )
   }
