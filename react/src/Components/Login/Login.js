@@ -9,17 +9,20 @@ class Login extends Component {
       }
   }
   submit=()=>{
-console.log("object")
+    console.log(this.state);
   }
   BindEvents=(event)=>{
-    console.log(event.target)
-    if(event){
-
+    if(event.target.id=='email'){
+      this.setState({
+        users:{...this.state.users, email:event.target.value}
+      })
+    }else{
+      this.setState({
+        users:{...this.state.users, pass:event.target.value}
+      })
     }
-    // this.setState({
-    //   users:
-    // })
-  }
+    
+  } 
   render() {
     const {users}=this.state.users;
     return (
