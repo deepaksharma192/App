@@ -1,24 +1,18 @@
 import React from 'react';
-
 import { connect } from "react-redux";
-import IconButton, { Button } from '@material-ui/core';
 import {getAllCourses} from './../../redux/action/courseAction'
 import jumpTo,{go} from "../../modules/Navigation"
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import Icon from '@material-ui/core/Icon';
-import CanvasJSReact from '../../canvas/canvasjs.react';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Dashchart from './dashboart_chart';
 import Subjectfirst from './Dashboard_cources_data/subject_1';
 import Subjectsecond from './Dashboard_cources_data/subject_2';
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 
 const useStyles = theme => ({
@@ -186,24 +180,7 @@ class EnrolledCourse extends React.Component{
         const { classes } = this.props;
         let courseList = []
 
-        const options = {
-            animationEnabled: true,
-            //exportEnabled: true,
-            theme: "light2", //"light1", "dark1", "dark2"
-            title: {
-              text: "Column Chart for understanding"
-            },
-            data: [{				
-                      type: "column",
-                      dataPoints: [
-                          { label: "Math",  y: 10  },
-                          { label: "Physics", y: 15  },
-                          { label: "Chemistry", y: 25  },
-                          { label: "English",  y: 30  },
-                          { label: "Hindi",  y: 28  }
-                      ]
-             }]
-         }
+    
 
         if (this.props.course) {
             courseList = <Subjectsecond tile={this.props.course} course={this.viewCourseById}/>
@@ -239,7 +216,7 @@ class EnrolledCourse extends React.Component{
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} md={12} className={classes.topp}>
+                        <Grid item xs={10} md={10} className={classes.topp}>
                             <Grid container spacing={2}>
                                 {cardData.data.map(tile => (
                                 <Grid key={tile.id} item xs={12} md={3}>

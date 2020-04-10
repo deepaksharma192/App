@@ -9,7 +9,6 @@ import jumpTo, { go } from '../modules/Navigation'
 import { sendOtp, veryfyOtps } from '../redux/action/tokenAction'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { palette } from '@material-ui/system';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
@@ -27,8 +26,6 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Link from '@material-ui/core/Link';
 import Login from '../pages/Login'
 import Tooltip from '@material-ui/core/Tooltip';
@@ -194,7 +191,7 @@ const Headers = (HocComponent) => {
         case 2: return <ClassIcon />
         case 3: return <PeopleIcon />
         case 4: return <VideoLibraryIcon />
-        
+        default:
       }
     }
 

@@ -33,8 +33,6 @@ TabPanel.propTypes = {
 };
 
 export default function Tabss(props) {
-  let { currentTab } = props.bookmark;
-  let cTab = currentTab ? parseInt(currentTab) : "one";
   const [value, setValue] = React.useState("one");
   const handleChange = (event, newValue) => {
     console.log(event)

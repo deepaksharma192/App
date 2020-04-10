@@ -4,7 +4,6 @@ import Tabs from "./Tabs"
 import Right from './Right'
 import Video from './Video'
 import CommentIcon from '@material-ui/icons/Comment';
-import Popper from '@material-ui/core/Popper';
 import Fab from '@material-ui/core/Fab';
 import AddComment from './AddComment'
 
@@ -21,9 +20,9 @@ class UI extends React.Component {
     componentDidMount() {
         let { currentTopic, currentVideo } = this.props.bookmark;
         if (currentTopic) {
-            this.props.courseById.topics.map((v, i) => {
+            this.props.courseById.topics.foreach((v, i) => {
                 if (currentTopic === v._id) {
-                    v['sub_topics'].map((v1) => {
+                    v['sub_topics'].foreach((v1) => {
                         if (currentVideo === v1._id) {
                             let keys = v1._id + "__" + v1.topic_id;
                             v1["startTime"] = this.props.bookmark.videoTime[keys];

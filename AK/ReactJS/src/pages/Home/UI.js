@@ -4,32 +4,14 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import UIPage1 from './UI_Page_1';
 import UIPage2 from './UI_Page_2';
 import UIPage3 from './UI_Page_3';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const drawerWidth = 240;
-const useStyles1 = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-});
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -132,7 +114,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function UI(props) {
   const classes = useStyles();
-  const classes1 = useStyles1();
 
   return (
     <div className={classes.root}>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -73,7 +73,6 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function UI(props) {
   const classes = useStyles();
-  const textInput = useRef(null);
   const { isOtp,otp } = props;
 
   
@@ -108,10 +107,6 @@ export default function UI(props) {
                     helperText="10 digit Mobile number required"
                     inputRef={props.numRef}
                     fullWidth
-                    inputProps={{
-                      minLength:10,
-                      maxLength: 10,
-                    }}
                     onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
                     onChange={props.inputchange}
                   />
