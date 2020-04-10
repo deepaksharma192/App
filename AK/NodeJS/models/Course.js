@@ -124,27 +124,41 @@ module.exports.getAllCourse = function (classes, callback) {
             })
         }],
         get_course: ["get_subjects", function (results, callback1) {
-            let {get_subjects} = results;
-            let tempData=[]
-            let i=0;
-            const getC = () => {
-                let query ={ subject_id: get_subjects[i].id }
-                Course.find(query, (err, course_) => {
-                    if (err) return next(err);
-                    tempData.push(JSON.stringify((course_)));
-                    if (get_subjects.length == (i + 1)) {
-                        callback1(null, tempData)
-                    } else {
-                        i++;
-                        getC();
-                    }
-                })
-            }
-            getC();
-
+            let { get_subjects } = results;
+            let dataQ = get_subjects.map(v => {
+                return { subject_id: v.id };
+            })
+            let query = { $or: dataQ }
+            Course.find(query, (err, course_) => {
+                if (err) return next(err);
+                callback1(null, course_);
+            })
         }]
+        // ,
+        // get_topics: ["get_course", function (results, callback1) {
+        //     let { get_course } = results;
+        //     let dataQ = get_course.map(v => {
+        //         return { course_id: v.id };
+        //     })
+        //     let query = { $or: dataQ }
+        //     Topic.find(query, (err, topic_) => {
+        //         if (err) return next(err);
+        //         callback1(null, topic_);
+        //     })
+        // }],
+        // get_vodeo: ["get_topics", function (results, callback1) {
+        //     let { get_topics } = results;
+        //     let dataQ = get_topics.map(v => {
+        //         return { topic_id: v.id };
+        //     })
+        //     let query = { $or: dataQ }
+        //     Video.find(query, (err, video_) => {
+        //         if (err) return next(err);
+        //         callback1(null, video_);
+        //     })
+        // }]
     }, (err, results) => {
-        Course.find(callback)
+        callback(err, results)
     })
 
 }
