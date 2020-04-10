@@ -1,0 +1,10 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/NodeJS/node_modules
+/ReactJS/node_modules
+/configs
+/NodeJS/configs
+
+
+
