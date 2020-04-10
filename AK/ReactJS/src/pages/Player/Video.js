@@ -15,7 +15,7 @@ class Video extends Component {
         let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;
         const { player } = this.player.getState();
         if (!player.paused) {
-          let spendTime = this.props.bookmark.videoTime[keys];
+          //let spendTime = this.props.bookmark.videoTime[keys];
           this.props.updaateBookmark('VIDEO_TIME', { ctime: player.currentTime, vid: keys });
         }
       }

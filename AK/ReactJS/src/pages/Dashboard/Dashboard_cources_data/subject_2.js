@@ -8,37 +8,53 @@ import Typography from '@material-ui/core/Typography';
 
 
 function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", backgroundImage: `url(${process.env.PUBLIC_URL + 'assets/images/right_arr.png'})`,width:'5%',height:'67%',backgroundSize:'cover' }}
-        onClick={onClick}
-      />
-    );
-  }
-  
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", backgroundImage: `url(${process.env.PUBLIC_URL + 'assets/images/left_arr.png'})    `,width:'5%',height:'67%',backgroundSize:'cover' }}
-        onClick={onClick}
-      />
-    );
-  }
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", backgroundImage: `url(${process.env.PUBLIC_URL + 'assets/images/right_arr.png'})`, width: '5%', height: '67%', backgroundSize: 'cover' }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", backgroundImage: `url(${process.env.PUBLIC_URL + 'assets/images/left_arr.png'})    `, width: '5%', height: '67%', backgroundSize: 'cover' }}
+      onClick={onClick}
+    />
+  );
+}
 
 export default class Subjectsecond extends Component {
 
-    constructor(props){
-        super(props)
-    }
+  constructor(props) {
+    super(props);
+    this.state={}
+  }
   state = {
     display: true,
     width: 600,
-    margin:'0 auto'
+    margin: '0 auto'
   };
+  componentWillMount(){
+    console.log(55555, this.props.tile)
+  }
+  mapData() {
+    return (<>
+      {this.props.tile.map((item, i) => {
+        return <div key={i}>
+          <Button variant="contained" onClick={() => { this.props.course(item._id) }} color="primary">
+            View
+         </Button>
+          <Typography align="center">{item.title}</Typography>
+        </div>
+      })}</>
+    )
+  }
   render() {
     const settings = {
       dots: false,
@@ -49,27 +65,19 @@ export default class Subjectsecond extends Component {
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />
     };
+
     return (
       <div>
 
 
-        <div
-          style={{
-            width: this.state.width + "px",
-            display: this.state.display ? "block" : "none",
-            margin: this.state.margin 
-          }}
+        <div style={{
+          width: this.state.width + "px",
+          display: this.state.display ? "block" : "none",
+          margin: this.state.margin
+        }}
         >
           <Slider {...settings}>
-            {this.props.tile.map((item,i)=>{
-               return <div key={i}>
-                <Button variant="contained" onClick={()=>{this.props.course(item._id)}} color="primary">
-                    View
-                </Button>
-                <Typography align="center">{item.title}</Typography>
-                        </div>
-            })}
-
+            {this.props.tile.length && this.mapData()}
           </Slider>
         </div>
       </div>

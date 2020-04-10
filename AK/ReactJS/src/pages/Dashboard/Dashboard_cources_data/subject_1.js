@@ -1,6 +1,5 @@
 import React from 'react';
 import  './subject.scss';
-import Typography from '@material-ui/core/Typography';
 
 const Subjectfirst = (props) => {
     const [selectedIdx, setSelectedIdx] = React.useState(0);
@@ -38,13 +37,7 @@ const Subjectfirst = (props) => {
       rotate(s);
     };
   
-    const handleDotClick = idx => {
-      if (idx > selectedIdx) {
-        rotateLeft(idx - selectedIdx);
-      } else if (idx < selectedIdx) {
-        rotateRight(selectedIdx - idx);
-      }
-    };
+ 
   
     return (
       <div className="carousel-wrap">
@@ -90,58 +83,20 @@ const Subjectfirst = (props) => {
   
   const CarouselSlideItem = ({ slide, style, className, active }) => (
     <li className={className} style={style}>
-      <a className="carousel-slide-item__img-link">
+      
+      <div  className="carousel-slide-item__img-link" >
         <img
           src={slide.image}
           className={active ? "active" : ""}
           alt={slide.id}
         />
-      </a>
+      </div>
       <div className="carousel-slide-item__body_1">
         <h4>{slide.title}</h4>
         {/* <p>{slide.desc}</p> */}
       </div>
     </li>
   );
-  
-  const slides = [
-    {
-      id: 1,
-      title: "Efren Reyes",
-      desc:
-        'Known as "The Magician", Efren Reyes is well regarded by many professionals as the greatest all around player of all time.',
-      image: `${process.env.PUBLIC_URL + 'assets/images/course-1.png'}`
-    },
-    {
-      id: 2,
-      title: `Ronnie O'Sullivan`,
-      desc: `Ronnie O'Sullivan professional snooker player who is widely regarded as one of the greatest players in the history of the discipline.`,
-      image: `${process.env.PUBLIC_URL + 'assets/images/course-2.png'}`
-    },
-    {
-      id: 3,
-      title: "Shane Van Boening",
-      desc:
-        'The "South Dakota Kid" is hearing-impaired and uses a hearing aid, but it has not limited his ability.',
-  
-      image: `${process.env.PUBLIC_URL + 'assets/images/course-3.png'}`
-    },
-    {
-      id: 4,
-      title: "Mike Sigel",
-      desc: `Mike Sigel or "Captain Hook" as many like to call him is an American professional pool player with over 108 tournament wins.`,
-  
-      image: `${process.env.PUBLIC_URL + 'assets/images/course-4.png'}`
-    },
-    {
-      id: 5,
-      title: "Willie Mosconi",
-      desc:
-        'Nicknamed "Mr. Pocket Billiards," Willie Mosconi was among the first Billiard Congress of America Hall of Fame inductees.',
-  
-      image: `${process.env.PUBLIC_URL + 'assets/images/course-3.png'}`
-    }
-  ];
 
 
   

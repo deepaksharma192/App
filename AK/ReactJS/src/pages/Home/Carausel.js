@@ -38,13 +38,7 @@ const Carousel = () => {
       rotate(s);
     };
   
-    const handleDotClick = idx => {
-      if (idx > selectedIdx) {
-        rotateLeft(idx - selectedIdx);
-      } else if (idx < selectedIdx) {
-        rotateRight(selectedIdx - idx);
-      }
-    };
+ 
   
     return (
       <div className="carousel-wrap">
@@ -89,13 +83,13 @@ const Carousel = () => {
   
   const CarouselSlideItem = ({ slide, style, className, active }) => (
     <li className={className} style={style}>
-      <a className="carousel-slide-item__img-link">
+      <div className="carousel-slide-item__img-link">
         <img
           src={slide.image}
           className={active ? "active" : ""}
           alt={slide.id}
         />
-      </a>
+      </div>
       <div className="carousel-slide-item__body">
         <h4>{slide.title}</h4>
         <p>{slide.desc}</p>

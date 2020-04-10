@@ -102,7 +102,6 @@ const useStyles = theme => ({
 class UIPage3 extends Component {
     render() {
         const { classes } = this.props;
-        const { width } = this.props;
       return (
           <div className={classes.root}>
               <Container maxWidth="xl" className={classes.container}>
