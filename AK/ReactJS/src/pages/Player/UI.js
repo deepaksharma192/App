@@ -20,9 +20,10 @@ class UI extends React.Component {
     componentDidMount() {
         let { currentTopic, currentVideo } = this.props.bookmark;
         if (currentTopic) {
-            this.props.courseById.topics.foreach((v, i) => {
+        console.log(this.props.courseById)
+            this.props.courseById.topics.forEach((v, i) => {
                 if (currentTopic === v._id) {
-                    v['sub_topics'].foreach((v1) => {
+                    v['sub_topics'].forEach((v1) => {
                         if (currentVideo === v1._id) {
                             let keys = v1._id + "__" + v1.topic_id;
                             v1["startTime"] = this.props.bookmark.videoTime[keys];

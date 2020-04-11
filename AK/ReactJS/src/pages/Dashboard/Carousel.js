@@ -5,11 +5,14 @@ import Button from '@material-ui/core/Button';
 export class Carousel extends Component {
     constructor(props) {
         super(props)
-        this.state = { activeItemIndex: 0 }
+        this.state = { activeItemIndex: 0 };
+        this.isDisable = this.isDisable.bind(this);
     }
     componentWillMount() {
 
-        console.log(this.props.tile)
+    }
+    isDisable(v){
+        return (v.status !=="active")
     }
     render() {
         return (
@@ -39,7 +42,7 @@ export class Carousel extends Component {
                                     background: `url(${v_.thum})`
                                 }}
                             >
-                                <Button variant="contained" color="primary" disableElevation>
+                                <Button variant="contained" disabled={this.isDisable(v_)} color="primary" onClick={()=>{this.props.viewCourseById(v_._id)}} >
                                     {v_.title}
                                 </Button>
                             </div>

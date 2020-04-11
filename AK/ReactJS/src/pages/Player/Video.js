@@ -35,7 +35,7 @@ class Video extends Component {
           <Player
             seek={10}
             poster={this.props.currentVideo.img}
-            startTime={(this.props.currentVideo.startTime)}
+            startTime={parseInt(this.props.currentVideo.startTime)}
             ref={player => {
               this.player = player;
             }}
