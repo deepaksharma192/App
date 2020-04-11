@@ -173,3 +173,12 @@ export const getAnnouncementByid = (ctype) => {
         })
 }
 
+export const getAllClassesFromServer = () => {
+    return serverCall({
+        method: 'GET',
+        url: '/courses/class/all'
+    })
+        .then(res => {
+            return res
+        })
+}

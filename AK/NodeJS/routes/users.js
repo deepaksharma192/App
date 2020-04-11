@@ -4,13 +4,10 @@ const jwt = require('jsonwebtoken')
 const config = require('../configs/jwt-config')
 const ensureAuthenticated = require('../modules/ensureAuthenticated')
 const User = require('../models/User');
-const Cart = require('../models/Cart');
-const CartClass = require('../modules/Cart')
-const Product = require('../models/Product')
-const Variant = require('../models/Variant')
 const TypedError = require('../modules/ErrorHandler');
 const Otp = require('../models/Otp');
 const { otpGenerator } = require('./../modules/otpGenerator')
+const EnrolledUser = require('./../models/Enrolled');
 
 
 //POST /signin
@@ -107,10 +104,28 @@ router.get('/user-details', ensureAuthenticated, function (req, res, next) {
 
 router.put('/update-details', ensureAuthenticated, function (req, res, next) {
   let id = req.userID;
-  let newdata = req.body
-  User.updateCartByUserId(id, newdata, function (err, user) {
-    if (err) return next(err)
-    res.json({ data: user })
+  let newdata = req.body;
+  User.updateCartByUserId(id, newdata, function (err, user_) {
+    if (err) return next(err);
+    User.getUserById(id, function (err, user) {
+      if (err) return next(err)
+      if (newdata.class) {
+        let ED = {
+          user_id: id,
+          payment: "free",
+          payment_id: "123456",
+          status: "active"
+        }
+        EnrolledUser.enrolledUser(ED, (res_) => {
+          res.json({ data: user })
+        })
+      } else {
+        res.json({ data: user })
+      }
+    })
+
+
+
   })
 })
 

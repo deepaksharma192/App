@@ -110,6 +110,9 @@ var Course = module.exports = mongoose.model('courses', courseSchema);
 var Topic = mongoose.model('topics', topicsSchema);
 var Video = mongoose.model('videos', videosSchema);
 
+module.exports.getAllClasses = function (callback) {
+    Classes.find(callback)
+}
 module.exports.getAllCourse = function (classes, callback) {
     var queryClass = { _id: classes };
     async.auto({
