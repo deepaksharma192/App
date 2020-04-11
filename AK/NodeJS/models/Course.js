@@ -54,6 +54,9 @@ var courseSchema = mongoose.Schema({
     },
     sub_topic: {
         type: String
+    },
+    thum:{
+        type: String
     }
 });
 
