@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
-import Icon from '@material-ui/core/Icon';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Dashchart from './dashboart_chart';
@@ -108,7 +107,7 @@ class EnrolledCourse extends React.Component {
                         <Paper className={classes.paper} elevation={1}>
                             <Grid container>
                                 <Grid item xs={12}>
-                                    <Carausel tile={v.courses} />
+                                    <Carausel tile={v.courses} viewCourseById={this.viewCourseById} />
                                 </Grid>
                             </Grid>
                         </Paper>
@@ -169,9 +168,7 @@ class EnrolledCourse extends React.Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid container spacing={3}>
-
-                        </Grid>
+                        
                         <Grid container spacing={3}>
                             {this.state.courseList}
                         </Grid>

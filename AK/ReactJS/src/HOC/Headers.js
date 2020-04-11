@@ -231,7 +231,7 @@ const Headers = (HocComponent) => {
           })} >
           <Toolbar>
             {props.token && <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" className={clsx(classes.menuButton, open && classes.hide)}><MenuIcon /></IconButton>}
-            <img src={process.env.PUBLIC_URL + 'assets/images/applogo/logo.png'} alt="logo" className={classes.logo} />
+            <img src={process.env.PUBLIC_URL + '/assets/images/applogo/logo.png'} alt="logo" className={classes.logo} />
             <div className={classes.toolbarButtons}>
             {!props.token && <Tooltip className={classes.fontt} disableFocusListener title="Home">
                 <Button>Home</Button>

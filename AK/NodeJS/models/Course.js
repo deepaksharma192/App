@@ -165,7 +165,7 @@ module.exports.getAllCourse = function (classes, callback) {
     })
 
 }
-const getCourseById = function (id, callback) {
+module.exports.getCourseById = function (id, callback) {
     var query = { _id: id };
     let course = {};
     async.auto({
@@ -215,7 +215,7 @@ const getCourseById = function (id, callback) {
         callback(null, course)
     });
 }
-module.exports.getCourseById;
+
 const getTopics = (id, cb) => {
     var queryTopic = { course_id: id };
     Topic.find(queryTopic, (err, topic_) => {
