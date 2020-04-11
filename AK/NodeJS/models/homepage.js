@@ -24,6 +24,9 @@ var Home = module.exports = mongoose.model('homepage', Homepage,'homepage');
 module.exports.getAllcards = function(callback){
     Home.find(callback)
 }
+module.exports.getAllcardsbyid = function(callback){
+    Home.find(callback)
+}
 // module.exports.getDepartmentById = function(id, callback){
 //     Department.findById(id, callback);
 // }
