@@ -11,8 +11,10 @@ import Icon from '@material-ui/core/Icon';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Dashchart from './dashboart_chart';
-import Carausel from './Dashboard_cources_data/Carausel';
-
+import Carausel from './Carousel';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import Chip from '@material-ui/core/Chip';
 const useStyles = theme => ({
     root: {
         display: 'flex',
@@ -97,10 +99,9 @@ class EnrolledCourse extends React.Component {
     }
     async componentDidMount() {
         await this.props.getAllCourses();
-        console.log("enrolled", this.props.course)
         const { classes } = this.props;
         if (this.props.course) {
-            let courseData = this.props.course.subjects.map((v,i) => {
+            let courseData = this.props.course.subjects.map((v, i) => {
                 return (
                     <Grid item xs={12} key={i}>
                         <Typography variant="h5" align="left">{v.subject_name}</Typography>
@@ -129,16 +130,17 @@ class EnrolledCourse extends React.Component {
                 <Grid container className={classes.marg}>
                     <Grid item xs={10} md={10} className={classes.topp}>
                         <Grid container  >
-                            <Grid item xs={2} sm={2} md={2}>
-                                <Icon>
-                                    <HomeSharpIcon />
-                                </Icon>
-                            </Grid>
-                            <Grid item xs={10} sm={10} md={10}>
-                                <Typography variant="h5" align="left">
-                                    KoolGuru/ Dashboard
-                                    </Typography>
-                            </Grid>
+
+                            <Breadcrumbs aria-label="breadcrumb">
+                                <Link color="inherit" href="/" >
+
+                                    <Chip
+                                        avatar={<HomeSharpIcon />}
+                                        label="KoolGuru"
+                                    />
+                                </Link>
+                                <Chip label="Dashboard" disabled />
+                            </Breadcrumbs>
                         </Grid>
                         <Grid container >
                             <Grid item xs={12} md={6} >
@@ -166,6 +168,9 @@ class EnrolledCourse extends React.Component {
                                     </Grid>
                                 </Grid>
                             </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+
                         </Grid>
                         <Grid container spacing={3}>
                             {this.state.courseList}
