@@ -2,8 +2,6 @@ import React from "react";
 import EnrolledCourse from "./EnrolledCourse";
 import Headers from '../../HOC/Headers';
 import Profile from '../Profile/';
-import SweetAlert from 'sweetalert2-react';
-import jumpTo from '../../modules/Navigation';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -11,25 +9,28 @@ class Dashboard extends React.Component {
         this.state = {
             userDetails: null,
             status: null,
-            show:false
+            show: null
         }
         this.FormSubmit = this.FormSubmit.bind(this);
-        this.updateProfile   = this.updateProfile.bind(this)
+        this.updateProfile = this.updateProfile.bind(this)
 
     }
     async componentDidMount() {
         await this.props.getUserDetail().then(res => {
-            console.log(res)
-           if(res.status !== "pending"){
-            this.setState({
-                ...this.state,
-                status: res.status,
-                show:true
-            })
-           }
-            this.setState({
-                status: this.props.user.status
-            })
+            if (res.status !== "pending") {
+                this.setState({
+                    ...this.state,
+                    status: res.status,
+                    show: true
+                })
+            } else {
+                this.setState({
+                    ...this.state,
+                    status: this.props.user.status,
+                    show: false
+                })
+            }
+
         });
 
     }
@@ -39,25 +40,20 @@ class Dashboard extends React.Component {
             status: res.status
         })
     }
-    updateProfile(res){
+    updateProfile(res) {
         this.setState({
             ...this.state,
             status: res.data.status,
-            show:true
+            show: true
         })
-        console.log(res)
+
     }
     render() {
+        console.log(this.state.show)
         return (
             <div>
-                 {/* <SweetAlert
-                    show={this.state.show}
-                    title="Alert"
-                    text="Successfully updated your profile."
-                    onConfirm={() => { this.setState({ show: false }); jumpTo('/dashboard') }}
-                /> */}
-                {this.state.show && <EnrolledCourse />}
-                {!this.state.show && <Profile updateProfile={this.updateProfile} {...this.props}/>}
+                {(this.state.show === true) && <EnrolledCourse />}
+                {(this.state.show === false) && <Profile updateProfile={this.updateProfile} {...this.props} />}
             </div>
         )
     }
