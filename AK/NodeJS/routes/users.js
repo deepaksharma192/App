@@ -40,7 +40,7 @@ function veryfyOtp(req, res, next) {
     if (res_.length === 1) {
       next();
     } else {
-      return res.status(200).json({ data: null })
+      return res.status(200).json({ user_token: null })
     }
   })
 }

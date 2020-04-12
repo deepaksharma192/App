@@ -205,15 +205,16 @@ const Headers = (HocComponent) => {
       return new Promise((resolve, reject) => {
         let { number, otp } = prop;
         props.veryfyOtps(number, otp).then((res) => {
-          setOpenLogin(false);
-          jumpTo('/dashboard');
-          go('/dashboard');
-          resolve(res)
+          if (res.data.user_token) {
+            setOpenLogin(false);
+            jumpTo('/dashboard');
+            go('/dashboard')
+          }
+          resolve(res);
         }).catch(err => {
           reject(err)
         });
       })
-
     }
     const LoginOpen = () => {
       setOpenLogin(true)
@@ -334,7 +335,7 @@ const mapStoreToProps = state => ({
   courseById: state.course.course_data,
   videoNote: state.videoNote.video_note_data,
   announcement: state.announcement.announcement_data,
-  grade:state.course.classes_data,
+  grade: state.course.classes_data,
 })
 const mapDispatchToProps = {
   getUserDetail,

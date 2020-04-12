@@ -55,19 +55,19 @@ class Login extends Component {
 
             }, () => {
                 this.props.veryfyOtp(this.state).then((res) => {
-                    setTimeout(() => {
-                        if (res === undefined) {
-                            this.setState({
-                                ...this.state,
-                                err: true
-                            })
-                        }
-                    }, 100)
+                    if (res.data !== null) {
+                        this.setState({
+                            ...this.state,
+                            err: true
+                        })
+                    }
                 }).catch(err => {
                     console.log(err)
                 })
             })
         }
+
+        // }
 
 
     }
