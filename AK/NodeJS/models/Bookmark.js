@@ -32,26 +32,26 @@ module.exports.getBookmarkById = function (uid, cid, callback) {
 module.exports.updateBookmarkById = function (data, callback) {
     let query = { uid: data.uid, cid: data.cid }
     Bookmarking.find(query, function (err, c) {
-    if (err) throw err;
-    if (c.length > 0) {
-        Bookmarking.findOneAndReplace(
-            query,
-        {
-          $set: {
-                currentTopic: data.currentTopic,
-                currentVideo: data.currentVideo,
-                videoTime: data.videoTime,
-                currentTab: data.currentTab
-          }
-        },
-        callback
-      )
-    } else {
-        console.log(data)
-      var BookmarkData = new Bookmarking(data);
-      BookmarkData.save(callback)
-    }
-  })
+        if (err) throw err;
+        if (c.length > 0) {
+            Bookmarking.findOneAndReplace(
+                query,
+                {
+                    $set: {
+                        currentTopic: data.currentTopic,
+                        currentVideo: data.currentVideo,
+                        videoTime: data.videoTime,
+                        currentTab: data.currentTab
+                    }
+                },
+                callback
+            )
+        } else {
+            console.log(data)
+            var BookmarkData = new Bookmarking(data);
+            BookmarkData.save(callback)
+        }
+    })
 }
 
 

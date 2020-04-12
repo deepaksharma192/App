@@ -31,7 +31,7 @@ import {
         return {
           ...state,
           token_loading: false,
-          error: action.payload.error.response.data
+          error: action.payload
         }
       case INSERT_TOKEN_SUCCESS:
         return {
