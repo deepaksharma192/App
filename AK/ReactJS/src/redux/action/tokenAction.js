@@ -1,9 +1,9 @@
-import { login,veryfyOtp,homedata} from '../../modules/serverCall'
+import { login, veryfyOtp, homedata } from '../../modules/serverCall'
 
 export const homepagedata = () => {
   return homedata()
     .then(res => {
-        return res.data
+      return res.data
     })
     .catch(error => {
       throw error
@@ -12,34 +12,43 @@ export const homepagedata = () => {
 export const sendOtp = (number) => {
   return login(number)
     .then(res => {
-        return res.data
+      return res.data
     })
     .catch(error => {
       throw error
     })
 }
-export const veryfyOtps = (number,otp) => dispatch => {
+export const veryfyOtps = (number, otp) => dispatch => {
+  return new Promise((resovle, reject)=>{
+    
   dispatch({
     type: POST_TOKEN_BEGIN
   })
-  return veryfyOtp(number,otp)
+   veryfyOtp(number, otp)
     .then(res => {
-      setTimeout(() => {
-        dispatch({
+      if(res.data.user_token){
+      dispatch({
           type: POST_TOKEN_SUCCESS,
-          payload: number
+          payload: res
         })
-        return res
-      }, 1)
+      }else{
+        dispatch({
+          type: POST_TOKEN_FAIL,
+          payload:""
+        })
+      }
+        
 
+        resovle(res);
     })
     .catch(error => {
       dispatch({
         type: POST_TOKEN_FAIL,
         payload: { error }
       })
-      throw error
+      reject(error)
     })
+  })
 }
 
 export const insertToken = () => dispatch => {

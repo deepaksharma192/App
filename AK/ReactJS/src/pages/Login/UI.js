@@ -155,7 +155,7 @@ export default function UI(props) {
                   margin="dense"
                   id="otp"
                   label="Enter the Otp"
-                  helperText="4 digit OTP required"
+                  helperText="Please enter the correct otp password."
                   type="text"
                   inputRef={props.otpRef}
                   fullWidth

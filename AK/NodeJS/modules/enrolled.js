@@ -1,5 +1,6 @@
 const EnrolledUser = require('./../models/Enrolled');
 const User = require('../models/User');
+
 function enrolled(req, res, next) {
     EnrolledUser.getEnrolledUserById(req.userID, (err, res_) => {
         if (err) console.log(err)

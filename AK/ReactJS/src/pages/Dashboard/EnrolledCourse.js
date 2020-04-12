@@ -168,7 +168,7 @@ class EnrolledCourse extends React.Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        
+
                         <Grid container spacing={3}>
                             {this.state.courseList}
                         </Grid>
