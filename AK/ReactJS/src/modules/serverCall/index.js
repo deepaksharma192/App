@@ -49,11 +49,11 @@ export const login = (number) => {
         })
 }
 
-export const homedata = () => {
+export const testimonials = () => {
 
     return serverCall({
         method: 'get',
-        url: '/home/homedata'
+        url: '/testimonials/homedata'
 
     })
         .then(res => {

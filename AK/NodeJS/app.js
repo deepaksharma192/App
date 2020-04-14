@@ -14,7 +14,7 @@ var courseRouter = require('./routes/course');
 var bookMark = require('./routes/bookmark');
 var announcement = require('./routes/announcement');
 var videoNote = require('./routes/videoNote');
-var home = require('./routes/home');
+var testimonials = require('./routes/testimonials');
 //mongodb://heroku_8bd94qrf:irstf0rv1ds970eebtislm0apf@ds029638.mlab.com:29638/heroku_8bd94qrf
 mongoose.connect(mongoConfig, { useNewUrlParser: true, useCreateIndex: true, },function(error){
   if(error) throw error
@@ -55,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //routers
 app.use('/', indexRouter);
-app.use('/home', home);
+app.use('/testimonials', testimonials);
 app.use('/users', usersRouter);
 app.use('/courses', courseRouter);
 app.use('/bookmark', bookMark);

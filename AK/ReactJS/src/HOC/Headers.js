@@ -191,6 +191,7 @@ const Headers = (HocComponent) => {
         case 2: return <ClassIcon />
         case 3: return <PeopleIcon />
         case 4: return <VideoLibraryIcon />
+        case 5: return <VideoLibraryIcon />
         default:
       }
     }
@@ -253,7 +254,7 @@ const Headers = (HocComponent) => {
                 <Button>Courses</Button>
               </Tooltip>}
               {!props.token && <Button variant="outlined" onClick={LoginOpen} aria-describedby={id} color="inherit">Login</Button>}
-              {props.token && <IconButton color="inherit"> <NotificationsIcon /></IconButton>}
+              {/* {props.token && <IconButton color="inherit"> <NotificationsIcon /></IconButton>} */}
               {props.token && <IconButton onClick={handleClick} color="inherit"> <PersonAddIcon /></IconButton>}
 
               <StyledMenu
@@ -298,7 +299,7 @@ const Headers = (HocComponent) => {
             <Divider />
             <List>
               <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" align="center" className={classes.large} />
-              {[{ text: 'Dashboard', href: "/dashboard" }, { text: 'Calender', href: "/dashboard" }, { text: 'Classes', href: "/dashboard" }, { text: 'LeaderBoard', href: "/leaderboard" }, { text: 'Videos', href: "/leaderboard" }].map((item, index) => (
+              {[{ text: 'Dashboard', href: "/dashboard" }, { text: 'Profile', href: "/dashboard" }, { text: 'Parent password', href: "/dashboard" }, { text: 'Practice Quiz', href: "/leaderboard" }, { text: 'Customer Support', href: "/leaderboard" }, { text: 'Payment', href: "/leaderboard" }].map((item, index) => (
                 <ListItem button key={item.text}>
                   <ListItemIcon className={classes.colorr}>
                     {icon(index)}

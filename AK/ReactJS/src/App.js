@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
-import LeaderBoard from './pages/LeaderBoard/LeaderBoard'
+import LeaderBoard from './pages/LeaderBoard'
 import './App.css';
 import { registerNav } from './modules/Navigation'
 import { insertToken } from './redux/action/tokenAction'
@@ -10,7 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import CON from './constantant';
 import Profile from './pages/Profile';
 import Player from './pages/Player';
-import UserProfile from './pages/User_Profile';
+import UserProfile from './pages/UserProfile';
 
 class App extends Component {
   constructor(props) {

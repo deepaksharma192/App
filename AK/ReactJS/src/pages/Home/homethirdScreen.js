@@ -99,7 +99,7 @@ const useStyles = theme => ({
   });
 
   
-class UIPage3 extends Component {
+class Thirdscreen extends Component {
     render() {
         const { classes } = this.props;
       return (
@@ -293,9 +293,9 @@ class UIPage3 extends Component {
     }
   }
 
-  UIPage3.propTypes = {
+  Thirdscreen.propTypes = {
     width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']).isRequired,
   };
 
 
-export default withWidth()(withStyles(useStyles)(UIPage3))
+export default withWidth()(withStyles(useStyles)(Thirdscreen))
