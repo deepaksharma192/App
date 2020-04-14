@@ -38,6 +38,9 @@ import ClassIcon from '@material-ui/icons/Class';
 import PeopleIcon from '@material-ui/icons/People';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import Avatar from '@material-ui/core/Avatar';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PaymentIcon from '@material-ui/icons/Payment';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -187,11 +190,11 @@ const Headers = (HocComponent) => {
     function icon(index) {
       switch (index) {
         case 0: return <DashboardIcon />
-        case 1: return <CalendarTodayIcon />
+        case 1: return <AccountCircleIcon />
         case 2: return <ClassIcon />
         case 3: return <PeopleIcon />
-        case 4: return <VideoLibraryIcon />
-        case 5: return <VideoLibraryIcon />
+        case 4: return <AccountCircleIcon />
+        case 5: return <PaymentIcon />
         default:
       }
     }
@@ -264,12 +267,7 @@ const Headers = (HocComponent) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <StyledMenuItem onClick={() => { handleClose(); jumpTo('/UserProfile') }}>
-                  <ListItemIcon>
-                    <SendIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText primary="Profile" />
-                </StyledMenuItem>
+
                 <StyledMenuItem onClick={logout}>
                   <ListItemIcon>
                     <ExitToAppIcon fontSize="small" />
@@ -299,7 +297,7 @@ const Headers = (HocComponent) => {
             <Divider />
             <List>
               <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" align="center" className={classes.large} />
-              {[{ text: 'Dashboard', href: "/dashboard" }, { text: 'Profile', href: "/dashboard" }, { text: 'Parent password', href: "/dashboard" }, { text: 'Practice Quiz', href: "/leaderboard" }, { text: 'Customer Support', href: "/leaderboard" }, { text: 'Payment', href: "/leaderboard" }].map((item, index) => (
+              {[{ text: 'Dashboard', href: "/dashboard" }, { text: 'Profile', href: "/UserProfile" }, { text: 'Parent password', href: "/Parentpassword" }, { text: 'Practice Quiz', href: "/Practicequiz" }, { text: 'Customer Support', href: "/Customersupport" }, { text: 'Payment', href: "/Payment" }].map((item, index) => (
                 <ListItem button key={item.text}>
                   <ListItemIcon className={classes.colorr}>
                     {icon(index)}

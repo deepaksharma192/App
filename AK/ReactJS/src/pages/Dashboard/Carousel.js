@@ -1,7 +1,23 @@
 import React, { Component } from 'react'
 import ItemsCarousel from 'react-items-carousel';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
+const useStyles = theme => ({
+
+    siz:{
+        width:'50%',
+    },
+    playbutton:{
+        width:'100px',
+        height:'100px',
+        marginTop:'50px',
+        cursor:'pointer',
+    }
+
+  });
 export class Carousel extends Component {
     constructor(props) {
         super(props)
@@ -9,12 +25,13 @@ export class Carousel extends Component {
         this.isDisable = this.isDisable.bind(this);
     }
     componentWillMount() {
-
+        console.log(this.props.tile)
     }
     isDisable(v){
         return (v.status !=="active")
     }
     render() {
+        const { classes } = this.props;
         return (
             <div>
                 <div style={{ "padding": "0 60px", "width": 1000, "margin": "0 auto" }}>
@@ -31,20 +48,27 @@ export class Carousel extends Component {
                         firstAndLastGutter={false}
                         activeItemIndex={this.state.activeItemIndex}
                         requestToChangeActive={value => this.setState({ activeItemIndex: value })}
-                        rightChevron={<button >{'>'}</button>}
-                        leftChevron={<button >{'<'}</button>}
+                        rightChevron={<img className={classes.siz} src={process.env.PUBLIC_URL + 'assets/images/right_arr.png'} />}
+                        leftChevron={<img className={classes.siz} src={process.env.PUBLIC_URL + 'assets/images/left_arr.png'} />}
                     >
                         {this.props.tile.map((v_, i) =>
+                        <div key={i}>
                             <div
-                                key={i}
+                                
                                 style={{
                                     height: 200,
-                                    background: `url(${v_.thum})`
+                                    background: `url(${v_.thum})`,
+                                    backgroundSize: 'cover',
                                 }}
                             >
-                                <Button variant="contained" disabled={this.isDisable(v_)} color="primary" onClick={()=>{this.props.viewCourseById(v_._id)}} >
+                            <PlayArrowIcon className={classes.playbutton} disabled={this.isDisable(v_)} onClick={()=>{this.props.viewCourseById(v_._id)}} />
+                                {/* <Button variant="contained"  color="primary" onClick={()=>{this.props.viewCourseById(v_._id)}} >
                                     {v_.title}
-                                </Button>
+                                </Button> */}
+                            </div>
+                            <Typography>
+                                {v_.ctype}
+                            </Typography>
                             </div>
                         )}
                     </ItemsCarousel>
@@ -54,4 +78,4 @@ export class Carousel extends Component {
     }
 }
 
-export default Carousel
+export default withStyles(useStyles)(Carousel)
