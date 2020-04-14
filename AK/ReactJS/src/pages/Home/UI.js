@@ -4,9 +4,9 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import UIPage1 from './UI_Page_1';
-import UIPage2 from './UI_Page_2';
-import UIPage3 from './UI_Page_3';
+import FirstScreen from './homefirstScreen';
+import Secondscreen from './homesecondScreen';
+import Thirdscreen from './homethirdScreen';
 import Slide from 'react-reveal/Slide';
 import Zoom from 'react-reveal/Zoom';
 
@@ -206,14 +206,14 @@ export default function UI(props) {
           </Grid>
           <Grid container spacing={3}>
 
-            <UIPage1 />
+            <FirstScreen />
           </Grid>
           <Grid container spacing={3}>
-            <UIPage2 />
+            <Secondscreen />
           </Grid>
 
           <Grid container spacing={3}>
-            <UIPage3 />
+            <Thirdscreen />
           </Grid>
           {/* <Box pt={4}>
             <Copyright />

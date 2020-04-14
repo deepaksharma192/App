@@ -1,7 +1,7 @@
 import React from "react";
 import UI from './UI'
 import Headers from '../../HOC/Headers'
-import { homepagedata } from "../../redux/action/tokenAction";
+import { testimonialsdata } from "../../redux/action/tokenAction";
 
 class Home extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class Home extends React.Component {
         
     }
     componentDidMount() {
-        homepagedata().then((res)=>{
+        testimonialsdata().then((res)=>{
             console.log(res)
         })
     }

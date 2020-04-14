@@ -15,7 +15,7 @@ const state = {
   ]
 }
 
-export default class Dashchart extends Component {
+export default class Barchart extends Component {
   render() {
     return (
       <div>
