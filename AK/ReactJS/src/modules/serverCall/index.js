@@ -49,12 +49,12 @@ export const login = (number) => {
         })
 }
 
-export const homedata = () => {
+export const testimonials = () => {
 
     return serverCall({
         method: 'get',
-        url: '/home/homedata'
-       
+        url: '/testimonials/homedata'
+
     })
         .then(res => {
             return res
@@ -72,14 +72,11 @@ export const veryfyOtp = (number, otp) => {
         data: body
     })
         .then(res => {
-           if(res.data==null){
-               return null
-           }else{
-            Auth.setUserToken(res.data.user_token.token);
-            return res
-           }
-           
-        }).catch(err=>{
+            if (res.data.user_token) {
+                Auth.setUserToken(res.data.user_token.token);
+            }
+            return res;
+        }).catch(err => {
             return err
         })
 }
@@ -173,3 +170,12 @@ export const getAnnouncementByid = (ctype) => {
         })
 }
 
+export const getAllClassesFromServer = () => {
+    return serverCall({
+        method: 'GET',
+        url: '/courses/class/all'
+    })
+        .then(res => {
+            return res
+        })
+}

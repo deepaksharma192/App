@@ -7,37 +7,61 @@ import Grid from '@material-ui/core/Grid';
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = { number: null, otp: null, isOtp: false, err:false };
+        this.state = { number: null, otp: null, isOtp: false, err: false };
         this.sendOtp = this.sendOtp.bind(this);
+        this.checkk = this.checkk.bind(this);
+        this.otpChange = this.otpChange.bind(this);
         this.verifyOtp = this.verifyOtp.bind(this)
         this.numRef = React.createRef(null);
         this.otpRef = React.createRef(null);
         this.vall = React.createRef(null);
+       console.log(this.props.checkk)
+    }
+
+    checkk(e){
+        
+        
+        let num = this.numRef.current;
+        
+        if(num.value.length === 0 || num.value.length === 10){
+            this.setState({
+                ...this.state,
+                err: false
+            }) 
+        }
+
+    }
+
+    otpChange(e){
+        let otp = this.otpRef.current;
+
+        if(otp.value.length === 0 || otp.value.length === 4){
+            this.setState({
+                ...this.state,
+                err: false
+            }) 
+        }
     }
     sendOtp(e) {
 
         e.preventDefault();
         let num = this.numRef.current;
-        console.log('sendOtp >> ' + num.value.length);
-        /* if(num.value.length < 10){
-            num.focus();
-            return;
-        } */
-        if(num.value.length<10 || !num.value){
+
+        if (num.value.length < 10 || !num.value) {
             this.setState({
                 ...this.state,
-                err:true
+                err: true
             })
             num.focus();
         }
-         else {
+        else {
             this.setState({
                 ...this.state,
                 isOtp: true,
-                err:false,
+                err: false,
                 number: num.value
-            },()=>{
-                
+            }, () => {
+
                 this.props.loginSubmit(this.state)
             })
         }
@@ -47,58 +71,55 @@ class Login extends Component {
     verifyOtp(e) {
         e.preventDefault();
         let otp = this.otpRef.current;
-        if((otp.value.length !== 4)){
+        if ((otp.value.length !== 4)) {
             this.setState({
                 ...this.state,
-                err:true
+                err: true
             })
         }
-        else{
+        else {
             this.setState({
                 ...this.state,
                 otp: otp.value
-                
+
             }, () => {
-               
-                this.props.veryfyOtp(this.state).then((res)=>{
-                    console.log(res)
-                    setTimeout(() => {
-                    if(res === undefined){
-                        console.log('ennn')
+                this.props.veryfyOtp(this.state).then((res) => {
+                    if (res.data !== null) {
                         this.setState({
                             ...this.state,
-                            err:true
+                            err: true
                         })
                     }
-                }, 100)
-                }).catch(err=>{
+                }).catch(err => {
                     console.log(err)
                 })
             })
         }
 
+        // }
+
 
     }
     render() {
-        
+
         return (
             <div>
                 <Dialog open={true} aria-labelledby="form-dialog-title">
 
-                <Grid container>
-                    <Grid item md={11}>
-                        <UI  {...this.props} sendOtp={this.sendOtp} verifyOtp={this.verifyOtp} numRef={this.numRef} otpRef={this.otpRef} isOtp={this.state.isOtp} err={this.state.err} />
-                    </Grid>
-                    <Grid item md={1}>
-                        <DialogActions>
-                        <Button onClick={this.props.handleClose} color="primary">
-                            X
-                        </Button>
+                    <Grid container>
+                        <Grid item md={11}>
+                            <UI  {...this.props} sendOtp={this.sendOtp} otpChange={this.otpChange} checkk={this.checkk} verifyOtp={this.verifyOtp} numRef={this.numRef} otpRef={this.otpRef} isOtp={this.state.isOtp} err={this.state.err} />
+                        </Grid>
+                        <Grid item md={1}>
+                            <DialogActions>
+                                <Button onClick={this.props.handleClose} color="primary">
+                                    X
+                                </Button>
 
-                    </DialogActions>
+                            </DialogActions>
+                        </Grid>
                     </Grid>
-                </Grid>
-                    
+
                 </Dialog>
 
             </div>

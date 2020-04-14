@@ -3,7 +3,7 @@ import { getUserDetail } from '../redux/action/userDetailsAction';
 import { getBookmarkByIds, updaateBookmarksToStore, updaateBookmarks } from '../redux/action/bookmarkAction';
 import { getVideoNoteByids, createVideoNotes } from '../redux/action/videoNoteAction';
 import { getAnnouncementByids } from '../redux/action/announcementAction';
-import { getCourseByIds } from '../redux/action/courseAction';
+import { getCourseByIds, getAllClasses } from '../redux/action/courseAction';
 import { connect } from "react-redux";
 import jumpTo, { go } from '../modules/Navigation'
 import { sendOtp, veryfyOtps } from '../redux/action/tokenAction'
@@ -75,25 +75,25 @@ const useStyles = makeStyles(theme => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    
+
   },
   drawerPaper: {
     width: drawerWidth,
-    
+
   },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    padding: theme.spacing(0,0),
+    padding: theme.spacing(0, 0),
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
-    
+
   },
   logo: {
     maxWidth: 100,
   },
-  colorr:{
-    color:'#fff',
+  colorr: {
+    color: '#fff',
   },
   content: {
     flexGrow: 1,
@@ -184,13 +184,14 @@ const Headers = (HocComponent) => {
 
     }
 
-    function icon(index){
-      switch(index){
+    function icon(index) {
+      switch (index) {
         case 0: return <DashboardIcon />
         case 1: return <CalendarTodayIcon />
         case 2: return <ClassIcon />
         case 3: return <PeopleIcon />
         case 4: return <VideoLibraryIcon />
+        case 5: return <VideoLibraryIcon />
         default:
       }
     }
@@ -202,18 +203,19 @@ const Headers = (HocComponent) => {
       });
     }
     const veryfyOtp = (prop) => {
-      return new Promise((resolve,reject)=>{
-        let { number,otp } = prop;
-        props.veryfyOtps(number,otp).then((res) => {
-          setOpenLogin(false);
-          jumpTo('/dashboard');
-          go('/dashboard');
-          resolve(res)
-        }).catch(err=>{
+      return new Promise((resolve, reject) => {
+        let { number, otp } = prop;
+        props.veryfyOtps(number, otp).then((res) => {
+          if (res.data.user_token) {
+            setOpenLogin(false);
+            jumpTo('/dashboard');
+            go('/dashboard')
+          }
+          resolve(res);
+        }).catch(err => {
           reject(err)
         });
       })
-
     }
     const LoginOpen = () => {
       setOpenLogin(true)
@@ -233,7 +235,7 @@ const Headers = (HocComponent) => {
             {props.token && <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" className={clsx(classes.menuButton, open && classes.hide)}><MenuIcon /></IconButton>}
             <img src={process.env.PUBLIC_URL + '/assets/images/applogo/logo.png'} alt="logo" className={classes.logo} />
             <div className={classes.toolbarButtons}>
-            {!props.token && <Tooltip className={classes.fontt} disableFocusListener title="Home">
+              {!props.token && <Tooltip className={classes.fontt} disableFocusListener title="Home">
                 <Button>Home</Button>
               </Tooltip>}
               {!props.token && <Tooltip className={classes.fontt} disableFocusListener title="Features">
@@ -252,9 +254,9 @@ const Headers = (HocComponent) => {
                 <Button>Courses</Button>
               </Tooltip>}
               {!props.token && <Button variant="outlined" onClick={LoginOpen} aria-describedby={id} color="inherit">Login</Button>}
-              {props.token && <IconButton  color="inherit"> <NotificationsIcon /></IconButton>}
+              {/* {props.token && <IconButton color="inherit"> <NotificationsIcon /></IconButton>} */}
               {props.token && <IconButton onClick={handleClick} color="inherit"> <PersonAddIcon /></IconButton>}
-              
+
               <StyledMenu
                 id="customized-menu"
                 anchorEl={anchorEl}
@@ -288,19 +290,19 @@ const Headers = (HocComponent) => {
             paper: classes.drawerPaper,
           }}
         >
-        <Box bgcolor="text.primary">
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon style={{color:'#fff' }} /> : <ChevronRightIcon  />}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" align="center" className={classes.large} />
-              {[{ text: 'Dashboard', href: "/dashboard" }, { text: 'Calender', href: "/dashboard" }, { text: 'Classes', href: "/dashboard" }, { text: 'LeaderBoard', href: "/leaderboard" }, { text: 'Videos', href: "/leaderboard" }].map((item, index) => (
+          <Box bgcolor="text.primary">
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon style={{ color: '#fff' }} /> : <ChevronRightIcon />}
+              </IconButton>
+            </div>
+            <Divider />
+            <List>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" align="center" className={classes.large} />
+              {[{ text: 'Dashboard', href: "/dashboard" }, { text: 'Profile', href: "/dashboard" }, { text: 'Parent password', href: "/dashboard" }, { text: 'Practice Quiz', href: "/leaderboard" }, { text: 'Customer Support', href: "/leaderboard" }, { text: 'Payment', href: "/leaderboard" }].map((item, index) => (
                 <ListItem button key={item.text}>
                   <ListItemIcon className={classes.colorr}>
-                  {icon(index)}
+                    {icon(index)}
                     {/* {index % 2 === 0 ? <DashboardIcon /> : <MailIcon />} */}
                   </ListItemIcon>
                   <Link href={item.href} variant="body2">
@@ -308,9 +310,9 @@ const Headers = (HocComponent) => {
                   </Link>
                 </ListItem>
               ))}
-           
-          </List>
-          <Divider />
+
+            </List>
+            <Divider />
           </Box>
         </Drawer>
         <main className={clsx(classes.content, {
@@ -333,7 +335,8 @@ const mapStoreToProps = state => ({
   bookmark: state.bookmark.bookmark_data,
   courseById: state.course.course_data,
   videoNote: state.videoNote.video_note_data,
-  announcement: state.announcement.announcement_data
+  announcement: state.announcement.announcement_data,
+  grade: state.course.classes_data,
 })
 const mapDispatchToProps = {
   getUserDetail,
@@ -344,6 +347,7 @@ const mapDispatchToProps = {
   getVideoNoteByids,
   createVideoNotes,
   getAnnouncementByids,
-  veryfyOtps
+  veryfyOtps,
+  getAllClasses
 }
 export default Headers;

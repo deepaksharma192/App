@@ -1,7 +1,7 @@
 import React from "react";
 import EnrolledCourse from "./EnrolledCourse";
-import Headers from '../../HOC/Headers'
-import jumpTo from '../../modules/Navigation/'
+import Headers from '../../HOC/Headers';
+import Profile from '../Profile/';
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -9,29 +9,51 @@ class Dashboard extends React.Component {
         this.state = {
             userDetails: null,
             status: null,
+            show: null
         }
         this.FormSubmit = this.FormSubmit.bind(this);
+        this.updateProfile = this.updateProfile.bind(this)
 
     }
     async componentDidMount() {
-        await this.props.getUserDetail();
-        if(this.props.user.status === 'pending'){
-         jumpTo('/profile');
-        }
-        this.setState({
-            status: this.props.user.status
-        })
+        await this.props.getUserDetail().then(res => {
+            if (res.status !== "pending") {
+                this.setState({
+                    ...this.state,
+                    status: res.status,
+                    show: true
+                })
+            } else {
+                this.setState({
+                    ...this.state,
+                    status: this.props.user.status,
+                    show: false
+                })
+            }
+
+        });
+
     }
-    
+
     FormSubmit(res) {
         this.setState({
             status: res.status
         })
     }
+    updateProfile(res) {
+        this.setState({
+            ...this.state,
+            status: res.data.status,
+            show: true
+        })
+
+    }
     render() {
+        console.log(this.state.show)
         return (
             <div>
-                <EnrolledCourse  />
+                {(this.state.show === true) && <EnrolledCourse />}
+                {(this.state.show === false) && <Profile updateProfile={this.updateProfile} {...this.props} />}
             </div>
         )
     }

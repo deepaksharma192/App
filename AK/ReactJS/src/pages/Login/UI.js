@@ -76,7 +76,7 @@ export default function UI(props) {
   const { isOtp,otp } = props;
 
   
-  console.log(otp)
+  console.log(props)
   function LoginUI() {
     return (
       <div className={classes.loginPopupContainer}>
@@ -107,8 +107,12 @@ export default function UI(props) {
                     helperText="10 digit Mobile number required"
                     inputRef={props.numRef}
                     fullWidth
+                    inputProps={{
+                      minLength:10,
+                      maxLength: 10,
+                    }}
                     onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
-                    onChange={props.inputchange}
+                    onChange={props.checkk}
                   />
 
                 </Grid>
@@ -155,7 +159,7 @@ export default function UI(props) {
                   margin="dense"
                   id="otp"
                   label="Enter the Otp"
-                  helperText="4 digit OTP required"
+                  helperText="Please enter the correct otp password."
                   type="text"
                   inputRef={props.otpRef}
                   fullWidth
@@ -163,6 +167,7 @@ export default function UI(props) {
                     maxLength: 4,
                   }}
                   onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
+                  onChange={props.otpChange}
                 />
 
                 </Grid>
