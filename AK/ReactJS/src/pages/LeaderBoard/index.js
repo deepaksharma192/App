@@ -120,14 +120,14 @@ function LeaderBoard(props){
             </Grid>
             <Grid item xs={8} xs-offset-2 alignContent='center'>
                 <Paper className={classes.paper_new} elevation={3} style={{marginTop:'5ch'}}>
-                <CanvasJSChart options = {options_1}/>
+                    <CanvasJSChart options = {options_1}/>
                 </Paper>
             </Grid>
             <Grid item xs={8} xs-offset-2 alignContent='center'>
                 <Paper className={classes.paper_new} elevation={3} style={{marginTop:'5ch'}}>
-                <Grid item xs={12}>
-                <CanvasJSChart options = {options}/>
-                </Grid>
+                  <Grid item xs={12}>
+                    <CanvasJSChart options = {options}/>
+                  </Grid>
                 </Paper>
             </Grid>
           </Grid>
