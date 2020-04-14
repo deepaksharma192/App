@@ -14,6 +14,8 @@ import Carausel from './Carousel';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Chip from '@material-ui/core/Chip';
+
+
 const useStyles = theme => ({
     root: {
         display: 'flex',
@@ -30,7 +32,7 @@ const useStyles = theme => ({
         color: 'rgba(255, 255, 255, 0.54)',
     },
     marg: {
-        margin: '10px auto'
+        margin: '30px auto'
     },
     topp: {
         margin: '20px auto'
@@ -102,15 +104,15 @@ class EnrolledCourse extends React.Component {
         if (this.props.course) {
             let courseData = this.props.course.subjects.map((v, i) => {
                 return (
-                    <Grid item xs={12} key={i}>
+                    <Grid item xs={12} key={i} className={classes.marg}>
                         <Typography variant="h5" align="left">{v.subject_name}</Typography>
-                        <Paper className={classes.paper} elevation={1}>
-                            <Grid container>
-                                <Grid item xs={12}>
-                                    <Carausel tile={v.courses} viewCourseById={this.viewCourseById} />
+                            <Paper className={classes.paper} elevation={1}>
+                                <Grid container>
+                                    <Grid item xs={12}>
+                                        <Carausel tile={v.courses} viewCourseById={this.viewCourseById} />
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Paper>
+                            </Paper>
                     </Grid>
                 )
             })
@@ -128,7 +130,7 @@ class EnrolledCourse extends React.Component {
             <div>
                 <Grid container className={classes.marg}>
                     <Grid item xs={10} md={10} className={classes.topp}>
-                        <Grid container  >
+                        <Grid container>
 
                             <Breadcrumbs aria-label="breadcrumb">
                                 <Link color="inherit" href="/" >
@@ -141,7 +143,7 @@ class EnrolledCourse extends React.Component {
                                 <Chip label="Dashboard" disabled />
                             </Breadcrumbs>
                         </Grid>
-                        <Grid container >
+                        <Grid container className={classes.marg}>
                             <Grid item xs={12} md={6} >
                                 <Grid container spacing={2}>
                                     {cardData.data.map(tile => (

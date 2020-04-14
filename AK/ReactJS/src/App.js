@@ -10,6 +10,10 @@ import Dashboard from "./pages/Dashboard";
 import CON from './constantant';
 import Profile from './pages/Profile';
 import Player from './pages/Player';
+import Customersupport from './pages/customerSupport';
+import Practicequiz from './pages/practiceQuiz';
+import Payment from './pages/payment';
+import Parentpassword from './pages/parentPassword';
 import UserProfile from './pages/UserProfile';
 
 class App extends Component {
@@ -62,6 +66,10 @@ class App extends Component {
               <Route key="Player" exact path="/player/:id" component={Player} />,
               <Route key="LeaderBoard" exact path="/leaderboard" component={LeaderBoard} />,
               <Route key="UserProfile" exact path="/UserProfile" component={UserProfile} />,
+              <Route key="Customersupport" exact path="/Customersupport" component={Customersupport} />,
+              <Route key="Practicequiz" exact path="/Practicequiz" component={Practicequiz} />,
+              <Route key="Payment" exact path="/Payment" component={Payment} />,
+              <Route key="Parentpassword" exact path="/Parentpassword" component={Parentpassword} />,
             ]}
             {!this.props.token && [
               <Route key="exact" exact path="/" component={Home} />,
