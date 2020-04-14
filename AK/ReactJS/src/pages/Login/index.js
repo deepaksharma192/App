@@ -9,15 +9,44 @@ class Login extends Component {
         super(props);
         this.state = { number: null, otp: null, isOtp: false, err: false };
         this.sendOtp = this.sendOtp.bind(this);
+        this.checkk = this.checkk.bind(this);
+        this.otpChange = this.otpChange.bind(this);
         this.verifyOtp = this.verifyOtp.bind(this)
         this.numRef = React.createRef(null);
         this.otpRef = React.createRef(null);
         this.vall = React.createRef(null);
+       console.log(this.props.checkk)
+    }
+
+    checkk(e){
+        
+        
+        let num = this.numRef.current;
+        
+        if(num.value.length === 0 || num.value.length === 10){
+            this.setState({
+                ...this.state,
+                err: false
+            }) 
+        }
+
+    }
+
+    otpChange(e){
+        let otp = this.otpRef.current;
+
+        if(otp.value.length === 0 || otp.value.length === 4){
+            this.setState({
+                ...this.state,
+                err: false
+            }) 
+        }
     }
     sendOtp(e) {
 
         e.preventDefault();
         let num = this.numRef.current;
+
         if (num.value.length < 10 || !num.value) {
             this.setState({
                 ...this.state,
@@ -79,13 +108,13 @@ class Login extends Component {
 
                     <Grid container>
                         <Grid item md={11}>
-                            <UI  {...this.props} sendOtp={this.sendOtp} verifyOtp={this.verifyOtp} numRef={this.numRef} otpRef={this.otpRef} isOtp={this.state.isOtp} err={this.state.err} />
+                            <UI  {...this.props} sendOtp={this.sendOtp} otpChange={this.otpChange} checkk={this.checkk} verifyOtp={this.verifyOtp} numRef={this.numRef} otpRef={this.otpRef} isOtp={this.state.isOtp} err={this.state.err} />
                         </Grid>
                         <Grid item md={1}>
                             <DialogActions>
                                 <Button onClick={this.props.handleClose} color="primary">
                                     X
-                        </Button>
+                                </Button>
 
                             </DialogActions>
                         </Grid>

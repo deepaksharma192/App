@@ -1,7 +1,7 @@
-import { login, veryfyOtp, homedata } from '../../modules/serverCall'
+import { login, veryfyOtp, testimonials } from '../../modules/serverCall'
 
-export const homepagedata = () => {
-  return homedata()
+export const testimonialsdata = () => {
+  return testimonials()
     .then(res => {
       return res.data
     })

@@ -37,7 +37,7 @@ const useStyles = theme => ({
 export class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { grade: "", firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: " " }
+        this.state = { grade: "", firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: " ",errors: [],err:true }
         this.FormSubmit = this.FormSubmit.bind(this);
         this.validate = this.validate.bind(this);
         this.onChanges = this.onChanges.bind(this)
@@ -73,31 +73,31 @@ export class Profile extends React.Component {
             lastName: this.lastNameRef.current.value
         })
     }
-    validate(name, email, password) {
+    validate(firstName, lastName, email, clas) {
         // we are going to store errors for all fields
         // in a signle array
         const errors = [];
-
-        if (name.length === 0) {
-            errors.push("Name can't be empty");
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        console.log(firstName.length, '++++++', lastName.length)
+        if (firstName.length === 1) {
+          errors.push("Please enter the firstname");
+        }
+        if (lastName.length === 1) {
+            errors.push("Please enter the lastname");
         }
 
-        if (email.length < 5) {
-            errors.push("Email should be at least 5 charcters long");
+        if (!clas) {
+          errors.push("Please select the grade");
         }
-        if (email.split("").filter(x => x === "@").length !== 1) {
-            errors.push("Email should contain a @");
+        if (!re.test(email) ) {
+            // this is a valid email address
+            // call setState({email: email}) to update the email
+            // or update the data in redux store.
+            errors.push("Enter a valid email address");
         }
-        if (email.indexOf(".") === -1) {
-            errors.push("Email should contain at least one dot");
-        }
-
-        if (password.length < 6) {
-            errors.push("Password should be at least 6 characters long");
-        }
-
+        
         return errors;
-    }
+      }
     FormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -107,9 +107,25 @@ export class Profile extends React.Component {
             lastName: this.lastNameRef.current.value,
             class: this.state.grade,
         };
-        updateUserDetail(form).then((res) => {
-            this.props.updateProfile(res)
-        })
+
+        const errors = this.validate(form.firstName, form.lastName, form.email, form.class);
+        
+        if(errors.length === 0){
+            this.setState({
+                err:false
+            })
+        }
+        if (errors.length > 0) {
+          this.setState({ errors });
+          return;
+        }
+        else
+        {
+            updateUserDetail(form).then((res) => {
+                this.props.updateProfile(res)
+            })
+        }
+
     }
     handleChange = event => {
         this.setState({
@@ -137,6 +153,9 @@ export class Profile extends React.Component {
 
                                 <Grid container justify="center">
                                     <Grid item xs={10}>
+                                    {this.state.err && this.state.errors.map(error => (
+                                    <Typography  align="center" color="error" key={error}>{error}</Typography>
+                                    ))}
                                         <form onSubmit={this.FormSubmit} ref={this.FormRef}>
                                             <Grid container>
                                                 <Grid item xs={12} className={classes.mar}>
@@ -212,7 +231,7 @@ export class Profile extends React.Component {
                                                 <Grid item xs={12} className={classes.mar}>
                                                     <Button type="submit" variant="contained" color="primary">
                                                         Save & Proceed
-                                                </Button>
+                                                    </Button>
                                                 </Grid>
                                             </Grid>
                                         </form>

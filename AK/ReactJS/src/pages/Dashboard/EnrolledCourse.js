@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Dashchart from './dashboart_chart';
+import Barchart from './Barchart';
 import Carausel from './Carousel';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
@@ -163,7 +163,7 @@ class EnrolledCourse extends React.Component {
                             <Grid item xs={12} md={6} >
                                 <Grid container>
                                     <Grid item xs={12} md={12} className={classes.marginn}>
-                                        <Dashchart />
+                                        <Barchart />
                                     </Grid>
                                 </Grid>
                             </Grid>

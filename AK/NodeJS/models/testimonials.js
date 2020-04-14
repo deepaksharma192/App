@@ -15,7 +15,7 @@ var Homepage  = mongoose.Schema({
     }
 });
 
-var Home = module.exports = mongoose.model('homepage', Homepage,'homepage');
+var Home = module.exports = mongoose.model('testimonials', Homepage,'testimonials');
 
 // These are functions to get data from the database. You can even reach the information
 // without calling this functions but I just want to show you how you can add some functions
