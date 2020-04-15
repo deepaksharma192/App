@@ -37,7 +37,9 @@ export default function Tabss(props) {
   const handleChange = (event, newValue) => {
     console.log(event)
     setValue(newValue);
-    props.updaateBookmark('TAB', newValue);
+    props.updaateBookmark('TAB', newValue).then(res=>{
+    
+    });;
   };
   return (
     <Paper square>
@@ -49,7 +51,6 @@ export default function Tabss(props) {
         aria-label="disabled tabs example"
       >
         {props.state.width < 959 && <Tab label="Menu" value="one" />}
-
         <Tab label="Overview" value="two" />
         <Tab label="Announcement" value="three" />
         <Tab label="Video Note" value="four" />

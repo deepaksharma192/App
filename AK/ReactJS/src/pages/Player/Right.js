@@ -25,58 +25,59 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'inherit',
     padding: 0,
   },
-  Active:{
-    backgroundColor:"#0ec1ff"
+  Active: {
+    backgroundColor: "#0ec1ff"
   },
-  bars:{
-    width:"100px"
+  bars: {
+    width: "100px"
   },
-  nxt:{
-    marginRight:'25px'
+  nxt: {
+    marginRight: '25px'
   },
-  size:{
-  width:'99px',
-  height:'53px'  
+  size: {
+    width: '99px',
+    height: '53px'
   }
 }));
 
 export default function Right(props) {
   const classes = useStyles();
-  let videoTime = props.bookmark.videoTime?props.bookmark.videoTime:{};
-  function getPer(v,total){
-    let  p = parseInt(v) * 100/total;
-    if(p){
-       return p;
-    }else{
+  let videoTime = props.bookmark.videoTime ? props.bookmark.videoTime : {};
+  function getPer(v, total) {
+    let time = v?.time ? v.time : 0;
+    let p = parseInt(time) * 100 / total;
+    if (p) {
+      return p;
+    } else {
       return 0;
     }
-   
+
   }
   return (
     <Paper elevation={3}>
-    
-    <List className={classes.root} subheader={<li />} style={{ marginLeft: 0, marginRight: 0,  borderRight: 1, borderTop: 1 }}>
-    <Scrollbars style={{ height: 400 }}>
-      {props.courseById.topics.map((v, k) => (
-        <li key={`section-${v.title}`} className={classes.listSection}>
-          <ul className={classes.ul}>
-            <ListSubheader className={(props.currentTopic === v._id?classes.Active:"")} style={{ background: "#626CCF",color:'#fff' }}>{`${v.title}`}</ListSubheader>
-            {v.sub_topics.map((item, ke) => (
-              <ListItem className={(props.currentVideo === item._id?classes.Active:"")} key={`item-${v.title}-${item.title}`} onClick={()=>{props.selectVideo(item,getPer(videoTime[item._id + "__" +  item.topic_id], item.duration))}} button>
-                <List className={classes.nxt}>
-                <ListItemIcon>
-                <Avatar variant="square" className={classes.size} alt="Remy Sharp" src={item.img} />
-                </ListItemIcon>
-                <LinearProgress className={classes.bars} variant="determinate" value={getPer(videoTime[item._id + "__" +  item.topic_id], item.duration)} color="secondary" />
-                </List>
-                <ListItemText primary={item.title} />
-              </ListItem>
-            ))}
-          </ul>
-        </li>
-      ))}
-       </Scrollbars>
-    </List>
+
+      <List className={classes.root} subheader={<li />} style={{ marginLeft: 0, marginRight: 0, borderRight: 1, borderTop: 1 }}>
+        <Scrollbars style={{ height: 400 }}>
+          {props.courseById.topics.map((v, k) => (
+            <li key={`section-${v.title}-${k}`} className={classes.listSection}>
+              <ul className={classes.ul}>
+                <ListSubheader className={(props.currentTopic === v._id ? classes.Active : "")} style={{ background: "#626CCF", color: '#fff' }}>{`${v.title}`}</ListSubheader>
+                {v.sub_topics.map((item, ke) => (
+                  <ListItem className={(props.currentVideo === item._id ? classes.Active : "")} key={`item-${v.title}-${item.title}-${ke}`} onClick={() => { props.selectVideo(item, getPer(videoTime[item._id + "__" + item.topic_id], item.duration)) }} button>
+                    <List className={classes.nxt}>
+                      <ListItemIcon>
+                        <Avatar variant="square" className={classes.size} alt="Remy Sharp" src={item.img} />
+                      </ListItemIcon>
+                      <LinearProgress className={classes.bars} variant="determinate" value={getPer(videoTime[item._id + "__" + item.topic_id], item.duration)} color="secondary" />
+                    </List>
+                    <ListItemText primary={item.title} />
+                  </ListItem>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </Scrollbars>
+      </List>
     </Paper>
   );
 }

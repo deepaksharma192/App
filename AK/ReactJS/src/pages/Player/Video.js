@@ -7,25 +7,33 @@ class Video extends Component {
   setinter = 0
   constructor(props) {
     super(props);
-    this.state = { interval: true };
+    this.state = { interval: true, startTime: 0 };
+    this.endVideo = this.endVideo.bind(this)
+    this.onTimeUpdate = this.onTimeUpdate.bind(this)
   }
   componentDidMount() {
-    this.setinter = setInterval(() => {
-      if (this.props.currentVideo) {
-        let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;
-        const { player } = this.player.getState();
-        if (!player.paused) {
-          //let spendTime = this.props.bookmark.videoTime[keys];
-          this.props.updaateBookmark('VIDEO_TIME', { ctime: player.currentTime, vid: keys });
-        }
-      }
-    }, 1000)
-  }
-  componentWillUnmount() {
-    clearInterval(this.setinter)
   }
   componentDidUpdate(prevProps, prevState) {
+  }
+  endVideo(e) {
+    let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;
+    this.props.updaateBookmark('VIDEO_COMPLETE', { complete: true, vid: keys }).then(res => {
+      this.props.endVideoUpdate();
+      this.props.endVideoUpdate();
+      setTimeout(() => {
+        this.props.endVideoUpdate();
+      }, 1000);
+    });
 
+  }
+  onTimeUpdate(e) {
+    let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;
+    const { player } = this.player.getState();
+    if (!player.paused) {
+      this.props.updaateBookmark('VIDEO_TIME', { ctime: player.currentTime, vid: keys }).then(res => {
+        this.props.endVideoUpdate();
+      });;
+    }
   }
   render() {
     return (
@@ -33,6 +41,8 @@ class Video extends Component {
         <CssBaseline />
         <Container fixed>
           <Player
+            onEnded={this.endVideo}
+            onTimeUpdate={this.onTimeUpdate}
             seek={10}
             poster={this.props.currentVideo.img}
             startTime={parseInt(this.props.currentVideo.startTime)}
