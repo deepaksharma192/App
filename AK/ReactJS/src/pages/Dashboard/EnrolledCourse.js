@@ -44,7 +44,7 @@ const useStyles = theme => ({
 
     paper: {
         marginTop: '1ch',
-        padding: theme.spacing(1),
+        padding: theme.spacing(0),
         textAlign: 'center',
         color: theme.palette.text.secondary,
     },
@@ -106,13 +106,17 @@ class EnrolledCourse extends React.Component {
                 return (
                     <Grid item xs={12} key={i} className={classes.marg}>
                         <Typography variant="h5" align="left">{v.subject_name}</Typography>
-                            <Paper className={classes.paper} elevation={1}>
-                                <Grid container>
-                                    <Grid item xs={12}>
-                                        <Carausel tile={v.courses} viewCourseById={this.viewCourseById} />
-                                    </Grid>
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper} elevation={1}>
+                                        <Grid container>
+                                            <Grid xs={12}>
+                                            <Carausel tile={v.courses} viewCourseById={this.viewCourseById} />
+                                            </Grid>
+                                        </Grid>
+                                    </Paper>
                                 </Grid>
-                            </Paper>
+                            </Grid>
                     </Grid>
                 )
             })
@@ -171,7 +175,7 @@ class EnrolledCourse extends React.Component {
                             </Grid>
                         </Grid>
 
-                        <Grid container spacing={3}>
+                        <Grid container spacing={1}>
                             {this.state.courseList}
                         </Grid>
                     </Grid>
