@@ -7,25 +7,28 @@ class Player extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {socket:null, uiShow: false, width: 0, height: 0 };
+        this.state = { socket: null, uiShow: false, width: 0, height: 0 };
         this.updaateBookmark = this.updaateBookmark.bind(this);
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.endVideoUpdate = this.endVideoUpdate.bind(this);
 
     }
     componentDidMount() {
         let socket = io('http://localhost:3002/chat')
         this.setState({
-            socket:socket
+            socket: socket
         })
-       
+
         socket.on('hi', function (data) {
         });
     }
-    componentDidUpdate(){
-         if(this.state.uiShow && this.props.bookmark){
-          this.state.socket.emit("data", this.props.bookmark);  
+    componentDidUpdate() {
+        this.endVideoUpdate();
+    }
+    endVideoUpdate() {
+        if (this.state.uiShow && this.props.bookmark) {
+            this.state.socket.emit("data", this.props.bookmark);
         }
-        
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
@@ -55,26 +58,31 @@ class Player extends React.Component {
                         videoTime: {},
                         currentTab: "0"
                     }
-                    bookmark.videoTime[res.topics[0].sub_topics[0]._id+"__"+res.topics[0]._id]="0";
-                    this.updaateBookmark("NEW_BOOKMARK", bookmark);
+                    bookmark.videoTime[res.topics[0].sub_topics[0]._id + "__" + res.topics[0]._id] = { time: 0, complete: false };
+                    this.updaateBookmark("NEW_BOOKMARK", bookmark).then(res => {
+
+                    });;
                     this.setState({
                         ...this.state,
                         uiShow: true
                     })
                 }
             })
-        }) 
+        })
 
-        this.props.getVideoNoteByids(id).then(res=>{
-                console.log(res)
-        }) 
-        this.props.getAnnouncementByids(this.props.courseById.ctype).then(res=>{
+        this.props.getVideoNoteByids(id).then(res => {
             console.log(res)
-         }) 
+        })
+        this.props.getAnnouncementByids(this.props.courseById.ctype).then(res => {
+            console.log(res)
+        })
     }
 
     updaateBookmark(key, form) {
-        this.props.updaateBookmarksToStore(key, form).then((res) => {
+        return new Promise((resolve, reject) => {
+            this.props.updaateBookmarksToStore(key, form).then((res) => {
+                resolve(res)
+            })
         })
     }
 
@@ -82,7 +90,7 @@ class Player extends React.Component {
     render() {
         return (
             <div>
-                {this.state.uiShow && <UI {...this.props} state={this.state} updaateBookmark={this.updaateBookmark} />}
+                {this.state.uiShow && <UI {...this.props} endVideoUpdate={this.endVideoUpdate} state={this.state} updaateBookmark={this.updaateBookmark} />}
             </div>
         )
     }

@@ -60,7 +60,7 @@ export class Carousel extends Component {
                                 </Button> */}
                             </div>
                             <Typography>
-                                {v_.ctype}
+                                {v_.title}
                             </Typography>
                             </div>
                         )}
