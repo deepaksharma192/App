@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import { Scrollbars } from 'react-custom-scrollbars';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,6 +72,7 @@ export default function Right(props) {
                       <LinearProgress className={classes.bars} variant="determinate" value={getPer(videoTime[item._id + "__" + item.topic_id], item.duration)} color="secondary" />
                     </List>
                     <ListItemText primary={item.title} />
+                   {videoTime[item._id + "__" + item.topic_id]?.complete && <CheckCircleIcon color="primary"/>} 
                   </ListItem>
                 ))}
               </ul>
