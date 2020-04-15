@@ -15,18 +15,17 @@ class UI extends React.Component {
         this.showComment = this.showComment.bind(this);
         this.hideComment = this.hideComment.bind(this);
         this.AddCommentFun = this.AddCommentFun.bind(this);
-    this.commentRef = React.createRef("")
+        this.commentRef = React.createRef("")
     }
     componentDidMount() {
         let { currentTopic, currentVideo } = this.props.bookmark;
         if (currentTopic) {
-        console.log(this.props.courseById)
             this.props.courseById.topics.forEach((v, i) => {
                 if (currentTopic === v._id) {
                     v['sub_topics'].forEach((v1) => {
                         if (currentVideo === v1._id) {
                             let keys = v1._id + "__" + v1.topic_id;
-                            v1["startTime"] = this.props.bookmark.videoTime[keys];
+                            v1["startTime"] = this.props.bookmark.videoTime[keys].time;
                             this.setState({
                                 currentVideo: v1
                             })
@@ -37,7 +36,7 @@ class UI extends React.Component {
         } else {
             let obj1 = this.props.courseById.topics[0]['sub_topics'][0];
             let keys = obj1._id + "__" + obj1.topic_id;
-            obj1["startTime"] = this.props.bookmark.videoTime[keys];
+            obj1["startTime"] = this.props.bookmark.videoTime[keys].time;
             this.setState({
                 currentVideo: obj1
             })
@@ -46,43 +45,48 @@ class UI extends React.Component {
     }
     selectVideo(v, c) {
         let keys = v._id + "__" + v.topic_id;
-        v["startTime"] = this.props.bookmark.videoTime[keys];
+        if (this.props.bookmark.videoTime.hasOwnProperty(keys)) {
+            v["startTime"] = this.props.bookmark.videoTime[keys].time;
+        } else {
+            v["startTime"] = 0;
+        }
         this.setState({
             currentVideo: v
         }, () => {
-            this.props.updaateBookmark('TOPIC_VIDEO', v);
+            this.props.updaateBookmark('TOPIC_VIDEO', v).then(res => {
+            });;
         })
     }
-    showComment(){
+    showComment() {
         this.setState({
             ...this.state,
-            isAddcomment:true
+            isAddcomment: true
         })
     }
-    hideComment(){
+    hideComment() {
         this.setState({
             ...this.state,
-            isAddcomment:false
+            isAddcomment: false
         })
     }
-    AddCommentFun(v){
-        if(this.commentRef.current.value){
-          let currentVideo =  this.state.currentVideo;
-          let keys = currentVideo._id + "__" + currentVideo.topic_id;
-            let data ={
+    AddCommentFun(v) {
+        if (this.commentRef.current.value) {
+            let currentVideo = this.state.currentVideo;
+            let keys = currentVideo._id + "__" + currentVideo.topic_id;
+            let data = {
                 "cid": this.props.courseById._id,
                 "note": this.commentRef.current.value,
                 "time": this.props.bookmark.videoTime[keys],
                 "v_tid": keys
             }
-            this.props.createVideoNotes(data).then(res=>{
+            this.props.createVideoNotes(data).then(res => {
                 this.setState({
                     ...this.state,
-                    isAddcomment:false
+                    isAddcomment: false
                 })
             })
-        }else{
-            this.commentRef.current.focus() 
+        } else {
+            this.commentRef.current.focus()
         }
 
     }
@@ -96,7 +100,7 @@ class UI extends React.Component {
                         <Fab onClick={this.showComment} size="small" color="primary" aria-label="add" >
                             <CommentIcon />
                         </Fab>
-                        {this.state.isAddcomment && <AddComment commentRef={this.commentRef} hideComment={this.hideComment} AddCommentFun={this.AddCommentFun}/>}
+                        {this.state.isAddcomment && <AddComment commentRef={this.commentRef} hideComment={this.hideComment} AddCommentFun={this.AddCommentFun} />}
                     </Grid>
                     {this.props.state.width > 959 &&
                         <Grid item xs={12} sm={12} md={3} lg={3} style={{ paddingTop: 20, background: "#fff" }}>
