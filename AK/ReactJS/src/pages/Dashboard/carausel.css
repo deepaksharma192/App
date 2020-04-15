@@ -1,0 +1,63 @@
+
+.playbutton{
+    width: 100px !important;
+    height: 100px !important;
+    margin-top: 53px;
+    cursor: pointer;
+
+}
+
+@media only screen and (max-width: 972px) {
+    .widd {
+        width: 600px !important;
+        transform: scaleY(0.8);
+    }
+  }
+
+  @media only screen and (max-width: 739px) {
+    .widd {
+        width: 512px !important;
+        transform: scaleY(0.8);
+    }
+  }
+
+  @media only screen and (max-width: 620px) {
+    .widd {
+        width: 461px !important;
+        transform: scaleY(0.8);
+    }
+  }
+
+  @media only screen and (max-width: 566px) {
+    .widd {
+        width: 414px !important;
+        transform: scaleY(0.8);
+    }
+    .playbutton{
+    
+        width:50px !important;
+        height: 50px !important;
+        margin-top: 71px;
+    }
+}
+
+  @media only screen and (max-width: 510px) {
+    .widd {
+        width: 383px !important;
+        transform: scaleY(0.8);
+    }
+  }
+
+@media only screen and (max-width: 414px) {
+    .widd {
+        width: 330px !important;
+        transform: scaleY(0.6);
+    }
+  }
+
+@media only screen and (max-width: 375px) {
+    .widd {
+        width: 308px !important;
+        transform: scaleY(0.7);
+    }
+  }
