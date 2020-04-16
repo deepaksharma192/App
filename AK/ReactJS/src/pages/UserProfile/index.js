@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Headers from '../../../src/HOC/Headers';
+import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Chip from '@material-ui/core/Chip';
@@ -18,6 +19,8 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import EditIcon from '@material-ui/icons/Edit';
+import { updateUserDetail } from '../../redux/action/userDetailsAction';
+
 const useStyles = theme => ({
     root: {
         flexGrow: 1,
@@ -46,11 +49,10 @@ const useStyles = theme => ({
 class UserProfile extends Component {
     constructor(props){
         super(props)
-        this.state={showw:false,schoolname:"",schooladdress:"",AddressFirst:"",AddressSecond:"",Hobby:"",text:"",schoolname:'',grade: "",number:'', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "",value:null,read:true,statement:'You can edit this'}
+        this.state={ showw:false, schoolname:"",schooladdress:"",AddressFirst:"",AddressSecond:"",Hobby:"",text:"",grade: "",number:'', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "",vall:null,read:true, statement:'You can edit this'}
         this.handleChange  = this.handleChange.bind(this)
         this.Edit  = this.Edit.bind(this)
         this.FormSubmit = this.FormSubmit.bind(this);
-        this.validate = this.validate.bind(this);
         this.onChanges = this.onChanges.bind(this)
         this.FormRef = React.createRef();
         this.schoolname = React.createRef();
@@ -66,7 +68,7 @@ class UserProfile extends Component {
     }
 
     async  componentDidMount() {
-        console.log(await this.props.getUserDetail());
+        await this.props.getUserDetail();
         await this.props.getAllClasses().then(res => {
         });
         this.updateAllfField();
@@ -100,75 +102,50 @@ class UserProfile extends Component {
             state: this.state.current.value,
             zip: this.zip.current.value,
             text: this.text.current.value
+            
         })
     }
-    validate(firstName, lastName, email, clas) {
-        // we are going to store errors for all fields
-        // in a signle array
-        const errors = [];
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        console.log(firstName.length, '++++++', lastName.length)
-        if (firstName.length === 1) {
-          errors.push("Please enter the firstname");
-        }
-        if (lastName.length === 1) {
-            errors.push("Please enter the lastname");
-        }
 
-        if (!clas) {
-          errors.push("Please select the grade");
-        }
-        if (!re.test(email) ) {
-            // this is a valid email address
-            // call setState({email: email}) to update the email
-            // or update the data in redux store.
-            errors.push("Enter a valid email address");
-        }
-        
-        return errors;
-      }
 
     FormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
         const form = {
-            email: this.emailRef.current.value,
-            firstName: this.firstNameRef.current.value,
-            lastName: this.lastNameRef.current.value,
-            class: this.state.grade,
+            schoolname: this.schoolname.current.value,
+            schooladdress: this.schooladdress.current.value,
+            AddressFirst: this.AddLinefirst.current.value,
+            AddressSecond: this.AddLinesecond.current.value,
+            Hobby: this.Hobbies.current.value,
+            city: this.City.current.value,
+            state: this.state.current.value,
+            zip: this.zip.current.value,
+            text: this.text.current.value
         };
 
-        const errors = this.validate(form.firstName, form.lastName, form.email, form.class);
-        
-        if(errors.length === 0){
-            this.setState({
-                err:false
-            })
-        }
-        if (errors.length > 0) {
-          this.setState({ errors });
-          return;
-        }
-        else
-        {
-            updateUserDetail(form).then((res) => {
-                this.props.updateProfile(res)
-            })
-        }
+        updateUserDetail(form).then((res) => {
+            this.props.updateProfile(res)
+        })
 
     }
 
-    Edit(e){
-        this.setState({
+    async Edit(e){
+
+        console.log(this.props.user.status)
+        await this.setState({
+            ...this.state,
             read:false,
-            showw:true
+            showw:true,
+            city:'',
+            state:'',
+            zip:''
         })
+        console.log(this.state.showw)
 
     }
 
     handleChange(e){
         this.setState({
-            value:e.target.value
+            vall:e.target.value
         })
     }
     render(){
@@ -231,6 +208,7 @@ class UserProfile extends Component {
                             <Grid item xs={12} className={classes.adjust}>
                                 <Grid container>
                                     <Grid item xs={12} md={12}>
+                                    {!this.state.showw ? <Typography align='left' color="primary">{this.state.statement}</Typography> : ''}
                                     <form onSubmit={this.FormSubmit} ref={this.FormRef}>
                                         <Grid container>
                                             <Grid item xs={12} md={5} className={classes.mar}>
@@ -286,7 +264,7 @@ class UserProfile extends Component {
 
                                             </Grid>
                                             <Grid item xs={12} md={5} className={classes.mar}>
-                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
+                                           
                                                 <TextField
                                                     id="SchoolName"
                                                     defaultValue="School Name"
@@ -296,6 +274,7 @@ class UserProfile extends Component {
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
@@ -311,6 +290,7 @@ class UserProfile extends Component {
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
@@ -325,6 +305,7 @@ class UserProfile extends Component {
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
@@ -340,6 +321,7 @@ class UserProfile extends Component {
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
@@ -347,7 +329,7 @@ class UserProfile extends Component {
                                             {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="City"
-                                                    defaultValue="City"
+                                                    
                                                     inputRef={this.City} 
                                                     value={this.state.city}
                                                     InputProps={{
@@ -355,6 +337,7 @@ class UserProfile extends Component {
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
@@ -371,6 +354,7 @@ class UserProfile extends Component {
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
@@ -386,6 +370,7 @@ class UserProfile extends Component {
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
@@ -402,6 +387,7 @@ class UserProfile extends Component {
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
@@ -427,7 +413,7 @@ class UserProfile extends Component {
 
                                                 <FormControl component="fieldset">
                                                     <FormLabel component="legend">Gender</FormLabel>
-                                                    <RadioGroup style={{display:'inline-block'}} aria-label="gender" name="gender1" value={this.state.value} onChange={this.handleChange}>
+                                                    <RadioGroup style={{display:'inline-block'}} aria-label="gender" name="gender1" value={this.state.vall} onChange={this.handleChange}>
                                                         <FormControlLabel value="female" control={<Radio />} label="Female" />
                                                         <FormControlLabel value="male" control={<Radio />} label="Male" />
                                                     </RadioGroup>
