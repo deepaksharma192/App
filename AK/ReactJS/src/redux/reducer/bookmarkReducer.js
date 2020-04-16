@@ -7,6 +7,7 @@ import {
   VIDEO_TIME,
   TAB,
   NEW_BOOKMARK,
+  VIDEO_COMPLETE
 } from '../action/bookmarkAction'
 
 const initialState = {
@@ -47,7 +48,11 @@ export default (state = initialState, action) => {
     case VIDEO_TIME:
       let data = action.payload;
       let videoTime = state.bookmark_data.videoTime;
-      videoTime[data.vid] = data.ctime;
+      if (videoTime.hasOwnProperty(data.vid)) {
+        videoTime[data.vid] = { ...videoTime[data.vid], time: data.ctime };
+      } else {
+        videoTime[data.vid] = { time: 0, complete: false }
+      }
       let tepObj2 = {
         ...state.bookmark_data,
         videoTime: videoTime
@@ -55,6 +60,23 @@ export default (state = initialState, action) => {
       return {
         ...state,
         bookmark_data: tepObj2,
+        loading: false
+      }
+    case VIDEO_COMPLETE:
+      let data1 = action.payload;
+      let videoTime1 = state.bookmark_data.videoTime;
+      if (videoTime1.hasOwnProperty(data1.vid)) {
+        videoTime1[data1.vid] = { ...videoTime1[data1.vid], complete: data1.complete };
+      } else {
+        videoTime1[data1.vid] = { time: 0, complete: false }
+      }
+      let tepObj5 = {
+        ...state.bookmark_data,
+        videoTime: videoTime1
+      }
+      return {
+        ...state,
+        bookmark_data: tepObj5,
         loading: false
       }
     case TAB:
@@ -67,12 +89,12 @@ export default (state = initialState, action) => {
         bookmark_data: tepObj3,
         loading: false
       }
-      case NEW_BOOKMARK:
-        return {
-          ...state,
-          bookmark_data: action.payload,
-          loading: false
-        }
+    case NEW_BOOKMARK:
+      return {
+        ...state,
+        bookmark_data: action.payload,
+        loading: false
+      }
     case FAIL:
       return {
         ...state,
@@ -82,5 +104,5 @@ export default (state = initialState, action) => {
     default:
       return state
   }
-  
+
 }

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import ItemsCarousel from 'react-items-carousel';
-import Button from '@material-ui/core/Button';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import './carausel.css'
 const useStyles = theme => ({
 
@@ -41,8 +40,8 @@ export class Carousel extends Component {
                         firstAndLastGutter={false}
                         activeItemIndex={this.state.activeItemIndex}
                         requestToChangeActive={value => this.setState({ activeItemIndex: value })}
-                        rightChevron={<img className={classes.siz} src={process.env.PUBLIC_URL + 'assets/images/right_arr.png'} />}
-                        leftChevron={<img className={classes.siz} src={process.env.PUBLIC_URL + 'assets/images/left_arr.png'} />}
+                        rightChevron={<img alt="" className={classes.siz} src={process.env.PUBLIC_URL + 'assets/images/right_arr.png'} />}
+                        leftChevron={<img alt="" className={classes.siz} src={process.env.PUBLIC_URL + 'assets/images/left_arr.png'} />}
                     >
                         {this.props.tile.map((v_, i) =>
                         <div key={i}>
@@ -60,7 +59,7 @@ export class Carousel extends Component {
                                 </Button> */}
                             </div>
                             <Typography>
-                                {v_.ctype}
+                                {v_.title}
                             </Typography>
                             </div>
                         )}

@@ -9,6 +9,7 @@ export const TOPIC_VIDEO = 'TOPIC_VIDEO'
 export const VIDEO_TIME = 'VIDEO_TIME'
 export const TAB = 'TAB'
 export const NEW_BOOKMARK = 'NEW_BOOKMARK'
+export const VIDEO_COMPLETE = 'VIDEO_COMPLETE'
 
 export const getBookmarkByIds = (id) => (dispatch) => {
     return new Promise((resolve, reject) => {
@@ -19,7 +20,7 @@ export const getBookmarkByIds = (id) => (dispatch) => {
                 type: SUCCESS,
                 payload: data[0]
             })
-            resolve({data,uid});
+            resolve({ data, uid });
         }).catch((err) => {
             dispatch({
                 type: FAIL,
