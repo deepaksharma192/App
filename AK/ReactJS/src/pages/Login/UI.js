@@ -99,7 +99,7 @@ export default function UI(props) {
                     error={props.err}
                     autoFocus
                     required
-                    inputProps={{min: 0, style: { textAlign: 'center' }}}
+                    inputProps={{ minLength:10,maxLength: 10,min: 0, style: { textAlign: 'center' }}}
                     margin="dense"
                     id="number"
                     label="Enter Your Mobile Number"
@@ -107,10 +107,6 @@ export default function UI(props) {
                     helperText="10 digit Mobile number required"
                     inputRef={props.numRef}
                     fullWidth
-                    inputProps={{
-                      minLength:10,
-                      maxLength: 10,
-                    }}
                     onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') }}
                     onChange={props.checkk}
                   />
