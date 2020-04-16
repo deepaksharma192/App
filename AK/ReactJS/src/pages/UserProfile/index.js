@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Headers from '../../../src/HOC/Headers';
+import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Chip from '@material-ui/core/Chip';
@@ -15,6 +16,10 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+import EditIcon from '@material-ui/icons/Edit';
+import { updateUserDetail } from '../../redux/action/userDetailsAction';
 
 const useStyles = theme => ({
     root: {
@@ -36,17 +41,34 @@ const useStyles = theme => ({
     },
     iconleft: {
         textAlign: 'left'
+    },
+    edit:{
+        marginTop: '43px'
     }
 });
 class UserProfile extends Component {
     constructor(props){
         super(props)
-        this.state={grade: "",number:'', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "",value:null}
+        this.state={ showw:false, schoolname:"",schooladdress:"",AddressFirst:"",AddressSecond:"",Hobby:"",text:"",grade: "",number:'', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "",vall:null,read:true, statement:'You can edit this'}
         this.handleChange  = this.handleChange.bind(this)
+        this.Edit  = this.Edit.bind(this)
+        this.FormSubmit = this.FormSubmit.bind(this);
+        this.onChanges = this.onChanges.bind(this)
+        this.FormRef = React.createRef();
+        this.schoolname = React.createRef();
+        this.schooladdress = React.createRef();
+        this.AddLinefirst = React.createRef();
+        this.AddLinesecond = React.createRef();
+        this.City = React.createRef();
+        this.state = React.createRef();
+        this.Hobbies = React.createRef();
+        this.zip = React.createRef();
+        this.text = React.createRef();
+       
     }
 
     async  componentDidMount() {
-        console.log(await this.props.getUserDetail());
+        await this.props.getUserDetail();
         await this.props.getAllClasses().then(res => {
         });
         this.updateAllfField();
@@ -69,9 +91,61 @@ class UserProfile extends Component {
         }
     }
 
+    onChanges(e) {
+        this.setState({
+            schoolname: this.schoolname.current.value,
+            schooladdress: this.schooladdress.current.value,
+            AddressFirst: this.AddLinefirst.current.value,
+            AddressSecond: this.AddLinesecond.current.value,
+            Hobby: this.Hobbies.current.value,
+            city: this.City.current.value,
+            state: this.state.current.value,
+            zip: this.zip.current.value,
+            text: this.text.current.value
+            
+        })
+    }
+
+
+    FormSubmit(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const form = {
+            schoolname: this.schoolname.current.value,
+            schooladdress: this.schooladdress.current.value,
+            AddressFirst: this.AddLinefirst.current.value,
+            AddressSecond: this.AddLinesecond.current.value,
+            Hobby: this.Hobbies.current.value,
+            city: this.City.current.value,
+            state: this.state.current.value,
+            zip: this.zip.current.value,
+            text: this.text.current.value
+        };
+
+        updateUserDetail(form).then((res) => {
+            this.props.updateProfile(res)
+        })
+
+    }
+
+    async Edit(e){
+
+        console.log(this.props.user.status)
+        await this.setState({
+            ...this.state,
+            read:false,
+            showw:true,
+            city:'',
+            state:'',
+            zip:''
+        })
+        console.log(this.state.showw)
+
+    }
+
     handleChange(e){
         this.setState({
-            value:e.target.value
+            vall:e.target.value
         })
     }
     render(){
@@ -100,28 +174,42 @@ class UserProfile extends Component {
                     </Grid>
                     <Grid item xs={12} md={8}>
                         <Grid container>
-                            <Grid item xs={12} className={classes.iconleft}>
+                            <Grid item xs={12}>
+                                <Grid container>
+                                    <Grid item xs={12} md={10} className={classes.iconleft}>
+                                        <IconButton>
+                                            <Avatar
+                                                src={process.env.PUBLIC_URL + 'assets/images/applogo/logo.png'}
+                                                style={{
+                                                    margin: "10px",
+                                                    width: "100px",
+                                                    height: "100px",
+                                                    borderRadius: '50%',
 
-                                <IconButton>
-                                    <Avatar
-                                        src={process.env.PUBLIC_URL + 'assets/images/applogo/logo.png'}
-                                        style={{
-                                            margin: "10px",
-                                            width: "100px",
-                                            height: "100px",
-                                            borderRadius: '50%',
-
-                                        }}
-                                    />
-                                </IconButton>
-
+                                                }}
+                                            />
+                                        </IconButton>
+                                    </Grid>
+                                    <Grid item xs={12} md={2}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.edit}
+                                        startIcon={<EditIcon />}
+                                        onClick={this.Edit}
+                                    >
+                                        Edit
+                                    </Button>
+                                    </Grid>
+                                </Grid>     
 
 
                             </Grid>
                             <Grid item xs={12} className={classes.adjust}>
                                 <Grid container>
                                     <Grid item xs={12} md={12}>
-                                    <form>
+                                    {!this.state.showw ? <Typography align='left' color="primary">{this.state.statement}</Typography> : ''}
+                                    <form onSubmit={this.FormSubmit} ref={this.FormRef}>
                                         <Grid container>
                                             <Grid item xs={12} md={5} className={classes.mar}>
                                                 <TextField
@@ -176,117 +264,143 @@ class UserProfile extends Component {
 
                                             </Grid>
                                             <Grid item xs={12} md={5} className={classes.mar}>
+                                           
                                                 <TextField
                                                     id="SchoolName"
                                                     defaultValue="School Name"
+                                                    inputRef={this.schoolname} 
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly:this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
                                             <Grid item xs={12} md={2}></Grid>
                                             <Grid item xs={12} md={5} className={classes.mar}>
+                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="Schooladdress"
                                                     defaultValue="School Address"
+                                                    inputRef={this.schooladdress} 
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly: this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
                                             <Grid item xs={12} md={5} className={classes.mar}>
+                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="Address"
                                                     defaultValue="Address line 1"
+                                                    inputRef={this.AddLinefirst} 
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly:this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
                                             <Grid item xs={12} md={2}></Grid>
                                             <Grid item xs={12} md={5}  className={classes.mar}>
+                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="Address"
                                                     defaultValue="Address line 2"
+                                                    inputRef={this.AddLinesecond} 
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly: this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
                                             <Grid item xs={12} md={5}  className={classes.mar}>
+                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="City"
-                                                    defaultValue="City"
+                                                    
+                                                    inputRef={this.City} 
                                                     value={this.state.city}
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly: this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
                                             <Grid item xs={12} md={2}></Grid>
                                             <Grid item xs={12} md={5} className={classes.mar}>
+                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="State"
                                                     defaultValue="State"
+                                                    inputRef={this.state} 
                                                     value={this.state.state}
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly: this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
                                             
                                             <Grid item xs={12} md={5} className={classes.mar}>
+                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="Hobbies"
                                                     defaultValue="Hobbies"
+                                                    inputRef={this.Hobbies} 
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly: this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
                                             <Grid item xs={12} md={2}></Grid>
                                             <Grid item xs={12} md={5} className={classes.mar}>
+                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="zip"
                                                     defaultValue="Pin Code"
                                                     value={this.state.zip}
+                                                    inputRef={this.zip} 
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly: this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
+                                                    onChange={this.onChanges}
                                                 />
 
                                             </Grid>
                                             <Grid item xs={12} md={5} className={classes.mar}>
+                                            {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
                                                 <TextField
                                                     id="Aspiration"
                                                     defaultValue="What you like to become"
                                                     multiline
                                                     rows={4}
+                                                    inputRef={this.text}
                                                     InputProps={{
-                                                        readOnly: true,
+                                                        readOnly: this.state.read,
                                                     }}
                                                     fullWidth
                                                     variant="filled"
@@ -299,7 +413,7 @@ class UserProfile extends Component {
 
                                                 <FormControl component="fieldset">
                                                     <FormLabel component="legend">Gender</FormLabel>
-                                                    <RadioGroup style={{display:'inline-block'}} aria-label="gender" name="gender1" value={this.state.value} onChange={this.handleChange}>
+                                                    <RadioGroup style={{display:'inline-block'}} aria-label="gender" name="gender1" value={this.state.vall} onChange={this.handleChange}>
                                                         <FormControlLabel value="female" control={<Radio />} label="Female" />
                                                         <FormControlLabel value="male" control={<Radio />} label="Male" />
                                                     </RadioGroup>

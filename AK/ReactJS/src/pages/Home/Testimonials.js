@@ -64,14 +64,14 @@ const useStyles = theme => ({
 class Testimonials extends Component {
     constructor(props){
         super(props);
-        this.state={}
+        this.state={   
+            display: true,
+            width: 530,
+            margin:'0 auto',
+            data:[]
+        }
     }
-  state = {
-    display: true,
-    width: 530,
-    margin:'0 auto',
-    data:[]
-  };
+
 
   componentDidMount() {
     testimonialsdata().then((res)=>{
@@ -140,10 +140,10 @@ class Testimonials extends Component {
 
 
                         </Card>
-                            })}
+                    })}
 
                         </Slider>
-                        </div>
+                </div>
                     </Grid>
                     <Grid item xs={12} md={4}>
 
