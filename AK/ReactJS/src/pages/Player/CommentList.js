@@ -22,26 +22,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CommentList(props) {
     const classes = useStyles();
-console.log(props)
-let t =props.videoNote.map((v,i) => {
-    return (
-        <Paper key={i} className={classes.paper}>
-            <Grid container wrap="nowrap" spacing={2}>
-                <Grid item>
-                    <Avatar><small>{parseInt( v.time).toFixed(0)}</small></Avatar>
+    let t = props.videoNote.map((v, i) => {
+        return (
+            <Paper key={i} className={classes.paper}>
+                <Grid container wrap="nowrap" spacing={2} onClick={() => { props.JumbtoVideoFromNote(v) }}>
+                    <Grid item>
+                        <Avatar><small>{parseInt(v.time).toFixed(0)}</small></Avatar>
+                    </Grid>
+                    <Grid item xs zeroMinWidth>
+                        <Typography noWrap>{v.note}</Typography>
+                    </Grid>
                 </Grid>
-                <Grid item xs zeroMinWidth>
-                    <Typography noWrap>{v.note}</Typography>
-                </Grid>
-            </Grid>
-        </Paper>
-    )
-})
+            </Paper>
+        )
+    })
     return (
         <div className={classes.root}>
             {t}
-
-
         </div>
     );
 }

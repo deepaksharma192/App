@@ -35,10 +35,9 @@ TabPanel.propTypes = {
 export default function Tabss(props) {
   const [value, setValue] = React.useState("two");
   const handleChange = (event, newValue) => {
-    console.log(event)
     setValue(newValue);
-    props.updaateBookmark('TAB', newValue).then(res=>{
-    
+    props.updaateBookmark('TAB', newValue).then(res => {
+
     });;
   };
   return (

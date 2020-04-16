@@ -15,6 +15,7 @@ class UI extends React.Component {
         this.showComment = this.showComment.bind(this);
         this.hideComment = this.hideComment.bind(this);
         this.AddCommentFun = this.AddCommentFun.bind(this);
+        this.JumbtoVideoFromNote = this.JumbtoVideoFromNote.bind(this)
         this.commentRef = React.createRef("")
     }
     componentDidMount() {
@@ -54,6 +55,7 @@ class UI extends React.Component {
             currentVideo: v
         }, () => {
             this.props.updaateBookmark('TOPIC_VIDEO', v).then(res => {
+                
             });;
         })
     }
@@ -61,6 +63,31 @@ class UI extends React.Component {
         this.setState({
             ...this.state,
             isAddcomment: true
+        })
+    }
+    JumbtoVideoFromNote(v) {
+        /*
+        _id: "5e89904e1c9d44000024f742"
+topic_id: "5e8990391c9d440000d9a5fa"
+title: "For Bigger Fun 4"
+src: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+img: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg"
+description: "topic description 3"
+duration: "60"
+startTime: 34.903231 */
+        let v_tid = v.v_tid.split('__');
+        let vid = v_tid[0];
+        let tid = v_tid[1];
+        this.props.courseById.topics.forEach((topic,i)=>{
+            if(topic._id === tid){
+                 topic.sub_topics.forEach((sub_topic)=>{
+                    if(sub_topic._id === vid){
+                        let vTemp = Object.assign({}, sub_topic);
+                        vTemp['startTime']=v.time;
+                        this.selectVideo(vTemp,i);
+                    }
+                 })
+            }  
         })
     }
     hideComment() {
@@ -76,7 +103,7 @@ class UI extends React.Component {
             let data = {
                 "cid": this.props.courseById._id,
                 "note": this.commentRef.current.value,
-                "time": this.props.bookmark.videoTime[keys],
+                "time": this.props.bookmark.videoTime[keys].time,
                 "v_tid": keys
             }
             this.props.createVideoNotes(data).then(res => {
@@ -108,7 +135,7 @@ class UI extends React.Component {
                         </Grid>
                     }
                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                        {this.props.bookmark && <Tabs {...this.props} selectVideo={this.selectVideo} />}
+                        {this.props.bookmark && <Tabs {...this.props} selectVideo={this.selectVideo} JumbtoVideoFromNote={this.JumbtoVideoFromNote} />}
                     </Grid>
 
                 </Grid>
