@@ -44,18 +44,20 @@ class UI extends React.Component {
         }
 
     }
-    selectVideo(v, c) {
+    selectVideo(v, c, isNote = false) {
         let keys = v._id + "__" + v.topic_id;
-        if (this.props.bookmark.videoTime.hasOwnProperty(keys)) {
-            v["startTime"] = this.props.bookmark.videoTime[keys].time;
-        } else {
-            v["startTime"] = 0;
+        if (!isNote) {
+            if (this.props.bookmark.videoTime.hasOwnProperty(keys)) {
+                v["startTime"] = this.props.bookmark.videoTime[keys].time;
+            } else {
+                v["startTime"] = 0;
+            }
         }
         this.setState({
             currentVideo: v
         }, () => {
             this.props.updaateBookmark('TOPIC_VIDEO', v).then(res => {
-                
+
             });;
         })
     }
@@ -66,28 +68,19 @@ class UI extends React.Component {
         })
     }
     JumbtoVideoFromNote(v) {
-        /*
-        _id: "5e89904e1c9d44000024f742"
-topic_id: "5e8990391c9d440000d9a5fa"
-title: "For Bigger Fun 4"
-src: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
-img: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg"
-description: "topic description 3"
-duration: "60"
-startTime: 34.903231 */
         let v_tid = v.v_tid.split('__');
         let vid = v_tid[0];
         let tid = v_tid[1];
-        this.props.courseById.topics.forEach((topic,i)=>{
-            if(topic._id === tid){
-                 topic.sub_topics.forEach((sub_topic)=>{
-                    if(sub_topic._id === vid){
+        this.props.courseById.topics.forEach((topic, i) => {
+            if (topic._id === tid) {
+                topic.sub_topics.forEach((sub_topic) => {
+                    if (sub_topic._id === vid) {
                         let vTemp = Object.assign({}, sub_topic);
-                        vTemp['startTime']=v.time;
-                        this.selectVideo(vTemp,i);
+                        vTemp['startTime'] = v.time;
+                        this.selectVideo(vTemp, i, true);
                     }
-                 })
-            }  
+                })
+            }
         })
     }
     hideComment() {
