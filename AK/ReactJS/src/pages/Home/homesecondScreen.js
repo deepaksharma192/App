@@ -1,13 +1,8 @@
 import React,{Component} from 'react';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Carousel from './Carausel';
 const useStyles = theme => ({
     fab: {
@@ -66,9 +61,7 @@ const useStyles = theme => ({
         width:'35%',
         padding: '35px',
       },
-
   });
-
   
 class Secondscreen extends Component {
     render() {
