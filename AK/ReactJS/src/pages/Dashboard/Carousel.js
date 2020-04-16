@@ -3,20 +3,13 @@ import ItemsCarousel from 'react-items-carousel';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-
+import './carausel.css'
 const useStyles = theme => ({
 
     siz:{
-        width:'50%',
-    },
-    playbutton:{
-        width:'100px',
-        height:'100px',
-        marginTop:'50px',
-        cursor:'pointer',
+        width:'50%'
     }
-
-  });
+});
 export class Carousel extends Component {
     constructor(props) {
         super(props)
@@ -24,7 +17,7 @@ export class Carousel extends Component {
         this.isDisable = this.isDisable.bind(this);
     }
     componentWillMount() {
-        console.log(this.props.tile)
+
     }
     isDisable(v){
         return (v.status !=="active")
@@ -33,12 +26,12 @@ export class Carousel extends Component {
         const { classes } = this.props;
         return (
             <div>
-                <div style={{ "padding": "0 60px", "width": 1000, "margin": "0 auto" }}>
+                <div className="widd" style={{ "padding": "0 60px", "width": 804, "margin": "0 auto" }}>
                     <ItemsCarousel
                         placeholderItem={<div style={{ height: 200, background: '#EEE' }} />}
                         enablePlaceholder={true}
                         numberOfPlaceholderItems={4}
-                        numberOfCars={2}
+                        numberOfCards={3}
                         gutter={12}
                         slidesToScroll={1}
                         chevronWidth={60}
@@ -60,7 +53,7 @@ export class Carousel extends Component {
                                     backgroundSize: 'cover',
                                 }}
                             >
-                            <PlayArrowIcon className={classes.playbutton} disabled={this.isDisable(v_)} onClick={()=>{this.props.viewCourseById(v_._id)}} />
+                            <PlayArrowIcon className="playbutton" disabled={this.isDisable(v_)} onClick={()=>{this.props.viewCourseById(v_._id)}} />
                                 {/* <Button variant="contained"  color="primary" onClick={()=>{this.props.viewCourseById(v_._id)}} >
                                     {v_.title}
                                 </Button> */}
