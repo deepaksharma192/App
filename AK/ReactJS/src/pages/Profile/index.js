@@ -81,10 +81,8 @@ export class Profile extends React.Component {
         })
     }
     validate(firstName, lastName, email, clas) {
-        // we are going to store errors for all fields
-        // in a signle array
         const errors = [];
-        let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
         if (firstName.length === 1) {
             errors.push("Please enter the firstname");
         }
@@ -96,9 +94,6 @@ export class Profile extends React.Component {
             errors.push("Please select the grade");
         }
         if (!re.test(email)) {
-            // this is a valid email address
-            // call setState({email: email}) to update the email
-            // or update the data in redux store.
             errors.push("Enter a valid email address");
         }
 
@@ -114,7 +109,7 @@ export class Profile extends React.Component {
             class: this.state.grade,
         };
 
-        const errors = this.validate(form.firstName, form.lastName, form.email, form.class);
+        const errors = this.validate(form.firstName, form.lastName, form.email.trim(), form.class);
 
         if (errors.length === 0) {
             this.setState({
@@ -179,7 +174,7 @@ export class Profile extends React.Component {
                                                             minLength: 5,
                                                             maxLength: 12,
                                                         }}
-                                                        onInput={(e) => { e.target.value = e.target.value.replace(/[^a-z]/g, '') }}
+                                                        onInput={(e) => { e.target.value = e.target.value.replace(/[^a-zA-Z]/g, '') }}
                                                     />
                                                 </Grid>
                                                 <Grid item xs={12} className={classes.mar}>
@@ -197,7 +192,7 @@ export class Profile extends React.Component {
                                                             minLength: 5,
                                                             maxLength: 12,
                                                         }}
-                                                        onInput={(e) => { e.target.value = e.target.value.replace(/[^a-z]/g, '') }}
+                                                        onInput={(e) => { e.target.value = e.target.value.replace(/[^a-zA-Z]/g, '') }}
                                                     />
                                                 </Grid>
                                                 <Grid item xs={12} className={classes.mar}>
@@ -238,7 +233,7 @@ export class Profile extends React.Component {
 
                                                     <FormControl component="fieldset">
                                                       
-                                                        <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" value={this.state.vall} onChange={this.handleChange}>
+                                                        <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" value={this.state.vall} >
                                                             <FormControlLabel value="female" control={<Radio />} label="Female" />
                                                             <FormControlLabel value="male" control={<Radio />} label="Male" />
                                                             <FormControlLabel value="other" control={<Radio />} label="Other" />
