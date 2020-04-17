@@ -64,7 +64,7 @@ export default function Right(props) {
               <ul className={classes.ul}>
                 <ListSubheader className={(props.currentTopic === v._id ? classes.Active : "")} style={{ background: "#626CCF", color: '#fff' }}>{`${v.title}`}</ListSubheader>
                 {v.sub_topics.map((item, ke) => (
-                  <ListItem className={(props.currentVideo === item._id ? classes.Active : "")} key={`item-${v.title}-${item.title}-${ke}`} onClick={() => { props.selectVideo(item, getPer(videoTime[item._id + "__" + item.topic_id], item.duration)) }} button>
+                  <ListItem className={(props.currentVideo._id === item._id ? classes.Active : "")} key={`item-${v.title}-${item.title}-${ke}`} onClick={() => { props.selectVideo(item, getPer(videoTime[item._id + "__" + item.topic_id], item.duration)) }} button>
                     <List className={classes.nxt}>
                       <ListItemIcon>
                         <Avatar variant="square" className={classes.size} alt="Remy Sharp" src={item.img} />

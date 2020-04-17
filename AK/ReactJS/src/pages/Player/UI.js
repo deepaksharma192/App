@@ -16,7 +16,8 @@ class UI extends React.Component {
         this.hideComment = this.hideComment.bind(this);
         this.AddCommentFun = this.AddCommentFun.bind(this);
         this.JumbtoVideoFromNote = this.JumbtoVideoFromNote.bind(this)
-        this.commentRef = React.createRef("")
+        this.commentRef = React.createRef("");
+        this.child = React.createRef();
     }
     componentDidMount() {
         let { currentTopic, currentVideo } = this.props.bookmark;
@@ -57,7 +58,7 @@ class UI extends React.Component {
             currentVideo: v
         }, () => {
             this.props.updaateBookmark('TOPIC_VIDEO', v).then(res => {
-
+                this.child.current.jumpVideo();
             });;
         })
     }
@@ -78,6 +79,7 @@ class UI extends React.Component {
                         let vTemp = Object.assign({}, sub_topic);
                         vTemp['startTime'] = v.time;
                         this.selectVideo(vTemp, i, true);
+
                     }
                 })
             }
@@ -115,7 +117,7 @@ class UI extends React.Component {
             <div style={{ background: 'rgb(226, 226, 226)' }} >
                 <Grid container spacing={0}>
                     <Grid item xs={12} sm={12} md={9} lg={9} style={{ paddingTop: 20, background: "#fff" }}>
-                        <Video {...this.props} currentVideo={this.state.currentVideo} />
+                        <Video {...this.props} currentVideo={this.state.currentVideo} ref={this.child} />
 
                         <Fab onClick={this.showComment} size="small" color="primary" aria-label="add" >
                             <CommentIcon />
@@ -124,11 +126,11 @@ class UI extends React.Component {
                     </Grid>
                     {this.props.state.width > 959 &&
                         <Grid item xs={12} sm={12} md={3} lg={3} style={{ paddingTop: 20, background: "#fff" }}>
-                            <Right {...this.props} selectVideo={this.selectVideo} />
+                            <Right {...this.props} selectVideo={this.selectVideo}  currentVideo={this.state.currentVideo}/>
                         </Grid>
                     }
                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                        {this.props.bookmark && <Tabs {...this.props} selectVideo={this.selectVideo} JumbtoVideoFromNote={this.JumbtoVideoFromNote} />}
+                        {this.props.bookmark && <Tabs {...this.props} selectVideo={this.selectVideo} currentVideo={this.state.currentVideo} JumbtoVideoFromNote={this.JumbtoVideoFromNote} />}
                     </Grid>
 
                 </Grid>
