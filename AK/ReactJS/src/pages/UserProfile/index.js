@@ -89,6 +89,9 @@ const useStyles = theme => ({
     },
     formControl: {
         width: '100%'
+    },
+    adjust:{
+        marginTop:'40px'
     }
 });
 class UserProfile extends Component {
@@ -96,20 +99,20 @@ class UserProfile extends Component {
         super(props)
         this.state = { setperson: [], personName: null, schoolname: "", schooladdress: "", AddressFirst: "", AddressSecond: "", Hobby: "", text: "", grade: "", number: '', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "", vall: null, read: true, }
         this.handleChange = this.handleChange.bind(this)
-        this.handleChangeMultiple = this.handleChangeMultiple.bind(this)
-
+        
+        this.uploadSingleFile = this.uploadSingleFile.bind(this)
         this.FormSubmit = this.FormSubmit.bind(this);
         this.onChanges = this.onChanges.bind(this)
         this.FormRef = React.createRef();
-        this.schoolname = React.createRef();
+        this.schoolnameRef = React.createRef();
         this.schooladdress = React.createRef();
-        this.AddLinefirst = React.createRef();
-        this.AddLinesecond = React.createRef();
-        this.City = React.createRef();
-        this.state = React.createRef();
-        this.Hobbies = React.createRef();
-        this.zip = React.createRef();
-        this.text = React.createRef();
+        this.AddLinefirstRef = React.createRef();
+        this.AddLinesecondRef = React.createRef();
+        this.CityRef = React.createRef();
+        this.stateRef = React.createRef();
+        this.HobbiesRef = React.createRef();
+        this.zipRef = React.createRef();
+        this.textRef = React.createRef();
 
     }
 
@@ -118,7 +121,7 @@ class UserProfile extends Component {
         await this.props.getAllClasses().then(res => {
         });
         this.updateAllfField();
-console.log(this.props.grade)
+        console.log(this.props.grade)
     }
     async  componentDidUpdate() {
 
@@ -137,32 +140,26 @@ console.log(this.props.grade)
         }
     }
 
-    handleChangeMultiple = (event) => {
-        const { options } = event.target;
-        const value = [];
-        for (let i = 0, l = options.length; i < l; i += 1) {
-          if (options[i].selected) {
-            value.push(options[i].value);
-          }
-        }
-        this.setState({
-            ...this.state,
-            personName:value
-        })
-      };
+
 
     onChanges(e) {
         this.setState({
-            schoolname: this.schoolname.current.value,
-            schooladdress: this.schooladdress.current.value,
-            AddressFirst: this.AddLinefirst.current.value,
-            AddressSecond: this.AddLinesecond.current.value,
-            Hobby: this.Hobbies.current.value,
-            city: this.City.current.value,
-            state: this.state.current.value,
-            zip: this.zip.current.value,
-            text: this.text.current.value
+            schoolname: this.schoolnameRef.current.value,
 
+            AddressFirst: this.AddLinefirstRef.current.value,
+            AddressSecond: this.AddLinesecondRef.current.value,
+            Hobby: this.HobbiesRef.current.value,
+            city: this.CityRef.current.value,
+            state: this.stateRef.current.value,
+            zip: this.zipRef.current.value,
+            text: this.textRef.current.value
+
+        })
+    }
+
+    uploadSingleFile(e) {
+        this.setState({
+            file: URL.createObjectURL(e.target.files[0])
         })
     }
 
@@ -171,22 +168,21 @@ console.log(this.props.grade)
         e.preventDefault();
         e.stopPropagation();
         console.log(this.props)
-        // const form = {
-        //     schoolname: this.schoolname.current.value,
-        //     schooladdress: this.schooladdress.current.value,
-        //     AddressFirst: this.AddLinefirst.current.value,
-        //     AddressSecond: this.AddLinesecond.current.value,
-        //     Hobby: this.Hobbies.current.value,
-        //     city: this.City.current.value,
-        //     state: this.state.current.value,
-        //     zip: this.zip.current.value,
-        //     text: this.text.current.value,
-        //     class: this.state.grade
-        // };
-        // debugger
-        // this.props.updateUserDetailAll(form).then((res) => {
-        //     this.props.updateProfile(res)
-        // })
+        const form = {
+            // schoolname: this.schoolname.current.value,
+            AddressFirst: this.AddLinefirst.current.value,
+            AddressSecond: this.AddLinesecond.current.value,
+            Hobby: this.Hobbies.current.value,
+            city: this.City.current.value,
+            state: this.state.current.value,
+            zip: this.zip.current.value,
+            text: this.text.current.value
+
+        };
+
+        this.props.updateUserDetailAll(form).then((res) => {
+            this.props.updateProfile(res)
+        })
     }
     handleChange(e) {
         this.setState({
@@ -197,6 +193,10 @@ console.log(this.props.grade)
     }
     render() {
         const { classes } = this.props;
+        let imgPreview;
+        if (this.state.file) {
+            imgPreview = <img src={this.state.file} alt='' />;
+        }
         return (
             <div>
                 <Grid container>
@@ -224,18 +224,24 @@ console.log(this.props.grade)
                                 <Grid item xs={12}>
                                     <Grid container>
                                         <Grid item xs={12} md={10} className={classes.iconleft}>
-                                            <IconButton>
-                                                <Avatar
-                                                    src={process.env.PUBLIC_URL + 'assets/images/applogo/logo.png'}
-                                                    style={{
-                                                        margin: "10px",
-                                                        width: "100px",
-                                                        height: "100px",
-                                                        borderRadius: '50%',
+                                            <Avatar
 
-                                                    }}
-                                                />
-                                            </IconButton>
+                                                style={{
+                                                    margin: "30px",
+                                                    width: "100px",
+                                                    height: "100px",
+                                                    borderRadius: '50%',
+
+                                                }}
+                                            >
+                                                {imgPreview}
+                                            </Avatar>
+                                            <input accept="image/*" className={classes.input} onChange={this.uploadSingleFile} id="contained-button-file" type="file" />
+                                            <label htmlFor="contained-button-file">
+                                                <Button variant="contained" color="primary" component="span" size="small">
+                                                    Upload profile pic
+</Button>
+                                            </label>
                                         </Grid>
 
                                     </Grid>
@@ -252,7 +258,7 @@ console.log(this.props.grade)
                                                         <Typography align="left">First Name</Typography>
                                                         <TextField
                                                             id="firstName"
-                                                            defaultValue="First Name"
+
                                                             value={this.state.firstName}
                                                             InputProps={{
                                                                 readOnly: true,
@@ -266,7 +272,7 @@ console.log(this.props.grade)
                                                         <Typography align="left">Last Name</Typography>
                                                         <TextField
                                                             id="lastName"
-                                                            defaultValue="Last Name"
+
                                                             value={this.state.lastName}
                                                             InputProps={{
                                                                 readOnly: true,
@@ -280,7 +286,7 @@ console.log(this.props.grade)
                                                         <Typography align="left">Mobile Number</Typography>
                                                         <TextField
                                                             id="number"
-                                                            defaultValue="Mobile Number"
+
                                                             value={this.state.number}
                                                             InputProps={{
                                                                 readOnly: true,
@@ -294,7 +300,7 @@ console.log(this.props.grade)
                                                         <Typography align="left">Email Address</Typography>
                                                         <TextField
                                                             id="email"
-                                                            defaultValue="Email Address"
+
                                                             value={this.state.email}
                                                             InputProps={{
                                                                 readOnly: true,
@@ -317,17 +323,37 @@ console.log(this.props.grade)
 
                                                     </Grid>
                                                     <Grid item xs={12} md={2}></Grid>
-                                                    <Grid item xs={12} md={5}></Grid>
+                                                    <Grid item xs={12} md={5} className={classes.mar}>
+                                                        <FormControl className={classes.formControl}>
+                                                            <InputLabel id="demo-controlled-open-select-label"></InputLabel>
+                                                            <Typography align="left">Grade</Typography>
+                                                            <Select
+                                                                labelId="demo-controlled-open-select-label"
+                                                                id="demo-controlled-open-select"
+                                                                value={this.props.grade}
+                                                                onChange={this.handleChange}
+                                                            >
+                                                                <MenuItem value="">
+                                                                    <em>None</em>
+                                                                </MenuItem>
+                                                                {this.props.grade && this.props.grade.map((v) => {
+                                                                    return (
+                                                                        <MenuItem disabled={v.status === 'deactive'} key={v._id} value={v._id}>{v.className}</MenuItem>
+                                                                    )
+                                                                })}
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Grid>
                                                     <Grid item xs={12} md={12} className={classes.divider}>
                                                         <Divider variant="fullWidth" />
                                                     </Grid>
                                                     <Grid item xs={12} md={5} className={classes.mar}>
-                                                        {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
+
                                                         <Typography align="left">Address Line 1</Typography>
                                                         <TextField
                                                             id="Address"
-                                                            defaultValue="Address line 1"
-                                                            inputRef={this.AddLinefirst}
+
+                                                            inputRef={this.AddLinefirstRef}
 
                                                             fullWidth
                                                             variant="filled"
@@ -337,12 +363,12 @@ console.log(this.props.grade)
                                                     </Grid>
                                                     <Grid item xs={12} md={2}></Grid>
                                                     <Grid item xs={12} md={5} className={classes.mar}>
-                                                        {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
+
                                                         <Typography align="left">Address Line2</Typography>
                                                         <TextField
                                                             id="Address"
-                                                            defaultValue="Address line 2"
-                                                            inputRef={this.AddLinesecond}
+
+                                                            inputRef={this.AddLinesecondRef}
 
                                                             fullWidth
                                                             variant="filled"
@@ -351,12 +377,12 @@ console.log(this.props.grade)
 
                                                     </Grid>
                                                     <Grid item xs={12} md={5} className={classes.mar}>
-                                                        {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
+
                                                         <Typography align="left">City</Typography>
                                                         <TextField
                                                             id="City"
 
-                                                            inputRef={this.City}
+                                                            inputRef={this.CityRef}
                                                             value={this.state.city}
 
                                                             fullWidth
@@ -367,12 +393,12 @@ console.log(this.props.grade)
                                                     </Grid>
                                                     <Grid item xs={12} md={2}></Grid>
                                                     <Grid item xs={12} md={5} className={classes.mar}>
-                                                        {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
+
                                                         <Typography align="left">State</Typography>
                                                         <TextField
                                                             id="State"
-                                                            defaultValue="State"
-                                                            inputRef={this.state}
+
+                                                            inputRef={this.stateRef}
                                                             value={this.state.state}
 
                                                             fullWidth
@@ -382,13 +408,13 @@ console.log(this.props.grade)
 
                                                     </Grid>
                                                     <Grid item xs={12} md={5} className={classes.mar}>
-                                                        {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
+
                                                         <Typography align="left">Pincode</Typography>
                                                         <TextField
                                                             id="zip"
-                                                            defaultValue="Pin Code"
+
                                                             value={this.state.zip}
-                                                            inputRef={this.zip}
+                                                            inputRef={this.zipRef}
 
                                                             fullWidth
                                                             variant="filled"
@@ -403,14 +429,24 @@ console.log(this.props.grade)
                                                     </Grid>
 
                                                     <Grid item xs={12} md={5} className={classes.mar}>
-                                                        {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
+
                                                         <Typography align="left">Hobbies</Typography>
-                                                        <FormControl className={classes.formControl}>
+                                                        <TextField
+                                                            id="Hobbies"
+
+
+                                                            inputRef={this.HobbiesRef}
+
+                                                            fullWidth
+                                                            variant="filled"
+                                                            onChange={this.onChanges}
+                                                        />
+                                                        {/* <FormControl className={classes.formControl}>
                                                             <InputLabel id="demo-mutiple-checkbox-label"></InputLabel>
                                                             <Select
                                                                 labelId="demo-mutiple-checkbox-label"
                                                                 id="demo-mutiple-checkbox"
-                                                                // multiline
+                                                                multiline
                                                                 value={this.state.personName}
                                                                 onChange={this.handleChangeMultiple}
                                                                 input={<Input />}
@@ -420,26 +456,26 @@ console.log(this.props.grade)
                                                             >
                                                                 {names.map((name) => (
                                                                     <MenuItem key={name} value={name}>
-                                                                        {/* <Checkbox checked={this.state.personName.indexOf(name) > -1} /> */}
+                                                                        <Checkbox checked={this.state.personName.indexOf(name) > -1} />
                                                                         <ListItemText primary={name} />
                                                                     </MenuItem>
                                                                 ))}
                                                             </Select>
-                                                        </FormControl>
+                                                        </FormControl> */}
 
 
                                                     </Grid>
                                                     <Grid item xs={12} md={2}></Grid>
 
                                                     <Grid item xs={12} md={5} className={classes.mar}>
-                                                        {!this.state.showw ? null : <Typography align='left' color="primary">{this.state.statement}</Typography>}
+
                                                         <Typography align="left">Aspiration</Typography>
                                                         <TextField
                                                             id="Aspiration"
-                                                            defaultValue="What you like to become"
+
                                                             multiline
                                                             rows={4}
-                                                            inputRef={this.text}
+                                                            inputRef={this.textRef}
 
                                                             fullWidth
                                                             variant="filled"
@@ -454,8 +490,8 @@ console.log(this.props.grade)
                                                         <Typography align="left">School Name</Typography>
                                                         <TextField
                                                             id="SchoolName"
-                                                            defaultValue="School Name"
-                                                            inputRef={this.schoolname}
+
+                                                            inputRef={this.schoolnameRef}
 
                                                             fullWidth
                                                             variant="filled"
@@ -464,30 +500,10 @@ console.log(this.props.grade)
 
                                                     </Grid>
                                                     <Grid item xs={12} md={2}></Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
-                                                        <FormControl className={classes.formControl}>
-                                                            <InputLabel id="demo-controlled-open-select-label"></InputLabel>
-                                                            <Typography align="left">Grade</Typography>
-                                                            {/* <Select
-                                                            labelId="demo-controlled-open-select-label"
-                                                            id="demo-controlled-open-select"
-                                                            value={this.state.grade}
-                                                            onChange={this.handleChange}
-                                                        >
-                                                            <MenuItem value="">
-                                                                <em>None</em>
-                                                            </MenuItem>
-                                                            {this.props.grade && this.props.grade.map((v) => {
-                                                                return (
-                                                                    <MenuItem disabled={v.status === 'deactive'} key={v._id} value={v._id}>{v.className}</MenuItem>
-                                                                )
-                                                            })}
-                                                        </Select> */}
-                                                        </FormControl>
-                                                    </Grid>
 
 
-                                                    <Grid item xs={12} md={2}></Grid>
+
+                                                    <Grid item xs={12} md={5}></Grid>
 
                                                 </Grid>
                                                 <Grid item xs={12} className={classes.mar}>
