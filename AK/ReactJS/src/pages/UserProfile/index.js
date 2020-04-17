@@ -16,7 +16,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { updateUserDetail } from '../../redux/action/userDetailsAction';
+import { updateUserDetailAll } from '../../redux/action/userDetailsAction';
 import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
@@ -145,7 +145,6 @@ class UserProfile extends Component {
     onChanges(e) {
         this.setState({
             schoolname: this.schoolnameRef.current.value,
-
             AddressFirst: this.AddLinefirstRef.current.value,
             AddressSecond: this.AddLinesecondRef.current.value,
             Hobby: this.HobbiesRef.current.value,
@@ -155,6 +154,7 @@ class UserProfile extends Component {
             text: this.textRef.current.value
 
         })
+        console.log(this.state.schoolname)
     }
 
     uploadSingleFile(e) {
@@ -169,19 +169,19 @@ class UserProfile extends Component {
         e.stopPropagation();
         console.log(this.props)
         const form = {
-            // schoolname: this.schoolname.current.value,
-            AddressFirst: this.AddLinefirst.current.value,
-            AddressSecond: this.AddLinesecond.current.value,
-            Hobby: this.Hobbies.current.value,
-            city: this.City.current.value,
-            state: this.state.current.value,
-            zip: this.zip.current.value,
-            text: this.text.current.value
+            schoolname: this.schoolnameRef.current.value,
+            AddressFirst: this.AddLinefirstRef.current.value,
+            AddressSecond: this.AddLinesecondRef.current.value,
+            Hobby: this.HobbiesRef.current.value,
+            city: this.CityRef.current.value,
+            state: this.stateRef.current.value,
+            zip: this.zipRef.current.value,
+            text: this.textRef.current.value
 
         };
 
         this.props.updateUserDetailAll(form).then((res) => {
-            this.props.updateProfile(res)
+            this.props.updateProfile(res.data)
         })
     }
     handleChange(e) {
