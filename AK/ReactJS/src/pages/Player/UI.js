@@ -15,6 +15,7 @@ class UI extends React.Component {
         this.showComment = this.showComment.bind(this);
         this.hideComment = this.hideComment.bind(this);
         this.AddCommentFun = this.AddCommentFun.bind(this);
+        this.JumbtoVideoFromNote = this.JumbtoVideoFromNote.bind(this)
         this.commentRef = React.createRef("")
     }
     componentDidMount() {
@@ -43,17 +44,20 @@ class UI extends React.Component {
         }
 
     }
-    selectVideo(v, c) {
+    selectVideo(v, c, isNote = false) {
         let keys = v._id + "__" + v.topic_id;
-        if (this.props.bookmark.videoTime.hasOwnProperty(keys)) {
-            v["startTime"] = this.props.bookmark.videoTime[keys].time;
-        } else {
-            v["startTime"] = 0;
+        if (!isNote) {
+            if (this.props.bookmark.videoTime.hasOwnProperty(keys)) {
+                v["startTime"] = this.props.bookmark.videoTime[keys].time;
+            } else {
+                v["startTime"] = 0;
+            }
         }
         this.setState({
             currentVideo: v
         }, () => {
             this.props.updaateBookmark('TOPIC_VIDEO', v).then(res => {
+
             });;
         })
     }
@@ -61,6 +65,22 @@ class UI extends React.Component {
         this.setState({
             ...this.state,
             isAddcomment: true
+        })
+    }
+    JumbtoVideoFromNote(v) {
+        let v_tid = v.v_tid.split('__');
+        let vid = v_tid[0];
+        let tid = v_tid[1];
+        this.props.courseById.topics.forEach((topic, i) => {
+            if (topic._id === tid) {
+                topic.sub_topics.forEach((sub_topic) => {
+                    if (sub_topic._id === vid) {
+                        let vTemp = Object.assign({}, sub_topic);
+                        vTemp['startTime'] = v.time;
+                        this.selectVideo(vTemp, i, true);
+                    }
+                })
+            }
         })
     }
     hideComment() {
@@ -76,7 +96,7 @@ class UI extends React.Component {
             let data = {
                 "cid": this.props.courseById._id,
                 "note": this.commentRef.current.value,
-                "time": this.props.bookmark.videoTime[keys],
+                "time": this.props.bookmark.videoTime[keys].time,
                 "v_tid": keys
             }
             this.props.createVideoNotes(data).then(res => {
@@ -108,7 +128,7 @@ class UI extends React.Component {
                         </Grid>
                     }
                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                        {this.props.bookmark && <Tabs {...this.props} selectVideo={this.selectVideo} />}
+                        {this.props.bookmark && <Tabs {...this.props} selectVideo={this.selectVideo} JumbtoVideoFromNote={this.JumbtoVideoFromNote} />}
                     </Grid>
 
                 </Grid>

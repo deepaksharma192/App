@@ -14,6 +14,13 @@ class Video extends Component {
   componentDidMount() {
   }
   componentDidUpdate(prevProps, prevState) {
+    console.log(this.props.currentVideo.startTime)
+    // if (this.props.currentVideo) {
+    //   this.setState({
+    //     ...this.state,
+    //     startTime: parseInt(this.props.currentVideo.startTime)
+    //   })
+    // }
   }
   endVideo(e) {
     let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;

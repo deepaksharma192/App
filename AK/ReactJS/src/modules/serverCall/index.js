@@ -101,7 +101,16 @@ export const updateUserDetails = (form) => {
             return res
         })
 }
-
+export const updateUserDetailsAll = (form) => {
+    return serverCall({
+        method: 'PUT',
+        url: '/users/update-details/all',
+        data: form
+    })
+        .then(res => {
+            return res
+        })
+}
 export const getAllCourse = (id) => {
     return serverCall({
         method: 'GET',
