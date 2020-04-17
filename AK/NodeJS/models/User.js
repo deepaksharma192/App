@@ -25,6 +25,24 @@ var userSchema = mongoose.Schema({
     zip: {
         type: String
     },
+    schoolname: {
+        type: String
+    },
+    schooladdress: {
+        type: String
+    },
+    AddressFirst: {
+        type: String
+    },
+    AddressSecond: {
+        type: String
+    },
+    Hobby: {
+        type: String
+    },
+    text: {
+        type: String
+    },
     city: {
         type: String
     },

@@ -2,6 +2,7 @@ import React from "react";
 import EnrolledCourse from "./EnrolledCourse";
 import Headers from '../../HOC/Headers';
 import Profile from '../Profile/';
+import UserProfile from '../UserProfile';
 
 class Dashboard extends React.Component {
     constructor(props) {
