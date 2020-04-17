@@ -11,11 +11,18 @@ import Paper from '@material-ui/core/Paper';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = theme => ({
     root: {
         display: 'flex',
         width: '100%',
+    },
+    formControl: {
+        width: '100%'
     },
     upp: {
         margin: '88px auto',
@@ -37,7 +44,7 @@ const useStyles = theme => ({
 export class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { grade: "", firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: " ",errors: [],err:true }
+        this.state = { grade: "", firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: " ", errors: [], err: true }
         this.FormSubmit = this.FormSubmit.bind(this);
         this.validate = this.validate.bind(this);
         this.onChanges = this.onChanges.bind(this)
@@ -79,24 +86,24 @@ export class Profile extends React.Component {
         const errors = [];
         let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (firstName.length === 1) {
-          errors.push("Please enter the firstname");
+            errors.push("Please enter the firstname");
         }
         if (lastName.length === 1) {
             errors.push("Please enter the lastname");
         }
 
         if (!clas) {
-          errors.push("Please select the grade");
+            errors.push("Please select the grade");
         }
-        if (!re.test(email) ) {
+        if (!re.test(email)) {
             // this is a valid email address
             // call setState({email: email}) to update the email
             // or update the data in redux store.
             errors.push("Enter a valid email address");
         }
-        
+
         return errors;
-      }
+    }
     FormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -108,18 +115,17 @@ export class Profile extends React.Component {
         };
 
         const errors = this.validate(form.firstName, form.lastName, form.email, form.class);
-        
-        if(errors.length === 0){
+
+        if (errors.length === 0) {
             this.setState({
-                err:false
+                err: false
             })
         }
         if (errors.length > 0) {
-          this.setState({ errors });
-          return;
+            this.setState({ errors });
+            return;
         }
-        else
-        {
+        else {
             updateUserDetail(form).then((res) => {
                 this.props.updateProfile(res)
             })
@@ -152,9 +158,9 @@ export class Profile extends React.Component {
 
                                 <Grid container justify="center">
                                     <Grid item xs={10}>
-                                    {this.state.err && this.state.errors.map(error => (
-                                    <Typography  align="center" color="error" key={error}>{error}</Typography>
-                                    ))}
+                                        {this.state.err && this.state.errors.map(error => (
+                                            <Typography align="center" color="error" key={error}>{error}</Typography>
+                                        ))}
                                         <form onSubmit={this.FormSubmit} ref={this.FormRef}>
                                             <Grid container>
                                                 <Grid item xs={12} className={classes.mar}>
@@ -209,22 +215,35 @@ export class Profile extends React.Component {
                                                     />
                                                 </Grid>
                                                 <Grid item xs={12} className={classes.mar}>
-                                                    <InputLabel id="demo-controlled-open-select-label">Grade*</InputLabel>
-                                                    <Select
-                                                        labelId="demo-controlled-open-select-label"
-                                                        id="demo-controlled-open-select"
-                                                        value={this.state.grade}
-                                                        onChange={this.handleChange}
-                                                    >
-                                                        <MenuItem value="">
-                                                            <em>None</em>
-                                                        </MenuItem>
-                                                        {this.props.grade && this.props.grade.map((v) => {
-                                                            return (
-                                                                <MenuItem disabled={v.status === 'deactive'} key={v._id} value={v._id}>{v.className}</MenuItem>
-                                                            )
-                                                        })}
-                                                    </Select>
+                                                    <FormControl className={classes.formControl}>
+                                                        <InputLabel id="demo-controlled-open-select-label">Grade*</InputLabel>
+                                                        <Select
+                                                            labelId="demo-controlled-open-select-label"
+                                                            id="demo-controlled-open-select"
+                                                            value={this.state.grade}
+                                                            onChange={this.handleChange}
+                                                        >
+                                                            <MenuItem value="">
+                                                                <em>None</em>
+                                                            </MenuItem>
+                                                            {this.props.grade && this.props.grade.map((v) => {
+                                                                return (
+                                                                    <MenuItem disabled={v.status === 'deactive'} key={v._id} value={v._id}>{v.className}</MenuItem>
+                                                                )
+                                                            })}
+                                                        </Select>
+                                                    </FormControl>
+                                                </Grid>
+                                                <Grid item xs={12}  className={classes.mar} style={{ textAlign: 'left' }}>
+
+                                                    <FormControl component="fieldset">
+                                                      
+                                                        <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" value={this.state.vall} onChange={this.handleChange}>
+                                                            <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                                            <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                                            <FormControlLabel value="other" control={<Radio />} label="Other" />
+                                                        </RadioGroup>
+                                                    </FormControl>
 
                                                 </Grid>
                                                 <Grid item xs={12} className={classes.mar}>
