@@ -19,6 +19,9 @@ BookmarkSchema = mongoose.Schema({
     },
     currentTab: {
         type: String
+    },
+    completion: {
+        type: String
     }
 
 })
@@ -41,7 +44,8 @@ module.exports.updateBookmarkById = function (data, callback) {
                         currentTopic: data.currentTopic,
                         currentVideo: data.currentVideo,
                         videoTime: data.videoTime,
-                        currentTab: data.currentTab
+                        currentTab: data.currentTab,
+                        completion: data.completion
                     }
                 },
                 callback

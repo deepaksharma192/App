@@ -52,10 +52,10 @@ var userSchema = mongoose.Schema({
     state: {
         type: String
     },
-    class:{
+    class: {
         type: String
     }
-}); 
+});
 
 var User = module.exports = mongoose.model('users', userSchema);
 

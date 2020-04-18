@@ -56,7 +56,8 @@ class Player extends React.Component {
                         currentTopic: res.topics[0]._id,
                         currentVideo: res.topics[0].sub_topics[0]._id,
                         videoTime: {},
-                        currentTab: "0"
+                        currentTab: "0",
+                        completion:0
                     }
                     bookmark.videoTime[res.topics[0].sub_topics[0]._id + "__" + res.topics[0]._id] = { time: 0, complete: false };
                     this.updaateBookmark("NEW_BOOKMARK", bookmark).then(res => {

@@ -9,29 +9,30 @@ class Video extends Component {
     super(props);
     this.state = { interval: true, startTime: 0 };
     this.endVideo = this.endVideo.bind(this)
-    this.onTimeUpdate = this.onTimeUpdate.bind(this)
+    this.onTimeUpdate = this.onTimeUpdate.bind(this);
+    this.jumpVideo = this.jumpVideo.bind(this);
   }
   componentDidMount() {
+    console.log("componentDidMount")
   }
-  componentDidUpdate(prevProps, prevState) {
-    console.log(this.props.currentVideo.startTime)
-    // if (this.props.currentVideo) {
-    //   this.setState({
-    //     ...this.state,
-    //     startTime: parseInt(this.props.currentVideo.startTime)
-    //   })
-    // }
+  async componentDidUpdate(prevProps, prevState) {
+
+  }
+  jumpVideo() {
+    const { player } = this.player.getState();
+    this.player.seek(this.props.currentVideo.startTime);
   }
   endVideo(e) {
     let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;
     this.props.updaateBookmark('VIDEO_COMPLETE', { complete: true, vid: keys }).then(res => {
-      this.props.endVideoUpdate();
-      this.props.endVideoUpdate();
-      setTimeout(() => {
+      this.props.updateP().then(__ => {
         this.props.endVideoUpdate();
-      }, 1000);
+        this.props.endVideoUpdate();
+        setTimeout(() => {
+          this.props.endVideoUpdate();
+        }, 1000);
+      });
     });
-
   }
   onTimeUpdate(e) {
     let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;
@@ -60,7 +61,6 @@ class Video extends Component {
           >
             <BigPlayButton position="center" />
           </Player>
-
         </Container>
       </React.Fragment>
     )
