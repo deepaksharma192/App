@@ -1,4 +1,4 @@
-import { getUserDetails, updateUserDetails } from '../../modules/serverCall'
+import { getUserDetails, updateUserDetails, updateUserDetailsAll } from '../../modules/serverCall'
 import lodash from "lodash"
 
 export const POST_DETAILS_BEGIN = 'POST_DETAILS_BEGIN'
@@ -30,6 +30,24 @@ export const updateUserDetail = (form) => {
         updateUserDetails(form).then((res) => {
             resolve(res.data);
         }).catch((err) => {
+            reject(err)
+        })
+    })
+}
+export const updateUserDetailAll = (form) => (dispatch) => {
+    return new Promise((resolve, reject) => {
+        updateUserDetailsAll(form).then((res) => {
+            let data = lodash.get(res.data, "data", null);
+            dispatch({
+                type: POST_DETAILS_SUCCESS,
+                payload: data
+            })
+            resolve(res.data);
+        }).catch((err) => {
+            dispatch({
+                type: INSERT_DETAILS_FAIL,
+                payload: { err }
+            })
             reject(err)
         })
     })

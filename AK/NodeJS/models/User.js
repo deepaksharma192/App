@@ -52,10 +52,10 @@ var userSchema = mongoose.Schema({
     state: {
         type: String
     },
-    class:{
+    class: {
         type: String
     }
-}); 
+});
 
 var User = module.exports = mongoose.model('users', userSchema);
 
@@ -67,7 +67,7 @@ module.exports.createUser = function (newUser, callback) {
         });
     });
 }
-module.exports.updateCartByUserId = function (userId, newCart, callback) {
+module.exports.updateUserFirstTimeById = function (userId, newCart, callback) {
     let query = { _id: userId }
     User.findOneAndReplace(
         query,
@@ -81,6 +81,21 @@ module.exports.updateCartByUserId = function (userId, newCart, callback) {
         callback
     )
 }
+
+module.exports.updateUserById = function (userId, newCart, callback) {
+    let query = { _id: userId }
+    User.findOneAndReplace(
+        query,
+        {
+            $set: {
+                ...newCart,
+                status: "active"
+            }
+        },
+        callback
+    )
+}
+
 module.exports.getUserByNumber = function (number, callback) {
     var query = { number: number };
     User.findOne(query, callback);

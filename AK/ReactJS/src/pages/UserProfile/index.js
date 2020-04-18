@@ -16,13 +16,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-import EditIcon from '@material-ui/icons/Edit';
 import { updateUserDetail } from '../../redux/action/userDetailsAction';
 import Divider from '@material-ui/core/Divider';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -122,7 +118,7 @@ class UserProfile extends Component {
         await this.props.getAllClasses().then(res => {
         });
         this.updateAllfField();
-
+console.log(this.props.grade)
     }
     async  componentDidUpdate() {
 
@@ -174,37 +170,29 @@ class UserProfile extends Component {
     FormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-        const form = {
-            schoolname: this.schoolname.current.value,
-            schooladdress: this.schooladdress.current.value,
-            AddressFirst: this.AddLinefirst.current.value,
-            AddressSecond: this.AddLinesecond.current.value,
-            Hobby: this.Hobbies.current.value,
-            city: this.City.current.value,
-            state: this.state.current.value,
-            zip: this.zip.current.value,
-            text: this.text.current.value,
-            class: this.state.grade
-        };
-        console.log(form.city, form.state, form.zip, form.text)
-        // updateUserDetail(form).then((res) => {
+        console.log(this.props)
+        // const form = {
+        //     schoolname: this.schoolname.current.value,
+        //     schooladdress: this.schooladdress.current.value,
+        //     AddressFirst: this.AddLinefirst.current.value,
+        //     AddressSecond: this.AddLinesecond.current.value,
+        //     Hobby: this.Hobbies.current.value,
+        //     city: this.City.current.value,
+        //     state: this.state.current.value,
+        //     zip: this.zip.current.value,
+        //     text: this.text.current.value,
+        //     class: this.state.grade
+        // };
+        // debugger
+        // this.props.updateUserDetailAll(form).then((res) => {
         //     this.props.updateProfile(res)
         // })
-
     }
-
-
-
-
-
-
-
     handleChange(e) {
         this.setState({
             ...this.state,
             vall: e.target.value,
             grade: e.target.value
-    
         })
     }
     render() {
@@ -480,21 +468,21 @@ class UserProfile extends Component {
                                                         <FormControl className={classes.formControl}>
                                                             <InputLabel id="demo-controlled-open-select-label"></InputLabel>
                                                             <Typography align="left">Grade</Typography>
-                                                            <Select
-                                                                labelId="demo-controlled-open-select-label"
-                                                                id="demo-controlled-open-select"
-                                                                value={this.state.grade}
-                                                                onChange={this.handleChange}
-                                                            >
-                                                                <MenuItem value="">
-                                                                    <em>None</em>
-                                                                </MenuItem>
-                                                                {grade.map((v) => {
-                                                                    return (
-                                                                        <MenuItem key={v} value={v}>{v}</MenuItem>
-                                                                    )
-                                                                })}
-                                                            </Select>
+                                                            {/* <Select
+                                                            labelId="demo-controlled-open-select-label"
+                                                            id="demo-controlled-open-select"
+                                                            value={this.state.grade}
+                                                            onChange={this.handleChange}
+                                                        >
+                                                            <MenuItem value="">
+                                                                <em>None</em>
+                                                            </MenuItem>
+                                                            {this.props.grade && this.props.grade.map((v) => {
+                                                                return (
+                                                                    <MenuItem disabled={v.status === 'deactive'} key={v._id} value={v._id}>{v.className}</MenuItem>
+                                                                )
+                                                            })}
+                                                        </Select> */}
                                                         </FormControl>
                                                     </Grid>
 

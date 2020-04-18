@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUserDetail } from '../redux/action/userDetailsAction';
+import { getUserDetail,updateUserDetailAll } from '../redux/action/userDetailsAction';
 import { getBookmarkByIds, updaateBookmarksToStore, updaateBookmarks } from '../redux/action/bookmarkAction';
 import { getVideoNoteByids, createVideoNotes } from '../redux/action/videoNoteAction';
 import { getAnnouncementByids } from '../redux/action/announcementAction';
@@ -342,6 +342,7 @@ const mapDispatchToProps = {
   createVideoNotes,
   getAnnouncementByids,
   veryfyOtps,
-  getAllClasses
+  getAllClasses,
+  updateUserDetailAll
 }
 export default Headers;
