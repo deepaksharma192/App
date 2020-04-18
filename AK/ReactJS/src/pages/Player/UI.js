@@ -5,7 +5,8 @@ import Right from './Right'
 import Video from './Video'
 import CommentIcon from '@material-ui/icons/Comment';
 import Fab from '@material-ui/core/Fab';
-import AddComment from './AddComment'
+import AddComment from './AddComment';
+import { getCompletionTopic } from './../../modules/Comman'
 
 class UI extends React.Component {
     constructor(props) {
@@ -18,6 +19,7 @@ class UI extends React.Component {
         this.JumbtoVideoFromNote = this.JumbtoVideoFromNote.bind(this)
         this.commentRef = React.createRef("");
         this.child = React.createRef();
+        this.updateP = this.updateP.bind(this)
     }
     componentDidMount() {
         let { currentTopic, currentVideo } = this.props.bookmark;
@@ -79,7 +81,6 @@ class UI extends React.Component {
                         let vTemp = Object.assign({}, sub_topic);
                         vTemp['startTime'] = v.time;
                         this.selectVideo(vTemp, i, true);
-
                     }
                 })
             }
@@ -112,21 +113,32 @@ class UI extends React.Component {
         }
 
     }
+    updateP() {
+        return new Promise((resolve, reject) => {
+            this.props.updaateBookmark('VIDEO_COMPLETION', getCompletionTopic(this.props.courseById.topics, this.props.bookmark.videoTime)).then(res => {
+                console.log('VIDEO_COMPLETION')
+                resolve(res)
+            });
+        })
+
+    }
     render() {
         return (
             <div style={{ background: 'rgb(226, 226, 226)' }} >
                 <Grid container spacing={0}>
                     <Grid item xs={12} sm={12} md={9} lg={9} style={{ paddingTop: 20, background: "#fff" }}>
-                        <Video {...this.props} currentVideo={this.state.currentVideo} ref={this.child} />
+
+                        <Video {...this.props} currentVideo={this.state.currentVideo} updateP={this.updateP} ref={this.child} />
 
                         <Fab onClick={this.showComment} size="small" color="primary" aria-label="add" >
                             <CommentIcon />
                         </Fab>
+                        Chapter Completion: {getCompletionTopic(this.props.courseById.topics, this.props.bookmark.videoTime)}%
                         {this.state.isAddcomment && <AddComment commentRef={this.commentRef} hideComment={this.hideComment} AddCommentFun={this.AddCommentFun} />}
                     </Grid>
                     {this.props.state.width > 959 &&
                         <Grid item xs={12} sm={12} md={3} lg={3} style={{ paddingTop: 20, background: "#fff" }}>
-                            <Right {...this.props} selectVideo={this.selectVideo}  currentVideo={this.state.currentVideo}/>
+                            <Right {...this.props} selectVideo={this.selectVideo} currentVideo={this.state.currentVideo} />
                         </Grid>
                     }
                     <Grid item xs={12} sm={12} md={12} lg={12}>

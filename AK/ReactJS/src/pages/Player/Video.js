@@ -25,13 +25,14 @@ class Video extends Component {
   endVideo(e) {
     let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;
     this.props.updaateBookmark('VIDEO_COMPLETE', { complete: true, vid: keys }).then(res => {
-      this.props.endVideoUpdate();
-      this.props.endVideoUpdate();
-      setTimeout(() => {
+      this.props.updateP().then(__ => {
         this.props.endVideoUpdate();
-      }, 1000);
+        this.props.endVideoUpdate();
+        setTimeout(() => {
+          this.props.endVideoUpdate();
+        }, 1000);
+      });
     });
-
   }
   onTimeUpdate(e) {
     let keys = this.props.currentVideo._id + "__" + this.props.currentVideo.topic_id;

@@ -7,7 +7,8 @@ import {
   VIDEO_TIME,
   TAB,
   NEW_BOOKMARK,
-  VIDEO_COMPLETE
+  VIDEO_COMPLETE,
+  VIDEO_COMPLETION
 } from '../action/bookmarkAction'
 
 const initialState = {
@@ -89,6 +90,17 @@ export default (state = initialState, action) => {
         bookmark_data: tepObj3,
         loading: false
       }
+      case VIDEO_COMPLETION:
+        let completion = action.payload;
+        let tepObj7= {
+          ...state.bookmark_data,
+          completion: completion
+        }
+        return {
+          ...state,
+          bookmark_data: tepObj7,
+          loading: false
+        }
     case NEW_BOOKMARK:
       return {
         ...state,
