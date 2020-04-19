@@ -117,11 +117,13 @@ class UserProfile extends Component {
     }
 
     async  componentDidMount() {
-        await this.props.getUserDetail();
+        await this.props.getUserDetail().then(res=>{
+            console.log(res)
+        });
         await this.props.getAllClasses().then(res => {
         });
         this.updateAllfField();
-        console.log(this.props.grade)
+        console.log(this.props)
     }
     async  componentDidUpdate() {
 
@@ -154,7 +156,7 @@ class UserProfile extends Component {
             text: this.textRef.current.value
 
         })
-        console.log(this.state.schoolname)
+       
     }
 
     uploadSingleFile(e) {
@@ -181,7 +183,7 @@ class UserProfile extends Component {
         };
 
         this.props.updateUserDetailAll(form).then((res) => {
-            this.props.updateProfile(res.data)
+            this.props.user(res)
         })
     }
     handleChange(e) {
@@ -240,7 +242,7 @@ class UserProfile extends Component {
                                             <label htmlFor="contained-button-file">
                                                 <Button variant="contained" color="primary" component="span" size="small">
                                                     Upload profile pic
-</Button>
+                                                </Button>
                                             </label>
                                         </Grid>
 
