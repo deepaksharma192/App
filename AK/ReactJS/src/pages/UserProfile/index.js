@@ -49,17 +49,7 @@ const names = [
     'Kelly Snyder',
 ];
 
-const grade = [
-    'Class1',
-    'Class2',
-    'Class3',
-    'Class4',
-    'Class5',
-    'Class6',
-    'Class7',
-    'Class8'
 
-];
 const useStyles = theme => ({
     root: {
         flexGrow: 1,
@@ -90,16 +80,16 @@ const useStyles = theme => ({
     formControl: {
         width: '100%'
     },
-    adjust:{
-        marginTop:'40px'
+    adjust: {
+        marginTop: '40px'
     }
 });
 class UserProfile extends Component {
     constructor(props) {
         super(props)
-        this.state = { setperson: [], personName: null, schoolname: "", schooladdress: "", AddressFirst: "", AddressSecond: "", Hobby: "", text: "", grade: "", number: '', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "", vall: null, read: true, }
+        this.state = { setperson: [], personName: null, schoolname: "", schooladdress: "", AddressFirst: "", AddressSecond: "", Hobby: "", text: "", grade: "", gender: "", number: '', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "", vall: null, read: true, }
         this.handleChange = this.handleChange.bind(this)
-        
+        this.handleChange1 = this.handleChange1.bind(this)
         this.uploadSingleFile = this.uploadSingleFile.bind(this)
         this.FormSubmit = this.FormSubmit.bind(this);
         this.onChanges = this.onChanges.bind(this)
@@ -117,13 +107,16 @@ class UserProfile extends Component {
     }
 
     async  componentDidMount() {
-        await this.props.getUserDetail().then(res=>{
-            console.log(res)
+        await this.props.getUserDetail().then(res => {
+            console.log(res.class)
+            // this.setState({
+            //     ...this.state,
+            //     grade:res.class
+            // })
         });
         await this.props.getAllClasses().then(res => {
         });
         this.updateAllfField();
-        console.log(this.props)
     }
     async  componentDidUpdate() {
 
@@ -156,7 +149,7 @@ class UserProfile extends Component {
             text: this.textRef.current.value
 
         })
-       
+
     }
 
     uploadSingleFile(e) {
@@ -169,7 +162,6 @@ class UserProfile extends Component {
     FormSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log(this.props)
         const form = {
             schoolname: this.schoolnameRef.current.value,
             AddressFirst: this.AddLinefirstRef.current.value,
@@ -178,19 +170,25 @@ class UserProfile extends Component {
             city: this.CityRef.current.value,
             state: this.stateRef.current.value,
             zip: this.zipRef.current.value,
-            text: this.textRef.current.value
-
+            text: this.textRef.current.value,
+            class: this.state.grade,
+            gender: this.state.gender
         };
 
         this.props.updateUserDetailAll(form).then((res) => {
-            this.props.user(res)
+
         })
     }
     handleChange(e) {
         this.setState({
             ...this.state,
-            vall: e.target.value,
             grade: e.target.value
+        })
+    }
+    handleChange1(e) {
+        this.setState({
+            ...this.state,
+            gender: e.target.value
         })
     }
     render() {
@@ -316,7 +314,7 @@ class UserProfile extends Component {
 
                                                         <FormControl component="fieldset">
                                                             <FormLabel component="legend">Gender</FormLabel>
-                                                            <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" value={this.state.vall} onChange={this.handleChange}>
+                                                            <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" value={this.state.gender} onChange={this.handleChange1}>
                                                                 <FormControlLabel value="female" control={<Radio />} label="Female" />
                                                                 <FormControlLabel value="male" control={<Radio />} label="Male" />
                                                                 <FormControlLabel value="other" control={<Radio />} label="Other" />
@@ -332,7 +330,7 @@ class UserProfile extends Component {
                                                             <Select
                                                                 labelId="demo-controlled-open-select-label"
                                                                 id="demo-controlled-open-select"
-                                                                value={this.props.grade}
+                                                                value={this.state.grade}
                                                                 onChange={this.handleChange}
                                                             >
                                                                 <MenuItem value="">

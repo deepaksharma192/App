@@ -54,7 +54,10 @@ var userSchema = mongoose.Schema({
     },
     class: {
         type: String
-    }
+    },
+    gender: {
+        type: String
+    },
 });
 
 var User = module.exports = mongoose.model('users', userSchema);
