@@ -155,7 +155,17 @@ router.put('/update-details/all', ensureAuthenticated, function (req, res, next)
     })
   })
 })
-
+router.get('/confirm/:uid', function (req, res, next) {
+  let uid = req.params.uid;
+  User.getUserById(uid, function (err, user) {
+    if (err) return res.send("Your email address  is not verify ");
+    User.confirmUserEmailAndById(uid, user.email, function (err, user_) {
+      if (err) return res.text("Your email address  is not verify ");
+        res.send("Your email address verify successful");
+    
+    })
+  })
+})
 
 
 module.exports = router;
