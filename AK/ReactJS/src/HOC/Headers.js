@@ -212,7 +212,6 @@ const Headers = (HocComponent) => {
           if (res.data.user_token) {
             setOpenLogin(false);
             jumpTo('/dashboard');
-            go('/dashboard')
           }
           resolve(res);
         }).catch(err => {
