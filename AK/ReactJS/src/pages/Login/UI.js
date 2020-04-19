@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme => ({
   loginPopupContainer:{
@@ -70,13 +71,21 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  spans:{
+    padding: "5px",
+    background: "#999",
+    width: "auto",
+    fontSize:" 21px",
+    color: "#fffcfc"
+  },
+  CircularProgress:{
+    position: "relative",
+    top: "10px"
+  }
 }));
 export default function UI(props) {
   const classes = useStyles();
   const { isOtp,otp } = props;
-
-  
-  console.log(props)
   function LoginUI() {
     return (
       <div className={classes.loginPopupContainer}>
@@ -144,7 +153,7 @@ export default function UI(props) {
         <div className={classes.loginPopupSecondColumn} >
           <img className={classes.secondColumnImg} alt="Kool Guru Logo" src={process.env.PUBLIC_URL + 'assets/images/applogo/KoolGuru_logo_2.png'} />
           <Typography component="h1" variant="h6" className={classes.secondColumnTitle}>
-            Otp Verification {otp}
+            Otp Verification {!otp && <CircularProgress className={classes.CircularProgress} size={24} />} {otp && <span className={classes.spans}>{otp}</span>}
           </Typography>
             <form className={classes.form} noValidate>
               <Grid container spacing={2}>
@@ -169,6 +178,7 @@ export default function UI(props) {
                 </Grid>
 
               </Grid>
+              
               <Button
                 type="submit"
                 fullWidth
@@ -180,6 +190,13 @@ export default function UI(props) {
               >
                 Verify
               </Button>
+              <Link 
+              href="#"
+                className={classes.submit}
+                onClick={props.reSendOtp}
+              >
+                Re-Send OTP
+                </Link>
 
             </form>
           </div>
