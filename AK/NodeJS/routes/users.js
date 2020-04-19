@@ -23,6 +23,7 @@ router.post('/login', async (req, res) => {
   }
   Otp.createOtp(data, (err, res_) => {
     if (err) console.log(err)
+    res_.otp =  otp;
     return res.status(200).json({ data: res_ })
   })
 })
