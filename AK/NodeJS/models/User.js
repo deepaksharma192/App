@@ -54,6 +54,10 @@ var userSchema = mongoose.Schema({
     },
     class: {
         type: String
+    },
+    mailidverified: {
+      type: Boolean,
+      default: false
     }
 });
 
