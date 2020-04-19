@@ -10,6 +10,7 @@ export const VIDEO_TIME = 'VIDEO_TIME'
 export const TAB = 'TAB'
 export const NEW_BOOKMARK = 'NEW_BOOKMARK'
 export const VIDEO_COMPLETE = 'VIDEO_COMPLETE'
+export const VIDEO_COMPLETION = "VIDEO_COMPLETION"
 
 export const getBookmarkByIds = (id) => (dispatch) => {
     return new Promise((resolve, reject) => {
