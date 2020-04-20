@@ -15,35 +15,34 @@ class Login extends Component {
         this.numRef = React.createRef(null);
         this.otpRef = React.createRef(null);
         this.vall = React.createRef(null);
-       console.log(this.props.checkk)
+        this.reSendOtp = this.reSendOtp.bind(this)
+        console.log(this.props.checkk)
     }
 
-    checkk(e){
-        
-        
+    checkk(e) {
+
+
         let num = this.numRef.current;
-        
-        if(num.value.length === 0 || num.value.length === 10){
+
+        if (num.value.length === 0 || num.value.length === 10) {
             this.setState({
                 ...this.state,
                 err: false
-            }) 
+            })
         }
 
     }
 
-    otpChange(e){
+    otpChange(e) {
         let otp = this.otpRef.current;
-
-        if(otp.value.length === 0 || otp.value.length === 4){
+        if (otp.value.length === 0 || otp.value.length === 4) {
             this.setState({
                 ...this.state,
                 err: false
-            }) 
+            })
         }
     }
     sendOtp(e) {
-
         e.preventDefault();
         let num = this.numRef.current;
 
@@ -61,13 +60,18 @@ class Login extends Component {
                 err: false,
                 number: num.value
             }, () => {
-
-                this.props.loginSubmit(this.state)
+                this.props.loginSubmit(this.state).then(res => {
+                    console.log(res)
+                })
             })
         }
 
     }
-
+    reSendOtp() {
+        this.props.loginSubmit(this.state).then(res => {
+            console.log(res)
+        })
+    }
     verifyOtp(e) {
         e.preventDefault();
         let otp = this.otpRef.current;
@@ -108,7 +112,7 @@ class Login extends Component {
 
                     <Grid container>
                         <Grid item md={11}>
-                            <UI  {...this.props} sendOtp={this.sendOtp} otpChange={this.otpChange} checkk={this.checkk} verifyOtp={this.verifyOtp} numRef={this.numRef} otpRef={this.otpRef} isOtp={this.state.isOtp} err={this.state.err} />
+                            <UI  {...this.props} sendOtp={this.sendOtp} otpChange={this.otpChange} checkk={this.checkk} verifyOtp={this.verifyOtp} numRef={this.numRef} otpRef={this.otpRef} isOtp={this.state.isOtp} err={this.state.err} reSendOtp={this.reSendOtp} />
                         </Grid>
                         <Grid item md={1}>
                             <DialogActions>

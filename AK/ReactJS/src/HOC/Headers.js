@@ -1,5 +1,5 @@
 import React from 'react';
-import { getUserDetail,updateUserDetailAll } from '../redux/action/userDetailsAction';
+import { getUserDetail, updateUserDetailAll } from '../redux/action/userDetailsAction';
 import { getBookmarkByIds, updaateBookmarksToStore, updaateBookmarks } from '../redux/action/bookmarkAction';
 import { getVideoNoteByids, createVideoNotes } from '../redux/action/videoNoteAction';
 import { getAnnouncementByids } from '../redux/action/announcementAction';
@@ -160,7 +160,7 @@ const Headers = (HocComponent) => {
     const theme = useTheme();
     const [openLogin, setOpenLogin] = React.useState(false);
     const [open, setOpen] = React.useState(false);
-    const [otp, setOtp] = React.useState(0);
+    const [otp, setOtp] = React.useState();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = event => {
       setAnchorEl(event.currentTarget);
@@ -196,10 +196,14 @@ const Headers = (HocComponent) => {
     }
 
     const loginSubmit = (prop) => {
-      let { number } = prop;
-      sendOtp(number).then((res) => {
-        setOtp(res.data.otp);
-      });
+      return new Promise((resolve, reject) => {
+        let { number } = prop;
+        setOtp("");
+        sendOtp(number).then((res) => {
+          setOtp(res.data.otp);
+          resolve(res.data.otp)
+        });
+      })
     }
     const veryfyOtp = (prop) => {
       return new Promise((resolve, reject) => {
@@ -208,7 +212,6 @@ const Headers = (HocComponent) => {
           if (res.data.user_token) {
             setOpenLogin(false);
             jumpTo('/dashboard');
-            go('/dashboard')
           }
           resolve(res);
         }).catch(err => {
