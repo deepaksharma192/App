@@ -130,6 +130,7 @@ router.put('/update-details', ensureAuthenticated, function (req, res, next) {
 router.put('/update-details/all', ensureAuthenticated, function (req, res, next) {
   let id = req.userID;
   let newdata = req.body;
+  console.log(newdata);
   User.updateUserById(id, newdata, function (err, user_) {
     if (err) return next(err);
     User.getUserById(id, (err1, user1) => {

@@ -23,7 +23,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -82,12 +82,16 @@ const useStyles = theme => ({
     },
     adjust: {
         marginTop: '40px'
-    }
+    },
+    // CircularProgress:{
+    //     position: "relative",
+    //     top: "10px"
+    //   }
 });
 class UserProfile extends Component {
     constructor(props) {
         super(props)
-        this.state = { setperson: [], personName: null, schoolname: "", schooladdress: "", AddressFirst: "", AddressSecond: "", Hobby: "", text: "", grade: "", gender: "", number: '', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "", vall: null, read: true, }
+        this.state = { progrss:false,showw:false,setperson: [], personName: null, schoolname: "", schooladdress: "", AddressFirst: "", AddressSecond: "", Hobby: "", text: "", grade: "", gender: "", number: '', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "", vall: null, read: true,statement:"All fields updated" }
         this.handleChange = this.handleChange.bind(this)
         this.handleChange1 = this.handleChange1.bind(this)
         this.uploadSingleFile = this.uploadSingleFile.bind(this)
@@ -176,6 +180,15 @@ class UserProfile extends Component {
         };
 
         this.props.updateUserDetailAll(form).then((res) => {
+            this.setState({
+                progress:true
+            })
+            setTimeout(() => {
+                this.setState({
+                    progress:false,
+                    showw:true
+                })
+              }, 3000);
 
         })
     }
@@ -251,7 +264,9 @@ class UserProfile extends Component {
                                 <Grid item xs={12} className={classes.adjust}>
                                     <Grid container>
                                         <Grid item xs={12} md={12}>
-                                            {!this.state.showw ? <Typography align='left' color="primary">{this.state.statement}</Typography> : ''}
+
+                                            {this.state.showw && <Typography variant="h5" align='left' color="primary">{this.state.statement}</Typography>}
+                                            {this.state.progress && <CircularProgress className={classes.CircularProgress} size={40} />}
                                             <form onSubmit={this.FormSubmit} ref={this.FormRef}>
                                                 <Grid container>
                                                     <Grid item xs={12} md={5} className={classes.mar}>
