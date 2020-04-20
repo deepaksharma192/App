@@ -9,6 +9,11 @@ const Otp = require('../models/Otp');
 const { otpGenerator } = require('./../modules/otpGenerator')
 const EnrolledUser = require('./../models/Enrolled');
 
+/* mail verificatiion */
+const sendEmail = require('../modules/email/email.send')
+const msgs = require('../modules/email/email.msgs')
+const templates = require('../modules/email/email.templates')
+/* mail verificatiion */
 
 //POST /signin
 
@@ -106,6 +111,7 @@ router.get('/user-details', ensureAuthenticated, function (req, res, next) {
 router.put('/update-details', ensureAuthenticated, function (req, res, next) {
   let id = req.userID;
   let newdata = req.body;
+  //const { email } = req.body
   User.updateUserFirstTimeById(id, newdata, function (err, user_) {
     if (err) return next(err);
     User.getUserById(id, function (err, user) {
@@ -120,6 +126,18 @@ router.put('/update-details', ensureAuthenticated, function (req, res, next) {
         EnrolledUser.enrolledUser(ED, (res_) => {
           res.json({ data: user })
         })
+        console.log('create email >> ', newdata, id, user);
+
+        if(!user.mailidverified){
+          console.log('mail id not confirmed ', user.mailidverified);
+          sendEmail(newdata.email, templates.confirm(id))
+          .then(() => res.json({ msg: msgs.confirm }))
+          .catch(err => console.log(err))
+        }else{
+          console.log('mail id is confirmed ', user.mailidverified);
+          res.json({ msg: msgs.alreadyConfirmed })
+        }
+        
       } else {
         res.json({ data: user })
       }
@@ -138,7 +156,17 @@ router.put('/update-details/all', ensureAuthenticated, function (req, res, next)
     })
   })
 })
-
+router.get('/confirm/:uid', function (req, res, next) {
+  let uid = req.params.uid;
+  User.getUserById(uid, function (err, user) {
+    if (err) return res.send("Your email address  is not verify ");
+    User.confirmUserEmailAndById(uid, user.email, function (err, user_) {
+      if (err) return res.text("Your email address  is not verify ");
+        res.send("Your email address verify successful");
+    
+    })
+  })
+})
 
 
 module.exports = router;

@@ -122,7 +122,8 @@ export class Profile extends React.Component {
         }
         else {
             updateUserDetail(form).then((res) => {
-                this.props.updateProfile(res)
+                this.props.updateProfile(res);
+                
             })
         }
 
