@@ -58,6 +58,10 @@ var userSchema = mongoose.Schema({
     gender: {
         type: String
     },
+    mailidverified: {
+      type: Boolean,
+      default: false
+    }
 });
 
 var User = module.exports = mongoose.model('users', userSchema);
@@ -108,7 +112,18 @@ module.exports.getUserByEmail = function (email, callback) {
     var query = { email: email };
     User.findOne(query, callback);
 }
-
+module.exports.confirmUserEmailAndById = function (uid, email, callback) {
+    var query = {_id:uid, email: email };
+    User.findOneAndReplace(
+        query,
+        {
+            $set: {
+                mailidverified: true
+            }
+        },
+        callback
+    )
+}
 
 module.exports.getUserById = function (id, callback) {
     User.findById(id, callback);
