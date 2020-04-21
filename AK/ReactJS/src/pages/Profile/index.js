@@ -44,10 +44,11 @@ const useStyles = theme => ({
 export class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { grade: "", firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: " ", errors: [], err: true }
+        this.state = { gender:null,grade: "", firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: " ", errors: [], err: true }
         this.FormSubmit = this.FormSubmit.bind(this);
         this.validate = this.validate.bind(this);
         this.onChanges = this.onChanges.bind(this)
+        this.handleChangeForgender = this.handleChangeForgender.bind(this)
         this.FormRef = React.createRef();
         this.emailRef = React.createRef();
         this.firstNameRef = React.createRef();
@@ -80,7 +81,7 @@ export class Profile extends React.Component {
             lastName: this.lastNameRef.current.value
         })
     }
-    validate(firstName, lastName, email, clas) {
+    validate(firstName, lastName, email, clas,gend) {
         const errors = [];
         let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
         if (firstName.length === 1) {
@@ -92,6 +93,10 @@ export class Profile extends React.Component {
 
         if (!clas) {
             errors.push("Please select the grade");
+        }
+
+        if (!gend) {
+            errors.push("Please select the gender");
         }
         if (!re.test(email)) {
             errors.push("Enter a valid email address");
@@ -107,9 +112,10 @@ export class Profile extends React.Component {
             firstName: this.firstNameRef.current.value,
             lastName: this.lastNameRef.current.value,
             class: this.state.grade,
+            gend:this.state.gender
         };
 
-        const errors = this.validate(form.firstName, form.lastName, form.email.trim(), form.class);
+        const errors = this.validate(form.firstName, form.lastName, form.email.trim(), form.class,form.gend);
 
         if (errors.length === 0) {
             this.setState({
@@ -122,7 +128,8 @@ export class Profile extends React.Component {
         }
         else {
             updateUserDetail(form).then((res) => {
-                this.props.updateProfile(res)
+                this.props.updateProfile(res);
+                
             })
         }
 
@@ -132,6 +139,18 @@ export class Profile extends React.Component {
             grade: event.target.value
         })
     }
+
+    handleChangeForgender(e) {
+        this.setState({
+            ...this.state,
+            gender: e.target.value
+        })
+    }
+    // handleChangeForgender = event => {
+    //     this.setState({
+    //         gender: event.target.value
+    //     })
+    // }
 
     render() {
         const { classes } = this.props;
@@ -233,7 +252,7 @@ export class Profile extends React.Component {
 
                                                     <FormControl component="fieldset">
                                                       
-                                                        <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" value={this.state.vall} >
+                                                        <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" onChange={this.handleChangeForgender} value={this.state.gender} >
                                                             <FormControlLabel value="female" control={<Radio />} label="Female" />
                                                             <FormControlLabel value="male" control={<Radio />} label="Male" />
                                                             <FormControlLabel value="other" control={<Radio />} label="Other" />
