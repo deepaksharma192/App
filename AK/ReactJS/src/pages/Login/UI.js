@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Link from '@material-ui/core/Link';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const useStyles = makeStyles(theme => ({
   loginPopupContainer:{
@@ -108,7 +109,15 @@ export default function UI(props) {
                     error={props.err}
                     autoFocus
                     required
-                    inputProps={{ minLength:10,maxLength: 10,min: 0, style: { textAlign: 'center' }}}
+                    inputProps={{ minLength:10,maxLength: 10,min: 0, style: { textAlign: 'left' }}}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Typography>+91</Typography>
+                        </InputAdornment>
+                      ),
+                    }}
+      
                     margin="dense"
                     id="number"
                     label="Enter Your Mobile Number"

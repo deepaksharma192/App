@@ -55,6 +55,9 @@ var userSchema = mongoose.Schema({
     class: {
         type: String
     },
+    gender: {
+        type: String
+    },
     mailidverified: {
       type: Boolean,
       default: false
