@@ -38,6 +38,7 @@ export const updateUserDetailAll = (form) => (dispatch) => {
     return new Promise((resolve, reject) => {
         updateUserDetailsAll(form).then((res) => {
             let data = lodash.get(res.data, "data", null);
+           
             dispatch({
                 type: POST_DETAILS_SUCCESS,
                 payload: data
