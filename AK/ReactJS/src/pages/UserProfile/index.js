@@ -24,6 +24,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,17 +38,15 @@ const MenuProps = {
 };
 
 const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-];
+    'Watching Cricket',
+    'Movie',
+    'Listening music',
+    'Reading',
+    'Watching Football',
+    'Driving',
+    'Dressing',
+    'Travelling',
+  ];
 
 
 const useStyles = theme => ({
@@ -91,9 +90,10 @@ const useStyles = theme => ({
 class UserProfile extends Component {
     constructor(props) {
         super(props)
-        this.state = { progrss:false,showw:false,setperson: [], personName: null, schoolname: "", schooladdress: "", AddressFirst: "", AddressSecond: "", Hobby: "", text: "", grade: "", gender: "", number: '', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "", vall: null, read: true,statement:"All fields updated" }
+        this.state = { progrss:false,showw:false,setperson: [], personName: [], schoolname: "", schooladdress: "", AddressFirst: "", AddressSecond: "", Hobby: "", text: "", grade: "", gender: "", number: '', firstName: " ", email: " ", zip: " ", country: " ", lastName: " ", state: " ", city: "", vall: null, read: true,statement:"All fields updated" }
         this.handleChange = this.handleChange.bind(this)
         this.handleChange1 = this.handleChange1.bind(this)
+        this.handleChange2 = this.handleChange2.bind(this)
         this.uploadSingleFile = this.uploadSingleFile.bind(this)
         this.FormSubmit = this.FormSubmit.bind(this);
         this.onChanges = this.onChanges.bind(this)
@@ -202,6 +202,12 @@ class UserProfile extends Component {
         this.setState({
             ...this.state,
             gender: e.target.value
+        })
+    }
+    handleChange2(e) {
+        this.setState({
+            ...this.state,
+            personName: e.target.value
         })
     }
     render() {
@@ -446,7 +452,7 @@ class UserProfile extends Component {
                                                     <Grid item xs={12} md={5} className={classes.mar}>
 
                                                         <Typography align="left">Hobbies</Typography>
-                                                        <TextField
+                                                        {/* <TextField
                                                             id="Hobbies"
 
 
@@ -455,19 +461,19 @@ class UserProfile extends Component {
                                                             fullWidth
                                                             variant="filled"
                                                             onChange={this.onChanges}
-                                                        />
-                                                        {/* <FormControl className={classes.formControl}>
+                                                        /> */}
+                                                        <FormControl className={classes.formControl}>
                                                             <InputLabel id="demo-mutiple-checkbox-label"></InputLabel>
                                                             <Select
                                                                 labelId="demo-mutiple-checkbox-label"
                                                                 id="demo-mutiple-checkbox"
-                                                                multiline
+                                                                multiple
                                                                 value={this.state.personName}
-                                                                onChange={this.handleChangeMultiple}
+                                                                onChange={this.handleChange2}
                                                                 input={<Input />}
                                                                 renderValue={(selected) => selected.join(', ')}
                                                                 MenuProps={MenuProps}
-
+                                                                variant="filled"
                                                             >
                                                                 {names.map((name) => (
                                                                     <MenuItem key={name} value={name}>
@@ -476,7 +482,7 @@ class UserProfile extends Component {
                                                                     </MenuItem>
                                                                 ))}
                                                             </Select>
-                                                        </FormControl> */}
+                                                        </FormControl>
 
 
                                                     </Grid>
