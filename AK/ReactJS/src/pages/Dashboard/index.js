@@ -50,7 +50,6 @@ class Dashboard extends React.Component {
 
     }
     render() {
-        console.log(this.state.show)
         return (
             <div>
                 {(this.state.show === true) && <EnrolledCourse />}
