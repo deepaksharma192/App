@@ -126,8 +126,6 @@ router.put('/update-details', ensureAuthenticated, function (req, res, next) {
         EnrolledUser.enrolledUser(ED, (res_) => {
           res.json({ data: user })
         })
-        console.log('create email >> ', newdata, id, user);
-
         if(!user.mailidverified){
           console.log('mail id not confirmed ', user.mailidverified);
           sendEmail(newdata.email, templates.confirm(id))
