@@ -1,6 +1,6 @@
 
-const mongoose = require('mongoose')
-
+var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
 BookmarkSchema = mongoose.Schema({
     uid: {
         type: String
@@ -37,7 +37,7 @@ module.exports.updateBookmarkById = function (data, callback) {
     Bookmarking.find(query, function (err, c) {
         if (err) throw err;
         if (c.length > 0) {
-            Bookmarking.findOneAndReplace(
+            Bookmarking.findOneAndUpdate(
                 query,
                 {
                     $set: {

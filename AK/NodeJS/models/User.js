@@ -76,7 +76,7 @@ module.exports.createUser = function (newUser, callback) {
 }
 module.exports.updateUserFirstTimeById = function (userId, newCart, callback) {
     let query = { _id: userId }
-    User.findOneAndReplace(
+    User.findOneAndUpdate(
         query,
         {
             $set: {
@@ -91,7 +91,7 @@ module.exports.updateUserFirstTimeById = function (userId, newCart, callback) {
 
 module.exports.updateUserById = function (userId, newCart, callback) {
     let query = { _id: userId }
-    User.findOneAndReplace(
+    User.findOneAndUpdate(
         query,
         {
             $set: {
@@ -114,7 +114,7 @@ module.exports.getUserByEmail = function (email, callback) {
 }
 module.exports.confirmUserEmailAndById = function (uid, email, callback) {
     var query = {_id:uid, email: email };
-    User.findOneAndReplace(
+    User.findOneAndUpdate(
         query,
         {
             $set: {
