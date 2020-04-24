@@ -38,15 +38,15 @@ const MenuProps = {
 };
 
 const names = [
-    'Watching Cricket',
-    'Movie',
-    'Listening music',
-    'Reading',
-    'Watching Football',
-    'Driving',
-    'Dressing',
-    'Travelling',
-  ];
+'Watching Cricket',
+'Movie',
+'Listening music',
+'Reading',
+'Watching Football',
+'Driving',
+'Dressing',
+'Travelling',
+];
 
 
 const useStyles = theme => ({
@@ -188,7 +188,7 @@ class UserProfile extends Component {
                     progress:false,
                     showw:true
                 })
-              }, 3000);
+            }, 3000);
 
         })
     }
@@ -218,240 +218,240 @@ class UserProfile extends Component {
         }
         return (
             <div>
-                <Grid container>
-                    <Grid item xs={12} className={classes.topp}>
+            <Grid container>
+            <Grid item xs={12} className={classes.topp}>
 
 
-                        <Breadcrumbs aria-label="breadcrumb">
-                            <Link color="inherit" href="/" >
+            <Breadcrumbs aria-label="breadcrumb">
+            <Link color="inherit" href="/" >
 
-                                <Chip
-                                    avatar={<HomeSharpIcon />}
-                                    label="KoolGuru"
-                                />
-                            </Link>
-                            <Chip label="Dashboard" disabled />
-                        </Breadcrumbs>
+            <Chip
+            avatar={<HomeSharpIcon />}
+            label="KoolGuru"
+            />
+            </Link>
+            <Chip label="Dashboard" disabled />
+            </Breadcrumbs>
 
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs={12} md={2}>
+            </Grid>
+            <Grid container>
+            <Grid item xs={12} md={2}>
 
-                        </Grid>
-                        <Grid item xs={12} md={8}>
-                            <Grid container>
-                                <Grid item xs={12}>
-                                    <Grid container>
-                                        <Grid item xs={12} md={10} className={classes.iconleft}>
-                                            <Avatar
+            </Grid>
+            <Grid item xs={12} md={8}>
+            <Grid container>
+            <Grid item xs={12}>
+            <Grid container>
+            <Grid item xs={12} md={10} className={classes.iconleft}>
+            <Avatar
 
-                                                style={{
-                                                    margin: "30px",
-                                                    width: "100px",
-                                                    height: "100px",
-                                                    borderRadius: '50%',
+            style={{
+                margin: "30px",
+                width: "100px",
+                height: "100px",
+                borderRadius: '50%',
 
-                                                }}
-                                            >
-                                                {imgPreview}
-                                            </Avatar>
-                                            <input accept="image/*" className={classes.input} onChange={this.uploadSingleFile} id="contained-button-file" type="file" />
-                                            <label htmlFor="contained-button-file">
-                                                <Button variant="contained" color="primary" component="span" size="small">
-                                                    Upload profile pic
-                                                </Button>
-                                            </label>
-                                        </Grid>
+            }}
+            >
+            {imgPreview}
+            </Avatar>
+            <input accept="image/*" className={classes.input} onChange={this.uploadSingleFile} id="contained-button-file" type="file" />
+            <label htmlFor="contained-button-file">
+            <Button variant="contained" color="primary" component="span" size="small">
+            Upload profile pic
+            </Button>
+            </label>
+            </Grid>
 
-                                    </Grid>
+            </Grid>
 
 
-                                </Grid>
-                                <Grid item xs={12} className={classes.adjust}>
-                                    <Grid container>
-                                        <Grid item xs={12} md={12}>
+            </Grid>
+            <Grid item xs={12} className={classes.adjust}>
+            <Grid container>
+            <Grid item xs={12} md={12}>
 
-                                            {this.state.showw && <Typography variant="h5" align='left' color="primary">{this.state.statement}</Typography>}
-                                            {this.state.progress && <CircularProgress className={classes.CircularProgress} size={40} />}
-                                            <form onSubmit={this.FormSubmit} ref={this.FormRef}>
-                                                <Grid container>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
-                                                        <Typography align="left">First Name</Typography>
-                                                        <TextField
-                                                            id="firstName"
+            {this.state.showw && <Typography variant="h5" align='left' color="primary">{this.state.statement}</Typography>}
+            {this.state.progress && <CircularProgress className={classes.CircularProgress} size={40} />}
+            <form onSubmit={this.FormSubmit} ref={this.FormRef}>
+            <Grid container>
+            <Grid item xs={12} md={5} className={classes.mar}>
+            <Typography align="left">First Name</Typography>
+            <TextField
+            id="firstName"
 
-                                                            value={this.state.firstName}
-                                                            InputProps={{
-                                                                readOnly: true,
-                                                            }}
-                                                            fullWidth
-                                                            variant="filled"
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}></Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
-                                                        <Typography align="left">Last Name</Typography>
-                                                        <TextField
-                                                            id="lastName"
+            value={this.state.firstName}
+            InputProps={{
+                readOnly: true,
+            }}
+            fullWidth
+            variant="filled"
+            />
+            </Grid>
+            <Grid item xs={12} md={2}></Grid>
+            <Grid item xs={12} md={5} className={classes.mar}>
+            <Typography align="left">Last Name</Typography>
+            <TextField
+            id="lastName"
 
-                                                            value={this.state.lastName}
-                                                            InputProps={{
-                                                                readOnly: true,
-                                                            }}
-                                                            fullWidth
-                                                            variant="filled"
-                                                        />
+            value={this.state.lastName}
+            InputProps={{
+                readOnly: true,
+            }}
+            fullWidth
+            variant="filled"
+            />
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
-                                                        <Typography align="left">Mobile Number</Typography>
-                                                        <TextField
-                                                            id="number"
+            </Grid>
+            <Grid item xs={12} md={5} className={classes.mar}>
+            <Typography align="left">Mobile Number</Typography>
+            <TextField
+            id="number"
 
-                                                            value={this.state.number}
-                                                            InputProps={{
-                                                                readOnly: true,
-                                                            }}
-                                                            fullWidth
-                                                            variant="filled"
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}></Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
-                                                        <Typography align="left">Email Address</Typography>
-                                                        <TextField
-                                                            id="email"
+            value={this.state.number}
+            InputProps={{
+                readOnly: true,
+            }}
+            fullWidth
+            variant="filled"
+            />
+            </Grid>
+            <Grid item xs={12} md={2}></Grid>
+            <Grid item xs={12} md={5} className={classes.mar}>
+            <Typography align="left">Email Address</Typography>
+            <TextField
+            id="email"
 
-                                                            value={this.state.email}
-                                                            InputProps={{
-                                                                readOnly: true,
-                                                            }}
-                                                            fullWidth
-                                                            variant="filled"
-                                                        />
+            value={this.state.email}
+            InputProps={{
+                readOnly: true,
+            }}
+            fullWidth
+            variant="filled"
+            />
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar} style={{ textAlign: 'left' }}>
+            </Grid>
+            <Grid item xs={12} md={5} className={classes.mar} style={{ textAlign: 'left' }}>
 
-                                                        <FormControl component="fieldset">
-                                                            <FormLabel component="legend">Gender</FormLabel>
-                                                            <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" value={this.state.gender} onChange={this.handleChange1}>
-                                                                <FormControlLabel value="female" control={<Radio />} label="Female" />
-                                                                <FormControlLabel value="male" control={<Radio />} label="Male" />
-                                                                <FormControlLabel value="other" control={<Radio />} label="Other" />
-                                                            </RadioGroup>
-                                                        </FormControl>
+            <FormControl component="fieldset">
+            <FormLabel component="legend">Gender</FormLabel>
+            <RadioGroup style={{ display: 'inline-block' }} aria-label="gender" name="gender1" value={this.state.gender} onChange={this.handleChange1}>
+            <FormControlLabel value="female" control={<Radio />} label="Female" />
+            <FormControlLabel value="male" control={<Radio />} label="Male" />
+            <FormControlLabel value="other" control={<Radio />} label="Other" />
+            </RadioGroup>
+            </FormControl>
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}></Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
-                                                        <FormControl className={classes.formControl}>
-                                                            <InputLabel id="demo-controlled-open-select-label"></InputLabel>
-                                                            <Typography align="left">Grade</Typography>
-                                                            <Select
-                                                                labelId="demo-controlled-open-select-label"
-                                                                id="demo-controlled-open-select"
-                                                                value={this.state.grade}
-                                                                onChange={this.handleChange}
-                                                            >
-                                                                <MenuItem value="">
-                                                                    <em>None</em>
-                                                                </MenuItem>
-                                                                {this.props.grade && this.props.grade.map((v) => {
-                                                                    return (
-                                                                        <MenuItem disabled={v.status === 'deactive'} key={v._id} value={v._id}>{v.className}</MenuItem>
-                                                                    )
-                                                                })}
-                                                            </Select>
-                                                        </FormControl>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={12} className={classes.divider}>
-                                                        <Divider variant="fullWidth" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
+            </Grid>
+            <Grid item xs={12} md={2}></Grid>
+            <Grid item xs={12} md={5} className={classes.mar}>
+            <FormControl className={classes.formControl}>
+            <InputLabel id="demo-controlled-open-select-label"></InputLabel>
+            <Typography align="left">Grade</Typography>
+            <Select
+            labelId="demo-controlled-open-select-label"
+            id="demo-controlled-open-select"
+            value={this.state.grade}
+            onChange={this.handleChange}
+            >
+            <MenuItem value="">
+            <em>None</em>
+            </MenuItem>
+            {this.props.grade && this.props.grade.map((v) => {
+                return (
+                    <MenuItem disabled={v.status === 'deactive'} key={v._id} value={v._id}>{v.className}</MenuItem>
+                    )
+                })}
+                </Select>
+                </FormControl>
+                </Grid>
+                <Grid item xs={12} md={12} className={classes.divider}>
+                <Divider variant="fullWidth" />
+                </Grid>
+                <Grid item xs={12} md={5} className={classes.mar}>
 
-                                                        <Typography align="left">Address Line 1</Typography>
-                                                        <TextField
-                                                            id="Address"
+                <Typography align="left">Address Line 1</Typography>
+                <TextField
+                id="Address"
 
-                                                            inputRef={this.AddLinefirstRef}
+                inputRef={this.AddLinefirstRef}
 
-                                                            fullWidth
-                                                            variant="filled"
-                                                            onChange={this.onChanges}
-                                                        />
+                fullWidth
+                variant="filled"
+                onChange={this.onChanges}
+                />
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}></Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
+                </Grid>
+                <Grid item xs={12} md={2}></Grid>
+                <Grid item xs={12} md={5} className={classes.mar}>
 
-                                                        <Typography align="left">Address Line2</Typography>
-                                                        <TextField
-                                                            id="Address"
+                <Typography align="left">Address Line2</Typography>
+                <TextField
+                id="Address"
 
-                                                            inputRef={this.AddLinesecondRef}
+                inputRef={this.AddLinesecondRef}
 
-                                                            fullWidth
-                                                            variant="filled"
-                                                            onChange={this.onChanges}
-                                                        />
+                fullWidth
+                variant="filled"
+                onChange={this.onChanges}
+                />
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
+                </Grid>
+                <Grid item xs={12} md={5} className={classes.mar}>
 
-                                                        <Typography align="left">City</Typography>
-                                                        <TextField
-                                                            id="City"
+                <Typography align="left">City</Typography>
+                <TextField
+                id="City"
 
-                                                            inputRef={this.CityRef}
-                                                            value={this.state.city}
+                inputRef={this.CityRef}
+                value={this.state.city}
 
-                                                            fullWidth
-                                                            variant="filled"
-                                                            onChange={this.onChanges}
-                                                        />
+                fullWidth
+                variant="filled"
+                onChange={this.onChanges}
+                />
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}></Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
+                </Grid>
+                <Grid item xs={12} md={2}></Grid>
+                <Grid item xs={12} md={5} className={classes.mar}>
 
-                                                        <Typography align="left">State</Typography>
-                                                        <TextField
-                                                            id="State"
+                <Typography align="left">State</Typography>
+                <TextField
+                id="State"
 
-                                                            inputRef={this.stateRef}
-                                                            value={this.state.state}
+                inputRef={this.stateRef}
+                value={this.state.state}
 
-                                                            fullWidth
-                                                            variant="filled"
-                                                            onChange={this.onChanges}
-                                                        />
+                fullWidth
+                variant="filled"
+                onChange={this.onChanges}
+                />
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
+                </Grid>
+                <Grid item xs={12} md={5} className={classes.mar}>
 
-                                                        <Typography align="left">Pincode</Typography>
-                                                        <TextField
-                                                            id="zip"
+                <Typography align="left">Pincode</Typography>
+                <TextField
+                id="zip"
 
-                                                            value={this.state.zip}
-                                                            inputRef={this.zipRef}
+                value={this.state.zip}
+                inputRef={this.zipRef}
 
-                                                            fullWidth
-                                                            variant="filled"
-                                                            onChange={this.onChanges}
-                                                        />
+                fullWidth
+                variant="filled"
+                onChange={this.onChanges}
+                />
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}></Grid>
-                                                    <Grid item xs={12} md={5}></Grid>
-                                                    <Grid item xs={12} md={12} className={classes.divider}>
-                                                        <Divider variant="fullWidth" />
-                                                    </Grid>
+                </Grid>
+                <Grid item xs={12} md={2}></Grid>
+                <Grid item xs={12} md={5}></Grid>
+                <Grid item xs={12} md={12} className={classes.divider}>
+                <Divider variant="fullWidth" />
+                </Grid>
 
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
+                <Grid item xs={12} md={5} className={classes.mar}>
 
-                                                        <Typography align="left">Hobbies</Typography>
+                <Typography align="left">Hobbies</Typography>
                                                         {/* <TextField
                                                             id="Hobbies"
 
@@ -463,35 +463,35 @@ class UserProfile extends Component {
                                                             onChange={this.onChanges}
                                                         /> */}
                                                         <FormControl className={classes.formControl}>
-                                                            <InputLabel id="demo-mutiple-checkbox-label"></InputLabel>
-                                                            <Select
-                                                                labelId="demo-mutiple-checkbox-label"
-                                                                id="demo-mutiple-checkbox"
-                                                                multiple
-                                                                value={this.state.personName}
-                                                                onChange={this.handleChange2}
-                                                                input={<Input />}
-                                                                renderValue={(selected) => selected.join(', ')}
-                                                                MenuProps={MenuProps}
-                                                                variant="filled"
-                                                            >
-                                                                {names.map((name) => (
-                                                                    <MenuItem key={name} value={name}>
-                                                                        <Checkbox checked={this.state.personName.indexOf(name) > -1} />
-                                                                        <ListItemText primary={name} />
-                                                                    </MenuItem>
-                                                                ))}
+                                                        <InputLabel id="demo-mutiple-checkbox-label"></InputLabel>
+                                                        <Select
+                                                        labelId="demo-mutiple-checkbox-label"
+                                                        id="demo-mutiple-checkbox"
+                                                        multiple
+                                                        value={this.state.personName}
+                                                        onChange={this.handleChange2}
+                                                        input={<Input />}
+                                                        renderValue={(selected) => selected.join(', ')}
+                                                        MenuProps={MenuProps}
+                                                        variant="filled"
+                                                        >
+                                                        {names.map((name) => (
+                                                            <MenuItem key={name} value={name}>
+                                                            <Checkbox checked={this.state.personName.indexOf(name) > -1} />
+                                                            <ListItemText primary={name} />
+                                                            </MenuItem>
+                                                            ))}
                                                             </Select>
-                                                        </FormControl>
+                                                            </FormControl>
 
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}></Grid>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={2}></Grid>
 
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
+                                                            <Grid item xs={12} md={5} className={classes.mar}>
 
-                                                        <Typography align="left">Aspiration</Typography>
-                                                        <TextField
+                                                            <Typography align="left">Aspiration</Typography>
+                                                            <TextField
                                                             id="Aspiration"
 
                                                             multiline
@@ -500,16 +500,16 @@ class UserProfile extends Component {
 
                                                             fullWidth
                                                             variant="filled"
-                                                        />
+                                                            />
 
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={12} className={classes.divider}>
-                                                        <Divider variant="fullWidth" />
-                                                    </Grid>
-                                                    <Grid item xs={12} md={5} className={classes.mar}>
-                                                        <Typography align="left">School Name</Typography>
-                                                        <TextField
+                                                            </Grid>
+                                                            <Grid item xs={12} md={12} className={classes.divider}>
+                                                            <Divider variant="fullWidth" />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={5} className={classes.mar}>
+                                                            <Typography align="left">School Name</Typography>
+                                                            <TextField
                                                             id="SchoolName"
 
                                                             inputRef={this.schoolnameRef}
@@ -517,38 +517,38 @@ class UserProfile extends Component {
                                                             fullWidth
                                                             variant="filled"
                                                             onChange={this.onChanges}
-                                                        />
+                                                            />
 
-                                                    </Grid>
-                                                    <Grid item xs={12} md={2}></Grid>
-
-
-
-                                                    <Grid item xs={12} md={5}></Grid>
-
-                                                </Grid>
-                                                <Grid item xs={12} className={classes.mar}>
-                                                    <Button type="submit" variant="contained" color="primary">
-                                                        Save & Proceed
-                                            </Button>
-                                                </Grid>
-                                            </form>
-                                        </Grid>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={2}></Grid>
 
 
-                                    </Grid>
-                                </Grid>
 
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12} md={2}>
+                                                            <Grid item xs={12} md={5}></Grid>
 
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </div>
-        )
-    }
+                                                            </Grid>
+                                                            <Grid item xs={12} className={classes.mar}>
+                                                            <Button type="submit" variant="contained" color="primary">
+                                                            Save & Proceed
+                                                            </Button>
+                                                            </Grid>
+                                                            </form>
+                                                            </Grid>
+
+
+                                                            </Grid>
+                                                            </Grid>
+
+                                                            </Grid>
+                                                            </Grid>
+                                                            <Grid item xs={12} md={2}>
+
+                                                            </Grid>
+                                                            </Grid>
+                                                            </Grid>
+                                                            </div>
+                                                            )
+}
 }
 
 export default Headers(withStyles(useStyles)(UserProfile))

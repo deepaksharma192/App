@@ -81,7 +81,7 @@ export class Profile extends React.Component {
             lastName: this.lastNameRef.current.value
         })
     }
-    validate(firstName, lastName, email, clas,gend) {
+    validate(firstName, lastName, email, clas,gender) {
         const errors = [];
         let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
         if (firstName.length === 1) {
@@ -95,7 +95,7 @@ export class Profile extends React.Component {
             errors.push("Please select the grade");
         }
 
-        if (!gend) {
+        if (!gender) {
             errors.push("Please select the gender");
         }
         if (!re.test(email)) {
@@ -112,10 +112,10 @@ export class Profile extends React.Component {
             firstName: this.firstNameRef.current.value,
             lastName: this.lastNameRef.current.value,
             class: this.state.grade,
-            gend:this.state.gender
+            gender:this.state.gender
         };
 
-        const errors = this.validate(form.firstName, form.lastName, form.email.trim(), form.class,form.gend);
+        const errors = this.validate(form.firstName, form.lastName, form.email.trim(), form.class,form.gender);
 
         if (errors.length === 0) {
             this.setState({

@@ -20,7 +20,7 @@ module.exports.createOtp = function (otpData, callback) {
     Otp.find(query, function (err, c) {
         if (err) throw err;
         if (c.length > 0) {
-            Otp.findOneAndReplace(
+            Otp.findOneAndUpdate(
                 query,
                 {
                     $set: {
