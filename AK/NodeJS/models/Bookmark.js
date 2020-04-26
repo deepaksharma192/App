@@ -58,6 +58,9 @@ module.exports.updateBookmarkById = function (data, callback) {
     })
 }
 
-
+module.exports.getBookmarkByIdForUser = function (uid, callback) {
+    let query = { uid: uid }
+    Bookmarking.find(query, callback)
+}
 
 
