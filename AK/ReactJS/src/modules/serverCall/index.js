@@ -188,3 +188,12 @@ export const getAllClassesFromServer = () => {
             return res
         })
 }
+export const getAllBookmarkForUser = () => {
+    return serverCall({
+        method: 'GET',
+        url: '/bookmark/all/status'
+    })
+        .then(res => {
+            return res
+        })
+}

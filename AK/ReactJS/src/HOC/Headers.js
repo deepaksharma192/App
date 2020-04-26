@@ -1,6 +1,6 @@
 import React from 'react';
 import { getUserDetail, updateUserDetailAll } from '../redux/action/userDetailsAction';
-import { getBookmarkByIds, updaateBookmarksToStore, updaateBookmarks } from '../redux/action/bookmarkAction';
+import { getBookmarkByIds, updaateBookmarksToStore, updaateBookmarks, AllBookmarkForUser } from '../redux/action/bookmarkAction';
 import { getVideoNoteByids, createVideoNotes } from '../redux/action/videoNoteAction';
 import { getAnnouncementByids } from '../redux/action/announcementAction';
 import { getCourseByIds, getAllClasses } from '../redux/action/courseAction';
@@ -334,6 +334,7 @@ const mapStoreToProps = state => ({
   videoNote: state.videoNote.video_note_data,
   announcement: state.announcement.announcement_data,
   grade: state.course.classes_data,
+  bookmark_all: state.bookmark.all_bookmarking,
 })
 const mapDispatchToProps = {
   getUserDetail,
@@ -346,6 +347,7 @@ const mapDispatchToProps = {
   getAnnouncementByids,
   veryfyOtps,
   getAllClasses,
-  updateUserDetailAll
+  updateUserDetailAll,
+  AllBookmarkForUser
 }
 export default Headers;

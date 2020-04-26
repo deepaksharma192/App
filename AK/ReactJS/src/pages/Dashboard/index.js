@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                {(this.state.show === true) && <EnrolledCourse />}
+                {(this.state.show === true) && <EnrolledCourse {...this.props}/>}
                 {(this.state.show === false) && <Profile updateProfile={this.updateProfile} {...this.props} />}
             </div>
         )
