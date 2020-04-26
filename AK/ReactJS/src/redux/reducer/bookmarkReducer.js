@@ -8,11 +8,13 @@ import {
   TAB,
   NEW_BOOKMARK,
   VIDEO_COMPLETE,
-  VIDEO_COMPLETION
+  VIDEO_COMPLETION,
+  ALL_GET_BOOKMARK
 } from '../action/bookmarkAction'
 
 const initialState = {
   bookmark_data: '',
+  all_bookmarking:'',
   loading: false
 }
 
@@ -107,6 +109,12 @@ export default (state = initialState, action) => {
         bookmark_data: action.payload,
         loading: false
       }
+      case ALL_GET_BOOKMARK:
+        return {
+          ...state,
+          all_bookmarking: action.payload,
+          loading: false
+        }
     case FAIL:
       return {
         ...state,
