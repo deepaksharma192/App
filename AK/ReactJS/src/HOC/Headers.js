@@ -4,6 +4,7 @@ import { getBookmarkByIds, updaateBookmarksToStore, updaateBookmarks, AllBookmar
 import { getVideoNoteByids, createVideoNotes } from '../redux/action/videoNoteAction';
 import { getAnnouncementByids } from '../redux/action/announcementAction';
 import { getCourseByIds, getAllClasses } from '../redux/action/courseAction';
+import { getAllClasses_for_admin, saveClass_for_admin, getAllSubject_for_admin, saveSubject_for_admin, getAllChapter_for_admin, saveChapter_for_admin, getAllTopic_for_admin, saveTopic_for_admin, getAllVideo_for_admin, saveVideo_for_admin } from '../redux/action/addClassAction';
 import { connect } from "react-redux";
 import jumpTo, { go } from '../modules/Navigation'
 import { sendOtp, veryfyOtps } from '../redux/action/tokenAction'
@@ -335,6 +336,7 @@ const mapStoreToProps = state => ({
   announcement: state.announcement.announcement_data,
   grade: state.course.classes_data,
   bookmark_all: state.bookmark.all_bookmarking,
+  get_All_class: state.addClass.classes_data
 })
 const mapDispatchToProps = {
   getUserDetail,
@@ -348,6 +350,16 @@ const mapDispatchToProps = {
   veryfyOtps,
   getAllClasses,
   updateUserDetailAll,
-  AllBookmarkForUser
+  AllBookmarkForUser,
+  getAllClasses_for_admin,
+  saveClass_for_admin,
+  getAllSubject_for_admin,
+  saveSubject_for_admin,
+  getAllChapter_for_admin,
+  saveChapter_for_admin,
+  getAllTopic_for_admin,
+  saveTopic_for_admin,
+  getAllVideo_for_admin,
+  saveVideo_for_admin
 }
 export default Headers;

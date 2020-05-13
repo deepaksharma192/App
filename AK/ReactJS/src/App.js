@@ -15,6 +15,7 @@ import Practicequiz from './pages/practiceQuiz';
 import Payment from './pages/payment';
 import Parentpassword from './pages/parentPassword';
 import UserProfile from './pages/UserProfile';
+import Addclass from './pages/Admin/AddClass';
 
 class App extends Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class App extends Component {
               <Route key="Customersupport" exact path="/Customersupport" component={Customersupport} />,
               <Route key="Practicequiz" exact path="/Practicequiz" component={Practicequiz} />,
               <Route key="Payment" exact path="/Payment" component={Payment} />,
+              <Route key="Addclass" exact path="/Addclass" component={Addclass} />,
               <Route key="Parentpassword" exact path="/Parentpassword" component={Parentpassword} />,
             ]}
             {!this.props.token && [

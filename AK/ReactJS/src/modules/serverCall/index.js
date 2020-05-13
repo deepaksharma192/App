@@ -2,7 +2,7 @@ import Auth from '../Auth'
 import jumpTo from '../Navigation'
 import axios from 'axios'
 
-const URL = 'http://localhost:3002'
+const URL = 'http://localhost:5000'
 
 const serverCall = (config) => {
     if (Auth.user_token) {
@@ -16,7 +16,7 @@ const serverCall = (config) => {
             return response;
         },
         function (error) {
-            if (!error.response) {
+            if (!error.response) { 
                 error.response = {
                     data: 'net work error',
                     status: 500
@@ -192,6 +192,105 @@ export const getAllBookmarkForUser = () => {
     return serverCall({
         method: 'GET',
         url: '/bookmark/all/status'
+    })
+        .then(res => {
+            return res
+        })
+}
+export const getAllClass = () => {
+    return serverCall({
+        method: 'GET',
+        url: '/admin/class'
+    })
+        .then(res => {
+            return res
+        })
+}
+export const saveClassForAdmin = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/class/add',
+        data:form
+    })
+        .then(res => {
+            return res
+        })
+}
+export const getAllSubject = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/subjects',
+        data:form
+    })
+        .then(res => {
+            return res
+        })
+}
+export const saveSubjectForAdmin = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/subjects/add',
+        data:form
+    })
+        .then(res => {
+            return res
+        })
+}
+export const getAllChapter = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/chapter',
+        data:form
+    })
+        .then(res => {
+            return res
+        })
+}
+export const saveChapterForAdmin = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/chapter/add',
+        data:form
+    })
+        .then(res => {
+            return res
+        })
+}
+export const getAllTopic = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/topic',
+        data:form
+    })
+        .then(res => {
+            return res
+        })
+}
+export const saveTopicForAdmin = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/topic/add',
+        data:form
+    })
+        .then(res => {
+            return res
+        })
+}
+export const getAllVideo = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/video',
+        data:form
+    })
+        .then(res => {
+            return res
+        })
+}
+export const saveVideocForAdmin = (form) => {
+    return serverCall({
+        method: 'POST',
+        url: '/admin/video/add',
+        data:form
     })
         .then(res => {
             return res
