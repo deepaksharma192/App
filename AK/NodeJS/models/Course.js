@@ -52,6 +52,9 @@ var courseSchema = mongoose.Schema({
     topic_id: {
         type: String
     },
+    subject_id: {
+        type: String
+    },
     sub_topic: {
         type: String
     },
@@ -104,12 +107,18 @@ var videosSchema = mongoose.Schema({
     }
 });
 
-var Classes = module.exports = mongoose.model('classes', classSchema, 'classes');
-var Subjects = module.exports = mongoose.model('subjects', subjectsSchema, 'subjects');
-var Course = module.exports = mongoose.model('courses', courseSchema);
-var Topic = mongoose.model('topics', topicsSchema);
-var Video = mongoose.model('videos', videosSchema);
-
+var Classes =  mongoose.model('classes', classSchema, 'classes');
+var Subjects =  mongoose.model('subjects', subjectsSchema, 'subjects');
+var Course =  mongoose.model('courses', courseSchema);
+var Topic =  mongoose.model('topics', topicsSchema);
+var Video= mongoose.model('videos', videosSchema);
+module.exports={
+    Classes,
+    Subjects,
+    Course,
+    Topic,
+    Video
+}
 module.exports.getAllClasses = function (callback) {
     Classes.find(callback)
 }
