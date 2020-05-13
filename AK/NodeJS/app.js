@@ -15,6 +15,7 @@ var bookMark = require('./routes/bookmark');
 var announcement = require('./routes/announcement');
 var videoNote = require('./routes/videoNote');
 var testimonials = require('./routes/testimonials');
+var addClass = require('./routes/addClass');
 //mongodb://heroku_8bd94qrf:irstf0rv1ds970eebtislm0apf@ds029638.mlab.com:29638/heroku_8bd94qrf
 mongoose.connect(mongoConfig, { useNewUrlParser: true, useCreateIndex: true, },function(error){
   if(error) throw error
@@ -61,7 +62,7 @@ app.use('/courses', courseRouter);
 app.use('/bookmark', bookMark);
 app.use('/announcement', announcement);
 app.use('/video-note', videoNote);
-
+app.use('/admin', addClass);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

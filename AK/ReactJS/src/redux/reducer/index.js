@@ -5,6 +5,7 @@ import course from './courseReducer'
 import bookmark from './bookmarkReducer'
 import videoNote from './videoNoteReducer'
 import announcement from './announcementReducer'
+import addClass from './addClassReducer';
 
 export default combineReducers({
   token,
@@ -12,5 +13,6 @@ export default combineReducers({
   course,
   bookmark,
   videoNote,
-  announcement
+  announcement,
+  addClass
 })
