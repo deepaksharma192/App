@@ -6,7 +6,7 @@
     "start": "nodemon ./bin/www.js"
   },
   "dependencies": {
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "colour": "^0.7.1",
